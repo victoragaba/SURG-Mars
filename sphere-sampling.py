@@ -4,6 +4,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 import scipy.stats as stats
 
+"""
+MY NOTES:
+
+Random samples over rigid ones (more computationally reliable)
+"""
+
 def set_axes_equal(ax): # might be useful later
     """
     Make axes of 3D plot have equal scale so that spheres appear as spheres,
@@ -32,7 +38,7 @@ def set_axes_equal(ax): # might be useful later
     ax.set_ylim3d([y_middle - plot_radius, y_middle + plot_radius])
     ax.set_zlim3d([z_middle - plot_radius, z_middle + plot_radius])
 
-def pol2rect(pol):
+def pol2rect(pol: list) -> list:
     """
     Convert from polar/spherical to rectangular coordinates
     Return rectangular coordinates as a numpy array
@@ -56,7 +62,7 @@ def pol2rect(pol):
     
     return np.array([x,y,z])
 
-def fill_square_randomly(n, bounds):
+def fill_square_randomly(n: int, bounds: list) -> list:
     """
     Fill 2D grid with n uniformly distributed points
     Return array of coordinates w.r.t grid boundaries
@@ -77,7 +83,7 @@ def fill_square_randomly(n, bounds):
         
     return filled
 
-def space_evenly(n, bounds):
+def space_evenly(n: int, bounds: list) -> list:
     """
     Return array of n evenly spaced points within specified bounds in 1D
 
@@ -93,27 +99,52 @@ def space_evenly(n, bounds):
     
     return spaced
 
-if __name__ == '__main__':
-    
+def hemisphere_sample(n: int) -> list: # important
     """
-    Random samples over upper hemisphere
-    """
-    N = 10000
-    random_samples = []
+    Select n random samples on the surface of an upper hemisphere
 
-    for i in range(N):
+    Args:
+        n (int): # samples
+
+    Returns:
+        list: array of [x,y,z] coordinates
+    """
+    samples = []
+
+    for i in range(n):
         p = stats.norm.rvs(size=3)
         while np.linalg.norm(p) < 0.00001:
             p = stats.norm.rvs(size=3)
         p /= np.linalg.norm(p)
         p[2] = abs(p[2]) # only upper hemisphere
-        random_samples.append(p)
+        samples.append(p)
+    
+    return samples
+
+def semicircle_sample(n: int) -> list: # also important
+    """_summary_
+
+    Args:
+        n (int): _description_
+
+    Returns:
+        list: _description_
+    """
+    return []
+
+if __name__ == '__main__':
+    
+    """
+    Random samples over upper hemisphere
+    """
+    N = 15000
+    random_samples = hemisphere_sample(N)
         
     plt.figure()
     ax = plt.axes(projection='3d')
     fig = ax.scatter3D([p[0] for p in random_samples],
                     [p[1] for p in random_samples],
-                    [p[2] for p in random_samples], c='b', s=1/100)
+                    [p[2] for p in random_samples], c='b', s=1000/N)
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
     ax.set_zlabel('Z')
@@ -122,31 +153,31 @@ if __name__ == '__main__':
     """
     Rigid samples over upper hemisphere
     """
-    polar_grid = []
-    n = 20 # per grid unit
-    # truncation creates a hole when sin(phi) ~ 0
-    # large n conteracts effect
-    num_divs = 50 # rigid sample
+    # polar_grid = []
+    # n = 10 # per grid unit
+    # # truncation creates a hole when sin(phi) ~ 0
+    # # large n conteracts effect
+    # num_divs = 50 # rigid sample
     
-    theta_grid = space_evenly(num_divs, [0, 2*np.pi])
-    div_theta = theta_grid[1] - theta_grid[0]
-    phi_grid = space_evenly(num_divs, [0, np.pi/2])
-    div_phi = phi_grid[1] - phi_grid[0]
+    # theta_grid = space_evenly(num_divs, [0, 2*np.pi])
+    # div_theta = theta_grid[1] - theta_grid[0]
+    # phi_grid = space_evenly(num_divs, [0, np.pi/2])
+    # div_phi = phi_grid[1] - phi_grid[0]
     
-    for i in range(len(theta_grid)):
-        for j in range(len(phi_grid)):
-            corrected_n = int(n*np.sin(phi_grid[j]))
-            bounds = [theta_grid[i], phi_grid[j], theta_grid[i] + div_theta, phi_grid[j] + div_phi]
-            polar_grid.extend(fill_square_randomly(corrected_n, bounds))
+    # for i in range(len(theta_grid)):
+    #     for j in range(len(phi_grid)):
+    #         corrected_n = int(n*np.sin(phi_grid[j]))
+    #         bounds = [theta_grid[i], phi_grid[j], theta_grid[i] + div_theta, phi_grid[j] + div_phi]
+    #         polar_grid.extend(fill_square_randomly(corrected_n, bounds))
             
-    rigid_samples = [pol2rect(np.array([1, p[0], p[1]])) for p in polar_grid]
+    # rigid_samples = [pol2rect(np.array([1, p[0], p[1]])) for p in polar_grid]
     
-    plt.figure()
-    ax = plt.axes(projection='3d')
-    fig = ax.scatter3D([p[0] for p in rigid_samples],
-                    [p[1] for p in rigid_samples],
-                    [p[2] for p in rigid_samples], c='b', s=1/100)
-    ax.set_xlabel('X')
-    ax.set_ylabel('Y')
-    ax.set_zlabel('Z')
-    plt.show()
+    # plt.figure()
+    # ax = plt.axes(projection='3d')
+    # fig = ax.scatter3D([p[0] for p in rigid_samples],
+    #                 [p[1] for p in rigid_samples],
+    #                 [p[2] for p in rigid_samples], c='b', s=1/10)
+    # ax.set_xlabel('X')
+    # ax.set_ylabel('Y')
+    # ax.set_zlabel('Z')
+    # plt.show()

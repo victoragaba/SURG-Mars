@@ -99,7 +99,7 @@ def space_evenly(n: int, bounds: list) -> list:
     
     return spaced
 
-def hemisphere_sample(n: int) -> list: # important
+def hemisphere_samples(n: int) -> list: # important
     """
     Select n random samples on the surface of an upper hemisphere
 
@@ -113,7 +113,7 @@ def hemisphere_sample(n: int) -> list: # important
 
     for i in range(n):
         p = stats.norm.rvs(size=3)
-        while np.linalg.norm(p) < 0.00001:
+        while np.linalg.norm(p) < 0.00001 or all(p[:2]) == 0:
             p = stats.norm.rvs(size=3)
         p /= np.linalg.norm(p)
         p[2] = abs(p[2]) # only upper hemisphere
@@ -138,7 +138,7 @@ if __name__ == '__main__':
     Random samples over upper hemisphere
     """
     N = 15000
-    random_samples = hemisphere_sample(N)
+    random_samples = hemisphere_samples(N)
         
     plt.figure()
     ax = plt.axes(projection='3d')
@@ -153,31 +153,31 @@ if __name__ == '__main__':
     """
     Rigid samples over upper hemisphere
     """
-    # polar_grid = []
-    # n = 10 # per grid unit
-    # # truncation creates a hole when sin(phi) ~ 0
-    # # large n conteracts effect
-    # num_divs = 50 # rigid sample
+    polar_grid = []
+    n = 10 # per grid unit
+    # truncation creates a hole when sin(phi) ~ 0
+    # large n conteracts effect
+    num_divs = 50 # rigid sample
     
-    # theta_grid = space_evenly(num_divs, [0, 2*np.pi])
-    # div_theta = theta_grid[1] - theta_grid[0]
-    # phi_grid = space_evenly(num_divs, [0, np.pi/2])
-    # div_phi = phi_grid[1] - phi_grid[0]
+    theta_grid = space_evenly(num_divs, [0, 2*np.pi])
+    div_theta = theta_grid[1] - theta_grid[0]
+    phi_grid = space_evenly(num_divs, [0, np.pi/2])
+    div_phi = phi_grid[1] - phi_grid[0]
     
-    # for i in range(len(theta_grid)):
-    #     for j in range(len(phi_grid)):
-    #         corrected_n = int(n*np.sin(phi_grid[j]))
-    #         bounds = [theta_grid[i], phi_grid[j], theta_grid[i] + div_theta, phi_grid[j] + div_phi]
-    #         polar_grid.extend(fill_square_randomly(corrected_n, bounds))
+    for i in range(len(theta_grid)):
+        for j in range(len(phi_grid)):
+            corrected_n = int(n*np.sin(phi_grid[j]))
+            bounds = [theta_grid[i], phi_grid[j], theta_grid[i] + div_theta, phi_grid[j] + div_phi]
+            polar_grid.extend(fill_square_randomly(corrected_n, bounds))
             
-    # rigid_samples = [pol2rect(np.array([1, p[0], p[1]])) for p in polar_grid]
+    rigid_samples = [pol2rect(np.array([1, p[0], p[1]])) for p in polar_grid]
     
-    # plt.figure()
-    # ax = plt.axes(projection='3d')
-    # fig = ax.scatter3D([p[0] for p in rigid_samples],
-    #                 [p[1] for p in rigid_samples],
-    #                 [p[2] for p in rigid_samples], c='b', s=1/10)
-    # ax.set_xlabel('X')
-    # ax.set_ylabel('Y')
-    # ax.set_zlabel('Z')
-    # plt.show()
+    plt.figure()
+    ax = plt.axes(projection='3d')
+    fig = ax.scatter3D([p[0] for p in rigid_samples],
+                    [p[1] for p in rigid_samples],
+                    [p[2] for p in rigid_samples], c='b', s=1/10)
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    ax.set_zlabel('Z')
+    plt.show()

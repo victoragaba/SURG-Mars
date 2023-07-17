@@ -24,4 +24,15 @@ print(len(q))
 
 print(np.dot([0,0,1], [1,1,0]))
 
-print(max([3,9,6]))
+print(max(3,9,6))
+
+A = [[1, 1],
+     [0, 1]]
+B = [[1, 0],
+     [1, 1]]
+
+print(np.matmul([1,1],B))
+
+twoD = [[2*j for j in range(3)] for i in range(4)]
+print(twoD)
+print(twoD[:,0])

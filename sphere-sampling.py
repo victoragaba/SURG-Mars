@@ -8,7 +8,15 @@ import scipy.stats as stats
 MY NOTES:
 
 Random samples over rigid ones (more computationally reliable)
+
+Consider starting at pole for rigid sampling
+
+Reversing rigid samples
+TP distribution
 """
+
+eps = 1e-8; halfpi = np.pi/2; twopi = 2*np.pi
+i_hat = np.array([1,0,0]); j_hat = np.array([0,1,0]); k_hat = np.array([0,0,1])
 
 def set_axes_equal(ax): # might be useful later
     """
@@ -41,7 +49,6 @@ def set_axes_equal(ax): # might be useful later
 def pol2rect(pol: list) -> list:
     """
     Convert from polar/spherical to rectangular coordinates
-    Return rectangular coordinates as a numpy array
 
     Args:
         pol (list[int]): polar/spherical coordinates
@@ -121,26 +128,17 @@ def hemisphere_samples(n: int) -> list: # important
     
     return samples
 
-def semicircle_sample(n: int) -> list: # also important
-    """_summary_
-
-    Args:
-        n (int): _description_
-
-    Returns:
-        list: _description_
-    """
-    return []
-
 if __name__ == '__main__':
     
     """
     Random samples over upper hemisphere
     """
     N = 15000
-    random_samples = hemisphere_samples(N)
+    # random_samples = hemisphere_samples(N)
+    t_sphericals = fill_square_randomly(N, [0,0,twopi,halfpi])
+    random_samples = [pol2rect([1, t[0], t[1]]) for t in t_sphericals]
         
-    plt.figure()
+    fig1 = plt.figure()
     ax = plt.axes(projection='3d')
     fig = ax.scatter3D([p[0] for p in random_samples],
                     [p[1] for p in random_samples],
@@ -172,7 +170,7 @@ if __name__ == '__main__':
             
     rigid_samples = [pol2rect(np.array([1, p[0], p[1]])) for p in polar_grid]
     
-    plt.figure()
+    fig2 = plt.figure()
     ax = plt.axes(projection='3d')
     fig = ax.scatter3D([p[0] for p in rigid_samples],
                     [p[1] for p in rigid_samples],

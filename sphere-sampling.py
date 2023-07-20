@@ -11,7 +11,6 @@ Random samples over rigid ones (more computationally reliable)
 
 Consider starting at pole for rigid sampling
 
-Reversing rigid samples
 TP distribution
 """
 
@@ -134,9 +133,9 @@ if __name__ == '__main__':
     Random samples over upper hemisphere
     """
     N = 15000
-    # random_samples = hemisphere_samples(N)
-    t_sphericals = fill_square_randomly(N, [0,0,twopi,halfpi])
-    random_samples = [pol2rect([1, t[0], t[1]]) for t in t_sphericals]
+    random_samples = hemisphere_samples(N)
+    # t_sphericals = fill_square_randomly(N, [0,0,twopi,halfpi])
+    # random_samples = [pol2rect([1, t[0], t[1]]) for t in t_sphericals]
         
     fig1 = plt.figure()
     ax = plt.axes(projection='3d')

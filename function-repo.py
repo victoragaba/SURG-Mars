@@ -429,3 +429,96 @@ def Rpattern(fault, azimuth, takeoff_angles): # Update Omkar on incidence -> tak
     ASH = qL*np.cos(jS) + pL*np.sin(jS)
 
     return AP,ASV,ASH
+
+def mag_perc(u: list, v: list) -> float:
+    """
+    Calculate the magnitude of the component of vector u
+    that is perpendicular to vector v
+    
+    Args:
+        u (list): vector u
+        v (list): vector v
+
+    Returns:
+        float: magnitude of the perpendicular component of u
+    """
+    return np.linalg.norm(np.cross(u,v))/np.linalg.norm(v)
+
+def get_epsilon(Ao: list, Uo: list) -> float:
+    """
+    Calculate epsilon, the toletance angle given the observed amplitudes
+    and their uncertainties
+    Args:
+        Ao (list): observed amplitudes
+        Uo (list): uncertainty of observed amplitudes
+
+    Returns:
+        float: epsilon in radians
+    """
+    sig1 = np.array([Uo[0],0,0])
+    sig2 = np.array([0,Uo[1],0])
+    sig3 = np.array([0,0,Uo[2]])
+    sig = [sig1,sig2,sig3]
+    e = np.sqrt(np.sum([mag_perc(sig[i],Ao)**2 for i in range(len(Ao))]))
+    epsilon = np.arctan(e/np.linalg.norm(Ao))
+    
+    return epsilon
+
+def get_ellipse_epsilon(Ao: list, Uo: list, As: list) -> float:
+    """
+    Calculate epsilon, the toletance angle given the observed amplitudes
+    Accounts for the ellipsoid's asymmetry
+    Inputs are numpy arrays
+
+    Args:
+        Ao (list): observed amplitudes
+        Uo (list): uncertainty of observed amplitudes
+        As (list): simulated amplitudes
+
+    Returns:
+        float: epsilon in radians
+    """
+    
+    n1 = np.cross(Ao,As)
+    n2 = Ao/(Uo**2)
+    m = np.cross(n1,n2)
+    v = m/Uo
+    k = 1 - 1/np.dot(n2,Ao)
+    b = np.dot(n2,m)/np.dot(n2,Ao)
+    
+    t1 = (b - np.sqrt(b**2 + k*np.dot(v,v)))/np.dot(v,v)
+    t2 = (b + np.sqrt(b**2 + k*np.dot(v,v)))/np.dot(v,v)
+    
+    r1 = k*Ao + t1*np.cross(n1,n2)
+    r2 = k*Ao + t2*np.cross(n1,n2)
+    
+    epsilon = .5*np.arccos(np.dot(r1,r2)/(np.linalg.norm(r1)*np.linalg.norm(r2)))
+    
+    return epsilon
+
+def get_gaussian_weight(angle: float, epsilon: float) -> float:
+    """
+    Calculate the gaussian weight given the angle and epsilon
+    Angles are in radians
+    
+    Args:
+        angle (float): angle between the observed and predicted amplitudes
+        epsilon (float): tolerance angle, one standard deviation of the gaussian
+        
+    Returns:
+        float: gaussian weight
+    """
+    return np.exp(-angle**2/(2*epsilon**2))
+ 
+    
+if __name__ == '__main__':
+    
+    pass
+    
+    ## test get_ellipse_epsilon
+    # Ao = np.array([2,4,6])
+    # Uo = np.array([np.sqrt(2),np.sqrt(3),np.sqrt(5)])
+    # As = np.array([4,2,3])
+    
+    # epsilon = get_ellipse_epsilon(Ao,Uo,As)
+    # print(np.rad2deg(epsilon))

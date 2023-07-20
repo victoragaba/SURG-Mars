@@ -6,11 +6,13 @@ from obspy.taup import TauPyModel
 """
 MY NOTES:
 
-Find the map between strike-dip pairs and their equivalents in their 'lower halves'
-(Do they have lower halves? Is the entire space covered?)
-(Think 91deg strike vs -89deg, or neg dip)
-
 Trim this down to only the essentials, then use function-repo
+
+My method is more computationally expensive
+
+Reverse rigid sampling to fix the hole at the pole
+
+Look into elliptical distributions
 """
 
 eps = 1e-8; halfpi = np.pi/2; twopi = 2*np.pi
@@ -102,7 +104,7 @@ def rotate(vec: list, axis: list, theta: float) -> list:
     
     return np.matmul(vec, R)
 
-def azdp(v, units):
+def azdp(v, units): # Suzan
     """
     From Suzan, different from Omkar's code
     IN: vector in r (up), theta (south), and phi (east) coordinates
@@ -137,7 +139,7 @@ def coord_switch(point: list) -> list:
     """
     return np.array([point[2], -point[1], point[0]])
 
-def tp2sdr(t,p):
+def tp2sdr(t,p): # Suzan
     """
     From Suzan, tweaked to keep strike in [0, 2*pi)
     Use rectangular coordinates, x is up, y is south and z is east
@@ -196,7 +198,7 @@ def tp2sdr(t,p):
 
     return (st1%twopi, dip1, rake1), (st2%twopi, dip2, rake2)  # in radians
     
-def Rpattern(fault, azimuth, takeoff_angles):
+def Rpattern(fault, azimuth, takeoff_angles): #Omkar
     """
     Calculate predicted amplitudes of P, SV, and SH waves.
     IN: fault = [strike, dip, rake]
@@ -241,10 +243,91 @@ def Rpattern(fault, azimuth, takeoff_angles):
 
     return AP,ASV,ASH
 
+def mag_perc(u: list, v: list) -> float:
+    """
+    Calculate the magnitude of the component of vector u
+    that is perpendicular to vector v
+    
+    Args:
+        u (list): vector u
+        v (list): vector v
+
+    Returns:
+        float: magnitude of the perpendicular component of u
+    """
+    return np.linalg.norm(np.cross(u,v))/np.linalg.norm(v)
+
+def get_epsilon(Ao: list, Uo: list) -> float:
+    """
+    Calculate epsilon, the toletance angle given the observed amplitudes
+    and their uncertainties
+    Args:
+        Ao (list): observed amplitudes
+        Uo (list): uncertainty of observed amplitudes
+
+    Returns:
+        float: epsilon in radians
+    """
+    sig1 = np.array([Uo[0],0,0])
+    sig2 = np.array([0,Uo[1],0])
+    sig3 = np.array([0,0,Uo[2]])
+    sig = [sig1,sig2,sig3]
+    e = np.sqrt(np.sum([mag_perc(sig[i],Ao)**2 for i in range(len(Ao))]))
+    epsilon = np.arctan(e/np.linalg.norm(Ao))
+    
+    return epsilon
+
+def get_ellipse_epsilon(Ao: list, Uo: list, As: list) -> float:
+    """
+    Calculate epsilon, the toletance angle given the observed amplitudes
+    Accounts for the ellipsoid's asymmetry
+    Inputs are numpy arrays
+
+    Args:
+        Ao (list): observed amplitudes
+        Uo (list): uncertainty of observed amplitudes
+        As (list): simulated amplitudes
+
+    Returns:
+        float: epsilon in radians
+    """
+    
+    n1 = np.cross(Ao,As)
+    n2 = Ao/(Uo**2)
+    m = np.cross(n1,n2)
+    v = m/Uo
+    k = 1 - 1/np.dot(n2,Ao)
+    b = np.dot(n2,m)/np.dot(n2,Ao)
+    
+    t1 = (b - np.sqrt(b**2 + k*np.dot(v,v)))/np.dot(v,v)
+    t2 = (b + np.sqrt(b**2 + k*np.dot(v,v)))/np.dot(v,v)
+    
+    r1 = k*Ao + t1*np.cross(n1,n2)
+    r2 = k*Ao + t2*np.cross(n1,n2)
+    
+    epsilon = .5*np.arccos(np.dot(r1,r2)/(np.linalg.norm(r1)*np.linalg.norm(r2)))
+    
+    return epsilon
+
+def get_gaussian_weight(angle: float, epsilon: float) -> float:
+    """
+    Calculate the gaussian weight given the angle and epsilon
+    Angles are in radians
+    
+    Args:
+        angle (float): angle between the observed and predicted amplitudes
+        epsilon (float): tolerance angle, one standard deviation of the gaussian
+        
+    Returns:
+        float: gaussian weight
+    """
+    return np.exp(-angle**2/(2*epsilon**2))
+
+
 if __name__ == '__main__':
     
-    # ## GENERATING SAMPLES
-    # N = 500
+    ## GENERATING SAMPLES
+    # N = 100
     # t_samples = hemisphere_samples(N**2)
     # sdr1 = []
     # sdr2 = []
@@ -291,13 +374,10 @@ if __name__ == '__main__':
     model = TauPyModel(model='ak135')
     model_name = 'ak135'
     
-    hdepth = 15   # km   - assumed quake depth  (a parameter that affects 
-    # take-off angles, given a distance between quake and station)
+    hdepth = 15 # km - assumed quake depth
     
-    b3_over_a3 = (3.4600/5.8000)**3    # ideally this S- over P-velocity 
-    # ratio cubed should be read directly from the velocity model that 
-    # is being used. My hope is Caio can provide this functionality. 
-    # The P and S velocities for this ratio are the velocities at the depth of the quake.
+    b3_over_a3 = (3.4600/5.8000)**3 # Caio --part of the velocity model?
+    # Is this specific to 15 km depth?
     
     epdist = 10   # good estimate? - use wilbur3, ask caio for corroboration methods
     arrivals = model.get_travel_times(source_depth_in_km=hdepth,
@@ -305,14 +385,130 @@ if __name__ == '__main__':
     """
     a.name, a.distance, a.time, a.ray_param, a.takeoff_angle, a.incident_angle
     """
-    print([(a.name, a.takeoff_angle, a.incident_angle) for a in arrivals])
+    # print([(a.name, a.takeoff_angle, a.incident_angle) for a in arrivals])
     
     takeoff_angles = [a.takeoff_angle for a in arrivals]
-    t, p = np.array([1,0,0]), np.array([0,0,1])
+    azimuth = 100
+    t, p = np.array([1,0,0]), np.array([0,0,1]) # normal fault
     faults = tp2sdr(coord_switch(t), coord_switch(p))
     faults = [np.rad2deg(np.array(sdr)) for sdr in faults]
-    azimuth = 100
-    amps1 = Rpattern(faults[0], azimuth, takeoff_angles)
-    print(amps1)
-    amps2 = Rpattern(faults[1], azimuth, takeoff_angles)
-    print(amps2)
+    
+    # fake an observation of amplitude + uncertainty (normal fault in this case)
+    scale = stats.uniform.rvs(0.5,10) # necessary?
+    Ao = np.array([i*scale for i in Rpattern(faults[0], azimuth, takeoff_angles)])
+    Ao[0] *= b3_over_a3 # Maddy's paper page 5, reread
+    sigma = 0.1
+    Uo = np.array([abs(Ao[i])*sigma for i in range(len(Ao))])
+    print(f"Observation: {Ao}\nUncertainty: {Uo}")
+    
+    """
+    I want to freeze randomly generated data for testing purposes
+    """
+    
+    # Get epsilon (Maddy's method)
+    old_epsilon = get_epsilon(Ao, Uo)
+    
+    # Grid search + my version of epsilon
+    N = 10 # small for now
+    
+    # old_accepted1 = [] # accepted fault planes within 1 standard deviation
+    # old_accepted2 = [] # accepted fault planes within 2 standard deviations
+    # old_rejected = []  # rejected fault planes
+    # accepted1 = []; accepted2 = []; rejected = []
+    
+    filtered_sdrs = [[] for i in range(6)] # old and new accepted/rejected, same order
+    # format per inner list: [([strike, dip, rake], weight), ...]
+    
+    t_samples = hemisphere_samples(N**2)
+    for t in t_samples:
+        p_rotations = uniform_samples(N, [0, twopi])
+        p_start = starting_direc(t, k_hat)
+        for theta in p_rotations:
+            p = rotate(p_start, t, theta)
+            sdr = tp2sdr(coord_switch(t), coord_switch(p))[0]
+            sdr = np.rad2deg(np.array(sdr))
+            As = np.array(Rpattern(sdr, azimuth, takeoff_angles))
+            As[0] *= b3_over_a3
+            angle = np.arccos(np.dot(As, Ao)/(np.linalg.norm(As)*np.linalg.norm(Ao)))
+            
+            # Maddy's method
+            old_weight = get_gaussian_weight(angle, old_epsilon)
+            if old_weight > np.exp(-1/2): # 1 standard deviation
+                filtered_sdrs[0].append((sdr, old_weight))
+            elif old_weight > np.exp(-2): # 2 standard deviations
+                filtered_sdrs[1].append((sdr, old_weight))
+            else:
+                filtered_sdrs[2].append((sdr, old_weight))
+                
+            # My method
+            # Continue from get_ellipse_epsilon
+            epsilon = get_ellipse_epsilon(Ao, Uo, As)
+            weight = get_gaussian_weight(angle, epsilon)
+            if weight > np.exp(-1/2): # 1 standard deviation
+                filtered_sdrs[3].append((sdr, weight))
+            elif weight > np.exp(-2): # 2 standard deviations
+                filtered_sdrs[4].append((sdr, weight))
+            else:
+                filtered_sdrs[5].append((sdr, weight))
+            
+    # Plotting/visualization
+    # Start with histograms of accepted/rejected fault planes
+    # Doing all 6 separately
+    
+    
+    # find a way to extract all strikes, dips and rakes into separate lists
+    split_sdrs = dict()
+    split_sdrs["Strikes"] = [[np.rad2deg(emt[0][0]) for emt in filt] for filt in filtered_sdrs]
+    split_sdrs["Dips"] = [[np.rad2deg(emt[0][1]) for emt in filt] for filt in filtered_sdrs]
+    split_sdrs["Rakes"] = [[np.rad2deg(emt[0][2]) for emt in filt] for filt in filtered_sdrs]
+    titles = ["Strikes", "Dips", "Rakes"]
+    y_axes = ["Accepted (1 std)", "Accepted (2 std)", "Rejected (2 std)"]
+    
+    for i in range(3): # strikes, dips and rakes
+        # main figures
+        fig = plt.figure(figsize=(15,12))
+        plt.suptitle(titles[i])
+        
+        for j in range(3): # (old + new) accepted1, accepted2, rejected
+            # old
+            plt.subplot(3,2,2*j+1) # subplots are 1-indexed
+            plt.hist(split_sdrs[titles[i]][j], bins=50, density=True)
+            if j == 0: plt.title("Old")
+            plt.ylabel(y_axes[j])
+            # new
+            plt.subplot(3,2,2*(j+1))
+            plt.hist(split_sdrs[titles[i]][j+3], bins=50, density=True)
+            if j == 0: plt.title("New")
+            plt.ylabel(y_axes[j])
+    
+        plt.show()
+    
+    """
+    Draw out the data structures for debugging
+    """
+    
+    # Stacked (2 standard deviations)
+    
+    
+    # Scatter (3D sdr space)
+    
+    # Aggregate sdr if it's unimodal
+    # How to locate modes?
+    
+    """
+    First I try Gaussian weights
+    Then trigonometric weights
+    Then I try to combine the two
+    """
+    
+    """
+    Plot histograms of accepted/rejected fault planes
+        stacked histogram
+        effect of including more standard deviations?
+    Plot beachballs for accepted fault planes
+    How is a best fitting solution chosen? (Maddy's paper)
+    Look into regression methods -- are they necessary?
+    How to visualize weights?
+        scatter plot
+        something with a color density
+    """

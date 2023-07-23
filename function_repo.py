@@ -652,3 +652,12 @@ def weighted_3D_scatter(df: pd.DataFrame, weight: str):
                          c=df[weight]._append(df[weight]), cmap="YlGnBu")
     plt.colorbar(scatter)
     plt.show()
+
+    """
+    Check out distribution of entire dataset...
+    Where does the S-wave come from?
+    Add true solution to weighted 3D scatter plot
+    Plot the true solution as a red star
+    New function for 2D scatters/histograms
+    Learn how to plot beachballs
+    """

@@ -109,3 +109,8 @@
 #         t (list): _description_
 #         p (list): _description_
 #     """
+
+# bins = dict()
+    # bins["Strikes"] = np.linspace(0, 360, 51) # 7.2 degree bins
+    # bins["Dips"] = np.linspace(0, 90, 51) # 1.8 degree bins
+    # bins["Rakes"] = np.linspace(-180, 180, 51) # 7.2 degree bins

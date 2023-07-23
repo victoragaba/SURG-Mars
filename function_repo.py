@@ -1,9 +1,40 @@
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 import scipy.stats as stats
+from obspy.taup import TauPyModel
+import collections
 
 eps = 1e-8; halfpi = np.pi/2; twopi = 2*np.pi
 i_hat = np.array([1,0,0]); j_hat = np.array([0,1,0]); k_hat = np.array([0,0,1])
+
+def set_axes_equal(ax): # might be useful later
+    """
+    Make axes of 3D plot have equal scale so that spheres appear as spheres,
+    cubes as cubes, etc.
+
+    Input
+      ax: a matplotlib axis, e.g., as output from plt.gca().
+    """
+
+    x_limits = ax.get_xlim3d()
+    y_limits = ax.get_ylim3d()
+    z_limits = ax.get_zlim3d()
+
+    x_range = abs(x_limits[1] - x_limits[0])
+    x_middle = np.mean(x_limits)
+    y_range = abs(y_limits[1] - y_limits[0])
+    y_middle = np.mean(y_limits)
+    z_range = abs(z_limits[1] - z_limits[0])
+    z_middle = np.mean(z_limits)
+
+    # The plot bounding box is a sphere in the sense of the infinity
+    # norm, hence I call half the max range the plot radius.
+    plot_radius = 0.5*max([x_range, y_range, z_range])
+
+    ax.set_xlim3d([x_middle - plot_radius, x_middle + plot_radius])
+    ax.set_ylim3d([y_middle - plot_radius, y_middle + plot_radius])
+    ax.set_zlim3d([z_middle - plot_radius, z_middle + plot_radius])
 
 def hemisphere_samples(n: int) -> list:
     """
@@ -229,7 +260,7 @@ def sphere_to_sd(point: list) -> list:
 def sd_to_sphere(sd: list) -> list:
     """
     Find a point on the surface of an upper hemisphere corresponding to
-    input strile-dip pair
+    input strike-dip pair
 
     Args:
         sd (list): [strike, dip] pair
@@ -444,7 +475,7 @@ def mag_perc(u: list, v: list) -> float:
     """
     return np.linalg.norm(np.cross(u,v))/np.linalg.norm(v)
 
-def get_epsilon(Ao: list, Uo: list) -> float:
+def get_sphere_epsilon(Ao: list, Uo: list) -> float:
     """
     Calculate epsilon, the toletance angle given the observed amplitudes
     and their uncertainties
@@ -459,7 +490,7 @@ def get_epsilon(Ao: list, Uo: list) -> float:
     sig2 = np.array([0,Uo[1],0])
     sig3 = np.array([0,0,Uo[2]])
     sig = [sig1,sig2,sig3]
-    e = np.sqrt(np.sum([mag_perc(sig[i],Ao)**2 for i in range(len(Ao))]))
+    e = np.sqrt((1/3)*np.sum([mag_perc(sig[i],Ao)**2 for i in range(len(Ao))]))
     epsilon = np.arctan(e/np.linalg.norm(Ao))
     
     return epsilon
@@ -509,16 +540,115 @@ def get_gaussian_weight(angle: float, epsilon: float) -> float:
         float: gaussian weight
     """
     return np.exp(-angle**2/(2*epsilon**2))
- 
+
+def apply_inverse_methods(N: int, hdepth: float, epdist: float, azimuth: float,
+                          Ao: list, Uo: list, model: TauPyModel) -> pd.DataFrame:
+    """
+    Generate a dataframe with appropriate weights attached to each simulated
+    focal mechanism
+
+    Args:
+        N (int): Number of rake simulations per s-d pair
+        hdepth (float): assumed hypocentral depth in km
+        epdist (float): epicentral distance in degrees
+        azimuth (float): quake azimuth in degrees
+        Ao (list): observed amplitudes
+        Uo (list): uncertainty of observed amplitudes
+        model (TauPyModel): velocity model
+        
+    Returns:
+        pd.DataFrame: dataframe with weights attached to each simulated focal mechanism
+        Columns: ["Theta", "Phi", "Alpha", "Strike1", "Dip1", "Rake1", "Strike2", "Dip2", "Rake2", "OldWeight", "Weight"]
+        All angles are in degrees
+        Theta, phi are spherical coordinates of the normal vector t
+        Alpha is the rotation angle of the normal vector p
+    """
+    b3_over_a3 = (3.4600/5.8000)**3 # from Suzan, not part of the velocity model
+    arrivals = model.get_travel_times(source_depth_in_km=hdepth,
+                        distance_in_degree=epdist, phase_list=['P', 'S'])
+    takeoff_angles = [a.takeoff_angle for a in arrivals]
     
-if __name__ == '__main__':
+    data = collections.defaultdict(list) # initialize dataframe
     
-    pass
+    old_epsilon = get_sphere_epsilon(Ao, Uo)
+    t_samples = hemisphere_samples(N**2)
+    for t in t_samples:
+        p_rotations = uniform_samples(N, [0, np.pi])
+        p_start = starting_direc(t, j_hat)
+        for alpha in p_rotations:
+            r, theta, phi = rect2pol(t)
+            p = rotate(p_start, t, alpha)
+            sdr1, sdr2 = tp2sdr(coord_switch(t), coord_switch(p))
+            sdr1 = np.rad2deg(np.array(sdr1))
+            sdr2 = np.rad2deg(np.array(sdr2))
+            As = np.array(Rpattern(sdr1, azimuth, takeoff_angles))
+            As[0] *= b3_over_a3
+            angle = np.arccos(np.dot(As, Ao)/(np.linalg.norm(As)*np.linalg.norm(Ao)))
+            
+            old_weight = get_gaussian_weight(angle, old_epsilon) # old method
+            epsilon = get_ellipse_epsilon(Ao, Uo, As)
+            weight = get_gaussian_weight(angle, epsilon) # new method
+            data["Theta"].append(np.rad2deg(theta))
+            data["Phi"].append(np.rad2deg(phi))
+            data["Alpha"].append(np.rad2deg(alpha))
+            data["Strike1"].append(sdr1[0])
+            data["Dip1"].append(sdr1[1])
+            data["Rake1"].append(sdr1[2])
+            data["Strike2"].append(sdr2[0])
+            data["Dip2"].append(sdr2[1])
+            data["Rake2"].append(sdr2[2])
+            data["OldWeight"].append(old_weight)
+            data["Weight"].append(weight)
     
-    ## test get_ellipse_epsilon
-    # Ao = np.array([2,4,6])
-    # Uo = np.array([np.sqrt(2),np.sqrt(3),np.sqrt(5)])
-    # As = np.array([4,2,3])
+    return pd.DataFrame(data)
+
+def plot_sdr_histograms(df: pd.DataFrame, bins: int):
+    """
+    Plot histograms of the sdr pairs
+
+    Args:
+        df (pd.DataFrame): dataframe with sdr pairs
+        bins (int): number of bins
+    """
+    fig, axs = plt.subplots(3, 2, figsize=(15, 12))
+    plt.suptitle("SDR Histograms")
+    axs[0, 0].hist(df["Strike1"], bins=bins)
+    axs[0, 0].set_title("Strike 1")
+    axs[1, 0].hist(df["Dip1"], bins=bins)
+    axs[1, 0].set_title("Dip 1")
+    axs[1,0].set_ylabel("Frequency")
+    axs[2, 0].hist(df["Rake1"], bins=bins)
+    axs[2, 0].set_title("Rake 1")
+    axs[2,0].set_xlabel("Degrees")
+    axs[0, 1].hist(df["Strike2"], bins=bins)
+    axs[0, 1].set_title("Strike 2")
+    axs[1, 1].hist(df["Dip2"], bins=bins)
+    axs[1, 1].set_title("Dip 2")
+    axs[2, 1].hist(df["Rake2"], bins=bins)
+    axs[2, 1].set_title("Rake 2")
+    axs[2,1].set_xlabel("Degrees")
+    plt.show()
     
-    # epsilon = get_ellipse_epsilon(Ao,Uo,As)
-    # print(np.rad2deg(epsilon))
+def weighted_3D_scatter(df: pd.DataFrame, weight: str):
+    """
+    Plot a 3D scatter plot of the sdr pairs, weighted by the specified column
+
+    Args:
+        df (pd.DataFrame): dataframe with sdr pairs
+        title (str): plot title
+    """
+    fig = plt.figure(figsize=(15, 12))
+    ax = fig.add_subplot(111, projection='3d')
+    if weight == "OldWeight":
+        ax.set_title("Weighted 3D Scatter Plot (Old Method)")
+    else:
+        ax.set_title("Weighted 3D Scatter Plot (New Method)")
+    ax.set_xlabel("Rake")
+    ax.set_ylabel("Strike")
+    ax.set_zlabel("Dip")
+    scatter = ax.scatter(df["Rake1"]._append(df["Rake2"]),
+                         df["Strike1"]._append(df["Strike2"]),
+                         df["Dip1"]._append(df["Dip2"]),
+                         c=df[weight]._append(df[weight]), cmap="YlGnBu")
+    plt.colorbar(scatter)
+    plt.show()

@@ -16,8 +16,12 @@ accepted1 = df["Weight"] >= np.exp(-1/2)
 accepted2 = (df["Weight"] >= np.exp(-2)) & (df["Weight"] < np.exp(-1/2))
 rejected = df["Weight"] < np.exp(-2)
 
-fr.weighted_3D_scatter(df[old_accepted1], "OldWeight")
-fr.weighted_3D_scatter(df[accepted1], "Weight")
+t, p = np.array([1,0,0]), np.array([0,0,1])
+normal_faults = fr.tp2sdr(fr.coord_switch(t), fr.coord_switch(p))
+normal_faults = np.rad2deg(np.array(normal_faults))
 
-# Check out the entire dataset
-# Plot
+fr.weighted_3D_scatter(df[old_accepted1], "OldWeight", normal_faults)
+fr.weighted_3D_scatter(df[accepted1], "Weight", normal_faults)
+
+# Continue from here... red star
+# fr.weighted_3D_scatter(df, "Weight")

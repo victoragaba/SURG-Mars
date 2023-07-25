@@ -415,7 +415,8 @@ def tp2sdr(t,p):
            rake2 = -az1 + np.pi
 
     return (st1%twopi, dip1, rake1), (st2%twopi, dip2, rake2)  # in radians
-    
+
+# incorporate a3_over_b3 in this function (alpha, beta)  
 def Rpattern(fault, azimuth, takeoff_angles): # Update Omkar on incidence -> takeoff
     """
     Calculate predicted amplitudes of P, SV, and SH waves.
@@ -602,13 +603,13 @@ def apply_inverse_methods(N: int, hdepth: float, epdist: float, azimuth: float,
     
     return pd.DataFrame(data)
 
-def plot_sdr_histograms(df: pd.DataFrame, bins: int):
+def sdr_histograms(df: pd.DataFrame, bins: int = 50):
     """
     Plot histograms of the sdr pairs
 
     Args:
         df (pd.DataFrame): dataframe with sdr pairs
-        bins (int): number of bins
+        bins (int): number of bins. Defaults to 50.
     """
     fig, axs = plt.subplots(3, 2, figsize=(15, 12))
     plt.suptitle("SDR Histograms")
@@ -629,13 +630,14 @@ def plot_sdr_histograms(df: pd.DataFrame, bins: int):
     axs[2,1].set_xlabel("Degrees")
     plt.show()
     
-def weighted_3D_scatter(df: pd.DataFrame, weight: str):
+def weighted_3D_scatter(df: pd.DataFrame, weight: str, true_sol: list = []):
     """
     Plot a 3D scatter plot of the sdr pairs, weighted by the specified column
 
     Args:
         df (pd.DataFrame): dataframe with sdr pairs
-        title (str): plot title
+        weight (str): method of weighting
+        true_sol (list, optional): true solution, NumPy array of two sdr triples. Defaults to [].
     """
     fig = plt.figure(figsize=(15, 12))
     ax = fig.add_subplot(111, projection='3d')
@@ -651,13 +653,116 @@ def weighted_3D_scatter(df: pd.DataFrame, weight: str):
                          df["Dip1"]._append(df["Dip2"]),
                          c=df[weight]._append(df[weight]), cmap="YlGnBu")
     plt.colorbar(scatter)
+    if not true_sol == []:
+        true_sol = np.transpose(true_sol)
+        ax.scatter(true_sol[2], true_sol[0], true_sol[1], c='red', marker='o', s=1000)
+    plt.show()    
+   
+def weighted_pairwise_scatter(df: pd.DataFrame, weight: str, bins: int = 50, true_sol: list = [], stacked: bool = False):
+    """
+    Plot pairwise scatter plots of the sdr pairs, weighted by the specified column
+
+    Args:
+        df (pd.DataFrame): dataframe with sdr pairs
+        weight (str): method of weighting
+        bins (int): array of bins. Defaults to 50.
+        true_sol (list, optional): true solution, NumPy array of two sdr triples. Defaults to [].
+        stacked (bool, optional): stacking in case of 2 stdevs. Defaults to False.
+    """
+    if not true_sol == []: true_sol = np.transpose(true_sol)
+    # use similar structure as sdr_histograms
+    # Don't stack yet
+    # Turn into a for loop later
+    fig, axs = plt.subplots(3, 3, figsize=(20, 20))
+    if weight == "OldWeight":
+        plt.suptitle("Weighted Pairwise Scatter Plots (Old Method)")
+    else:
+        plt.suptitle("Weighted Pairwise Scatter Plots (New Method)")
+    
+    axs[0,0].hist(df["Strike1"]._append(df["Strike2"]), bins=np.linspace(0,360,bins),
+                  weights=df[weight]._append(df[weight]))
+    axs[0,0].set_title("Strike")
+    axs[0,0].set_xlabel("Degrees")
+    axs[0,0].set_ylabel("Frequency")
+    
+    axs[0,1].scatter(df["Dip1"]._append(df["Dip2"]),
+                     df["Strike1"]._append(df["Strike2"]),
+                     c=df[weight]._append(df[weight]), cmap="YlGnBu")
+    axs[0,1].set_title("Dip vs. Strike")
+    axs[0,1].set_xlabel("Dip (Degrees)")
+    axs[0,1].set_ylabel("Strike (Degrees)")
+    axs
+    if not true_sol == []:
+        axs[0,1].scatter(true_sol[1], true_sol[0], c='red', marker='o', s=100)
+    
+    axs[0,2].scatter(df["Rake1"]._append(df["Rake2"]),
+                     df["Strike1"]._append(df["Strike2"]),
+                     c=df[weight]._append(df[weight]), cmap="YlGnBu")
+    axs[0,2].set_title("Rake vs. Strike")
+    axs[0,2].set_xlabel("Rake (Degrees)")
+    axs[0,2].set_ylabel("Strike (Degrees)")
+    if not true_sol == []:
+        axs[0,2].scatter(true_sol[2], true_sol[0], c='red', marker='o', s=100)
+    
+    axs[1,0].scatter(df["Strike1"]._append(df["Strike2"]),
+                     df["Dip1"]._append(df["Dip2"]),
+                     c=df[weight]._append(df[weight]), cmap="YlGnBu")
+    axs[1,0].set_title("Strike vs. Dip")
+    axs[1,0].set_xlabel("Strike (Degrees)")
+    axs[1,0].set_ylabel("Dip (Degrees)")
+    if not true_sol == []:
+        axs[1,0].scatter(true_sol[0], true_sol[1], c='red', marker='o', s=100)
+    
+    axs[1,1].hist(df["Dip1"]._append(df["Dip2"]), bins=np.linspace(0,90,bins),
+                  weights=df[weight]._append(df[weight]))
+    axs[1,1].set_title("Dip")
+    axs[1,1].set_xlabel("Degrees")
+    axs[1,1].set_ylabel("Frequency")
+    
+    axs[1,2].scatter(df["Rake1"]._append(df["Rake2"]),
+                     df["Dip1"]._append(df["Dip2"]),
+                     c=df[weight]._append(df[weight]), cmap="YlGnBu")
+    axs[1,2].set_title("Rake vs. Dip")
+    axs[1,2].set_xlabel("Rake (Degrees)")
+    axs[1,2].set_ylabel("Dip (Degrees)")
+    if not true_sol == []:
+        axs[1,2].scatter(true_sol[2], true_sol[1], c='red', marker='o', s=100)
+    
+    axs[2,0].scatter(df["Strike1"]._append(df["Strike2"]),
+                     df["Rake1"]._append(df["Rake2"]),
+                     c=df[weight]._append(df[weight]), cmap="YlGnBu")
+    axs[2,0].set_title("Strike vs. Rake")
+    axs[2,0].set_xlabel("Strike (Degrees)")
+    axs[2,0].set_ylabel("Rake (Degrees)")
+    if not true_sol == []:
+        axs[2,0].scatter(true_sol[0], true_sol[2], c='red', marker='o', s=100)
+    
+    axs[2,1].scatter(df["Dip1"]._append(df["Dip2"]),
+                     df["Rake1"]._append(df["Rake2"]),
+                     c=df[weight]._append(df[weight]), cmap="YlGnBu")
+    axs[2,1].set_title("Dip vs. Rake")
+    axs[2,1].set_xlabel("Dip (Degrees)")
+    axs[2,1].set_ylabel("Rake (Degrees)")
+    if not true_sol == []:
+        axs[2,1].scatter(true_sol[1], true_sol[2], c='red', marker='o', s=100)
+    
+    axs[2,2].hist(df["Rake1"]._append(df["Rake2"]), bins=np.linspace(-180,180,bins),
+                  weights=df[weight]._append(df[weight]))
+    axs[2,2].set_title("Rake")
+    axs[2,2].set_xlabel("Degrees")
+    axs[2,2].set_ylabel("Frequency")
+    
     plt.show()
 
-    """
-    Check out distribution of entire dataset...
-    Where does the S-wave come from?
-    Add true solution to weighted 3D scatter plot
-    Plot the true solution as a red star
-    New function for 2D scatters/histograms
-    Learn how to plot beachballs
-    """
+# why not put the a3_over_b3 in the Rpattern function?
+# explore different weighting methods
+        
+# """
+# Check out distribution of entire dataset...
+# Where does the S-wave come from?
+# What's wrong with the red star's position?
+# New function for 2D scatters/histograms
+# Make them stacked histograms for 1|2 stdevs
+# Learn how to plot beachballs
+# Theta phi alpha plot, you never know
+# """

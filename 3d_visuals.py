@@ -20,8 +20,8 @@ t, p = np.array([1,0,0]), np.array([0,0,1])
 normal_faults = fr.tp2sdr(fr.coord_switch(t), fr.coord_switch(p))
 normal_faults = np.rad2deg(np.array(normal_faults))
 
-fr.weighted_3D_scatter(df[old_accepted1], "OldWeight", normal_faults)
-fr.weighted_3D_scatter(df[accepted1], "Weight", normal_faults)
+# fr.weighted_3D_scatter(df[old_accepted1], "OldWeight", normal_faults)
+# fr.weighted_3D_scatter(df[accepted1], "Weight", normal_faults)
 
-# Continue from here... red star
-# fr.weighted_3D_scatter(df, "Weight")
+fr.weighted_3D_scatter(df[old_accepted1], "OldWeight", type="tpa")
+fr.weighted_3D_scatter(df[accepted1], "Weight", type="tpa")

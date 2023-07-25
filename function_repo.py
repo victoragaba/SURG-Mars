@@ -655,7 +655,7 @@ def weighted_3D_scatter(df: pd.DataFrame, weight: str, true_sol: list = []):
     plt.colorbar(scatter)
     if not true_sol == []:
         true_sol = np.transpose(true_sol)
-        ax.scatter(true_sol[2], true_sol[0], true_sol[1], c='red', marker='o', s=1000)
+        ax.scatter(true_sol[2], true_sol[0], true_sol[1], c='red', marker='o', s=500)
     plt.show()    
    
 def weighted_pairwise_scatter(df: pd.DataFrame, weight: str, bins: int = 50, true_sol: list = [], stacked: bool = False):
@@ -672,7 +672,7 @@ def weighted_pairwise_scatter(df: pd.DataFrame, weight: str, bins: int = 50, tru
     if not true_sol == []: true_sol = np.transpose(true_sol)
     # use similar structure as sdr_histograms
     # Don't stack yet
-    # Turn into a for loop later
+    # Turn into a for loop later - Emma :)
     fig, axs = plt.subplots(3, 3, figsize=(20, 20))
     if weight == "OldWeight":
         plt.suptitle("Weighted Pairwise Scatter Plots (Old Method)")

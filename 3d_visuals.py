@@ -55,10 +55,71 @@ rejected = df["Weight"] < np.exp(-2)
 # # X,Y,Z = [-1,1], [-1,1], [-1,1]
 # # X2,Y2,Z2 = [1,-1], [-1,1], [-1,1]
 # ## overlay the line segments
-# # ax.plot(X,Y,Z)
+# # ax.plot(X,Y, Z)
 # # ax.plot(X2,Y2,Z2)
 # fr.plot_cross(ax, t, fr.starting_direc(t,fr.j_hat))
 # plt.show()
 
-fr.plot_crosses(df[old_accepted1])
-fr.plot_crosses(df[accepted1])
+
+
+
+fr.plot_crosses(df[old_accepted1], "OldWeight")
+fr.plot_crosses(df[accepted1], "Weight")
+
+
+
+
+# x = fr.beachball([45., 45., -90.], alpha=0.5, edgecolor=None)
+# print(type(x))
+# x.figimage((1,2))
+
+
+# fig, ax = plt.subplots()
+# collection = fr.beach([45., 45., -90.], alpha=0.5, edgecolor=None)
+# collection2 = fr.beach([0, 45., -180.], alpha=0.5, edgecolor=None)
+# print(type(collection))
+# ax.add_collection(collection)
+# ax.add_collection(collection2)
+# ax.set_xlim(-100,100)
+# ax.set_ylim(-100,100)
+# plt.show()
+
+
+
+
+# print(len(df[old_accepted1]))
+# fr.plot_beachball_set(df[old_accepted1], "OldWeight")
+# fr.plot_beachball_set(df[accepted1], "Weight")
+
+
+
+
+# import matplotlib.pyplot as plt
+# from matplotlib.patches import Circle
+# from matplotlib.collections import PatchCollection
+
+# # Create a new figure and subplot
+# fig, ax = plt.subplots()
+
+# # Example data: centers and radii of circles
+# centers = [(1, 1), (2, 3), (4, 2)]
+# radii = [0.5, 0.3, 0.7]
+
+# # Create a list of Circle patches
+# circle_patches = [Circle(center, radius) for center, radius in zip(centers, radii)]
+
+# # Create a PatchCollection from the Circle patches
+# circle_collection = PatchCollection(circle_patches, edgecolor='blue', facecolor='none')
+
+# # Add the PatchCollection to the subplot
+# ax.add_collection(circle_collection)
+
+# # Set limits and labels
+# # ax.set_xlim(0, 5)
+# # ax.set_ylim(0, 4)
+# # ax.set_xlabel('X-axis')
+# # ax.set_ylabel('Y-axis')
+# # ax.set_title('Circle Collection')
+
+# # Show the plot
+# # plt.show()

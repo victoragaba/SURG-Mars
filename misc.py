@@ -65,3 +65,8 @@ print(nested_list)
 print(flattened_list)
 
 print(np.rad2deg(np.arctan2(1,1)))
+
+from matplotlib import colors
+orange_rgb = colors.hex2color(colors.cnames['orange'])
+print(orange_rgb)
+print(colors.rgb2hex(orange_rgb))

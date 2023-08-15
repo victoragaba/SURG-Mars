@@ -5,6 +5,9 @@ import scipy.stats as stats
 from obspy.taup import TauPyModel
 import collections
 
+from obspy.imaging.beachball import beachball
+from obspy.imaging.beachball import beach
+
 eps = 1e-8; halfpi = np.pi/2; twopi = 2*np.pi
 i_hat = np.array([1,0,0]); j_hat = np.array([0,1,0]); k_hat = np.array([0,0,1])
 np.random.seed(1029) # I hope this carries over to other files
@@ -417,7 +420,7 @@ def tp2sdr(t,p):
 
     return (st1%twopi, dip1, rake1), (st2%twopi, dip2, rake2)  # in radians
 
-# incorporate a3_over_b3 in this function (alpha, beta)  
+# Incorporate a3_over_b3 in this function (alpha, beta)  
 def Rpattern(fault, azimuth, takeoff_angles, alpha: float = 1, beta: float = 1): # Update Omkar on incidence -> takeoff
     """
     Calculate predicted amplitudes of P, SV, and SH waves.
@@ -821,7 +824,7 @@ def other_sphere_point(point: list) -> list:
     """
     return np.array([-point[0], -point[1], -point[2]])   
         
-def plot_cross(ax, t: list, p: list, t_color: str = "black", p_color: str = "red"):
+def plot_cross(ax, t: list, p: list, weight: float = 1, t_color: str = "black", p_color: str = "red"):
     """
     Plot a t-p cross in 3D
 
@@ -829,31 +832,108 @@ def plot_cross(ax, t: list, p: list, t_color: str = "black", p_color: str = "red
         ax: axes to plot on
         t (list): [x,y,z] coordinates of t axis
         p (list): [x,y,z] coordinates of p axis
+        weight (float, optional): weight of line. Defaults to 1.
     """
     t_prime = other_sphere_point(t)
     p_prime = other_sphere_point(p)
-    ax.plot([t[0], t_prime[0]], [t[1], t_prime[1]], [t[2], t_prime[2]], color=t_color)
-    ax.plot([p[0], p_prime[0]], [p[1], p_prime[1]], [p[2], p_prime[2]], color=p_color)
+    ax.plot([t[0], t_prime[0]], [t[1], t_prime[1]], [t[2], t_prime[2]], color=t_color, alpha=weight)
+    ax.plot([p[0], p_prime[0]], [p[1], p_prime[1]], [p[2], p_prime[2]], color=p_color, alpha=weight)
 
-def plot_crosses(df: pd.DataFrame, method: str = ""):
+def plot_crosses(df: pd.DataFrame, weight: str):
     """
     Plot t-p crosses for each solution in a dataframe
 
     Args:
         df (pd.DataFrame): dataframe of solutions
+        weight (str): column name of weight (old or new)
     """
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
+    min_weight = df[weight].min()
+    max_weight = df[weight].max()
+    range_weight = max_weight - min_weight
     
     for i in range(len(df)):
         t = np.array([df.iloc[i]["tx"], df.iloc[i]["ty"], df.iloc[i]["tz"]])
         p = np.array([df.iloc[i]["px"], df.iloc[i]["py"], df.iloc[i]["pz"]])
-        plot_cross(ax, t, p)
+        plot_cross(ax, t, p, (df.iloc[i][weight]-min_weight)/(10*range_weight))
     
     ax.set_xlabel("x")
     ax.set_ylabel("y")
     ax.set_zlabel("z")
     
-    ax.set_title(f"{method} t-p Crosses")
+    ax.set_title(f"{weight} t-p Crosses")
     
     plt.show()
+    
+# Decide whether to save, show or save or return
+def plot_beachball_set(df: pd.DataFrame, weight: str):
+    """
+    Plot beachballs for each solution in a dataframe
+
+    Args:
+        df (pd.DataFrame): dataframe of solutions
+        weight (str): column name of weight (old or new)
+    """
+    fig, ax = plt.subplots()
+    min_weight = df[weight].min()
+    max_weight = df[weight].max()
+    range_weight = max_weight - min_weight
+    
+    for i in range(len(df)):
+        strike = df.iloc[i]["Strike1"]
+        dip = df.iloc[i]["Dip1"]
+        rake = df.iloc[i]["Rake1"]
+        collection = beach([strike, dip, rake],
+                           alpha=(df.iloc[i][weight] - min_weight)/(100*range_weight),
+                           edgecolor=None)
+        ax.add_collection(collection)
+    
+    ax.set_xlim(-100,100)
+    ax.set_ylim(-100,100)
+    ax.set_aspect('equal')
+    
+    plt.axis('off')
+    plt.show()
+    
+def aggregate_sdr(df: pd.DataFrame, weight: str):
+    """
+    Calculate aggregate strike, dip, and rake from a dataframe of solutions
+
+    Args:
+        df (pd.DataFrame): dataframe of solutions
+        weight (str): column name of weight (old or new)
+
+    Returns:
+        list: [strike, dip, rake] of aggregate solution
+    """
+    strike1, strike2 = 0, 0
+    dip1, dip2 = 0, 0
+    rake1, rake2 = 0, 0
+    for i in range(len(df)):
+        strike1 += df.iloc[i]["Strike1"]*df.iloc[i][weight]
+        dip1 += df.iloc[i]["Dip1"]*df.iloc[i][weight]
+        rake1 += df.iloc[i]["Rake1"]*df.iloc[i][weight]
+        strike2 += df.iloc[i]["Strike2"]*df.iloc[i][weight]
+        dip2 += df.iloc[i]["Dip2"]*df.iloc[i][weight]
+        rake2 += df.iloc[i]["Rake2"]*df.iloc[i][weight]
+    strike1 /= df[weight].sum()
+    dip1 /= df[weight].sum()
+    rake1 /= df[weight].sum()
+    strike2 /= df[weight].sum()
+    dip2 /= df[weight].sum()
+    rake2 /= df[weight].sum()
+    return np.array([strike1, dip1, rake1]), np.array([strike2, dip2, rake2])
+
+
+# Put beachballs on visuals
+# Plot aggregate beachballs
+# Calculate misfit angle of aggregate beachballs
+
+
+
+"""
+SATURDAY NIGHT
+ENTER MONDAY WITH A PLAN FOR THE STATISTICS
+ALL VISUALIZATIONS DONE
+"""

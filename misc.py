@@ -70,3 +70,27 @@ from matplotlib import colors
 orange_rgb = colors.hex2color(colors.cnames['orange'])
 print(orange_rgb)
 print(colors.rgb2hex(orange_rgb))
+
+array = [np.sin(((np.pi/2)/50)*(i+1)) for i in range(50)]
+print(30000*sum(array))
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Sample data for three categories
+data_category1 = np.random.normal(0, 1, 1000)
+data_category2 = np.random.normal(2, 1, 1000)
+data_category3 = np.random.normal(-2, 1, 1000)
+
+# Create histograms for each category
+plt.hist(data_category1, bins=20, alpha=0.5, label='Category 1')
+plt.hist(data_category2, bins=20, alpha=0.5, label='Category 2')
+plt.hist(data_category3, bins=20, alpha=0.5, label='Category 3')
+
+# Add labels, title, legend, etc.
+plt.xlabel('Value')
+plt.ylabel('Frequency')
+plt.title('Stacked Histogram Example')
+plt.legend()
+
+plt.show()

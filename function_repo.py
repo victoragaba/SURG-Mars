@@ -281,8 +281,8 @@ def sd_to_sphere(sd: list) -> list:
 
 def starting_direc(point: list, direc: list) -> list:
     """
-    Find what vector is perpendicular to point and lies in the
-    vertical plane
+    Find what vector is perpendicular to point vector and lies in the
+    plane that contains point and direc
 
     Args:
         point (list): [x,y,z] on a unit sphere
@@ -291,8 +291,9 @@ def starting_direc(point: list, direc: list) -> list:
     Returns:
         list: [x,y,z] of the normal vector
     """
-    proj = (np.dot(direc,point)/np.dot(point, point))
-    rem = np.array(direc) - np.array([proj*p for p in point])
+    # Let's get linear algebraic
+    proj = (np.dot(direc, point)/np.dot(point, point)) # parallel to point
+    rem = np.array(direc) - proj*np.array(point) # orthogonal to point
     
     return rem/np.linalg.norm(rem)
 
@@ -546,6 +547,7 @@ def get_gaussian_weight(angle: float, epsilon: float) -> float:
     """
     return np.exp(-angle**2/(2*epsilon**2))
 
+# Maybe something about starting_direc here
 def apply_inverse_methods(N: int, hdepth: float, epdist: float, azimuth: float,
                           Ao: list, Uo: list, model: TauPyModel, no_rejected: bool = False) -> pd.DataFrame:
     """
@@ -569,7 +571,6 @@ def apply_inverse_methods(N: int, hdepth: float, epdist: float, azimuth: float,
         Theta, phi are spherical coordinates of the normal vector t
         Alpha is the rotation angle of the normal vector p
     """
-    
     b3_over_a3 = (3.4600/5.8000)**3 # from Suzan, not part of the velocity model
     arrivals = model.get_travel_times(source_depth_in_km=hdepth,
                         distance_in_degree=epdist, phase_list=['P', 'S'])
@@ -581,7 +582,7 @@ def apply_inverse_methods(N: int, hdepth: float, epdist: float, azimuth: float,
     t_samples = hemisphere_samples(N**2)
     for t in t_samples:
         p_rotations = uniform_samples(N, [0, np.pi])
-        p_start = starting_direc(t, j_hat)
+        p_start = starting_direc(t, stats.norm.rvs(size=3)) # try other vectors
         for alpha in p_rotations:
             r, theta, phi = rect2pol(t)
             p = rotate(p_start, t, alpha)
@@ -599,7 +600,6 @@ def apply_inverse_methods(N: int, hdepth: float, epdist: float, azimuth: float,
                 if old_weight < np.exp(-2) or weight < np.exp(-2): continue
             data["Theta"].append(np.rad2deg(theta))
             data["Phi"].append(np.rad2deg(phi))
-            data["Alpha"].append(np.rad2deg(alpha))
             data["tx"].append(t[0])
             data["ty"].append(t[1])
             data["tz"].append(t[2])
@@ -644,54 +644,33 @@ def sdr_histograms(df: pd.DataFrame, bins: int = 50):
     axs[2,1].set_xlabel("Degrees")
     plt.show()
     
-def weighted_3D_scatter(df: pd.DataFrame, weight: str, true_sol: list = [], type: str = "sdr"):
+def weighted_3D_scatter(df: pd.DataFrame, weight: str, true_sol: list = []):
     """
-    Plot a 3D scatter plot of the sdr/tpa triples, weighted by the specified column
+    Plot a 3D scatter plot of the sdr triples, weighted by the specified column
 
     Args:
         df (pd.DataFrame): dataframe with sdr pairs
         weight (str): method of weighting
-        true_sol (list, optional): true solution, NumPy array of sdr*2 or tpa*1 triple. Defaults to [].
-        type (str, optional): "sdr" or "tpa" (theta, phi, alpha). Defaults to "sdr".
+        true_sol (list, optional): true solution, NumPy array of sdr*2. Defaults to [].
     """
-    if type == "sdr":
-        fig = plt.figure(figsize=(15, 12))
-        ax = fig.add_subplot(111, projection='3d')
-        if weight == "OldWeight":
-            ax.set_title("Weighted sdr Scatter Plot (Old Method)", fontsize=20)
-        else:
-            ax.set_title("Weighted sdr Scatter Plot (New Method)", fontsize=20)
-        ax.set_xlabel("Rake")
-        ax.set_ylabel("Strike")
-        ax.set_zlabel("Dip")
-        scatter = ax.scatter(df["Rake1"]._append(df["Rake2"]),
-                            df["Strike1"]._append(df["Strike2"]),
-                            df["Dip1"]._append(df["Dip2"]),
-                            c=df[weight]._append(df[weight]), cmap="YlGnBu")
-        plt.colorbar(scatter)
-        if true_sol != []:
-            true_sol = np.transpose(true_sol)
-            ax.scatter(true_sol[2], true_sol[0], true_sol[1], c='red', marker='o', s=500)
-        plt.show()
-    elif type == "tpa":
-        # use theta, phi, alpha
-        fig = plt.figure(figsize=(15, 12))
-        ax = fig.add_subplot(111, projection='3d')
-        if weight == "OldWeight":
-            ax.set_title("Weighted tpa Scatter Plot (Old Method)", fontsize=20)
-        else:
-            ax.set_title("Weighted tpa Scatter Plot (New Method)", fontsize=20)
-        ax.set_xlabel("Theta")
-        ax.set_ylabel("Alpha")
-        ax.set_zlabel("Phi")
-        scatter = ax.scatter(df["Theta"], df["Alpha"], df["Phi"], c=df[weight], cmap="YlGnBu")
-        plt.colorbar(scatter)
-        if true_sol != []:
-            true_sol = np.transpose(true_sol)
-            ax.scatter(true_sol[0], true_sol[2], true_sol[1], c='red', marker='o', s=500)
-        plt.show()
+    fig = plt.figure(figsize=(15, 12))
+    ax = fig.add_subplot(111, projection='3d')
+    if weight == "OldWeight":
+        ax.set_title("Weighted sdr Scatter Plot (Old Method)", fontsize=20)
     else:
-        print("Invalid type")
+        ax.set_title("Weighted sdr Scatter Plot (New Method)", fontsize=20)
+    ax.set_xlabel("Rake")
+    ax.set_ylabel("Strike")
+    ax.set_zlabel("Dip")
+    scatter = ax.scatter(df["Rake1"]._append(df["Rake2"]),
+                        df["Strike1"]._append(df["Strike2"]),
+                        df["Dip1"]._append(df["Dip2"]),
+                        c=df[weight]._append(df[weight]), cmap="YlGnBu")
+    plt.colorbar(scatter)
+    if true_sol != []:
+        true_sol = np.transpose(true_sol)
+        ax.scatter(true_sol[2], true_sol[0], true_sol[1], c='red', marker='o', s=500)
+    plt.show()
    
 def weighted_pairwise_scatter(df: pd.DataFrame, weight: str, bins: int = 50, true_sol: list = [], type: str = "sdr"):
     """
@@ -703,25 +682,37 @@ def weighted_pairwise_scatter(df: pd.DataFrame, weight: str, bins: int = 50, tru
         weight (str): method of weighting
         bins (int): array of bins. Defaults to 50.
         true_sol (list, optional): true solution, NumPy array of two sdr triples. Defaults to [].
-        type (str, optional): "sdr" or "tpa" (theta, phi, alpha). Defaults to "sdr".
+        type (str, optional): "sdr" or "tp" (theta, phi). Defaults to "sdr".
     """
-    if type == "tpa":
+    if type == "tp":
         # Plot histograms for theta, phi, alpha
         fig, axs = plt.subplots(1, 3, figsize=(20,5))
-        plt.suptitle("Theta, Phi, Alpha Histograms", fontsize=20)
+        if weight == "OldWeight":
+            plt.suptitle("Theta, Phi Visuals (Old Method)", fontsize=20)
+        else:
+            plt.suptitle("Theta, Phi Visuals (New Method)", fontsize=20)
         
         axs[0].hist(df["Theta"], bins=np.linspace(0,360,bins))
-        axs[0].set_title("Theta")
+        axs[0].set_title("Theta Histogram")
         axs[0].set_xlabel("Degrees")
         axs[0].set_ylabel("Frequency")
         
         axs[1].hist(df["Phi"], bins=np.linspace(0,90,bins))
-        axs[1].set_title("Phi")
+        axs[1].set_title("Phi Histogram")
         axs[1].set_xlabel("Degrees")
+        axs[1].set_ylabel("Frequency")
         
-        axs[2].hist(df["Alpha"], bins=np.linspace(0,180,bins))
-        axs[2].set_title("Alpha (wrt j_hat)")
-        axs[2].set_xlabel("Degrees")
+        if weight == "OldWeight":
+            axs[2].set_title("Weighted Theta-Phi Scatter Plot (Old Method)")
+        else:
+            axs[2].set_title("Weighted Theta-Phi Scatter Plot (New Method)")
+        axs[2].set_xlabel("Theta")
+        axs[2].set_ylabel("Phi")
+        scatter = axs[2].scatter(df["Theta"], df["Phi"], c=df[weight], cmap="YlGnBu")
+        plt.colorbar(scatter)
+        if true_sol != []:
+            true_sol = np.transpose(true_sol)
+            axs[2].scatter(true_sol[0], true_sol[1], c='red', marker='o', s=500)
         
         plt.show()
         
@@ -730,7 +721,7 @@ def weighted_pairwise_scatter(df: pd.DataFrame, weight: str, bins: int = 50, tru
         if true_sol != []: true_sol = np.transpose(true_sol)
         # use similar structure as sdr_histograms
         # Don't stack yet
-        # Turn into a for loop later - Emma :)
+        # Turn into a for loop later
         fig, axs = plt.subplots(3, 3, figsize=(18, 18))
         if weight == "OldWeight":
             plt.suptitle("Weighted Pairwise Scatter Plots (Old Method)", fontsize=20)
@@ -929,11 +920,10 @@ def aggregate_sdr(df: pd.DataFrame, weight: str):
 # Put beachballs on visuals
 # Plot aggregate beachballs
 # Calculate misfit angle of aggregate beachballs
-
-
+# Add vertical lines in my histograms
+# Generate datasets without alpha
 
 """
-SATURDAY NIGHT
 ENTER MONDAY WITH A PLAN FOR THE STATISTICS
 ALL VISUALIZATIONS DONE
 """

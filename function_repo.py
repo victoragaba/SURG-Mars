@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import scipy.stats as stats
 from obspy.taup import TauPyModel
 import collections
+import math
 
 from obspy.imaging.beachball import beachball
 from obspy.imaging.beachball import beach
@@ -11,6 +12,7 @@ from obspy.imaging.beachball import beach
 eps = 1e-8; halfpi = np.pi/2; twopi = 2*np.pi
 i_hat = np.array([1,0,0]); j_hat = np.array([0,1,0]); k_hat = np.array([0,0,1])
 np.random.seed(1029) # I hope this carries over to other files
+# It only does for randomness associated with fr
 
 def set_axes_equal(ax): # might be useful later
     """
@@ -39,29 +41,6 @@ def set_axes_equal(ax): # might be useful later
     ax.set_xlim3d([x_middle - plot_radius, x_middle + plot_radius])
     ax.set_ylim3d([y_middle - plot_radius, y_middle + plot_radius])
     ax.set_zlim3d([z_middle - plot_radius, z_middle + plot_radius])
-
-def hemisphere_samples(n: int) -> list:
-    """
-    Select n random samples uniformly distributed on the surface of an upper hemisphere
-    of unit radius
-
-    Args:
-        n (int): # samples
-
-    Returns:
-        list: array of [x,y,z] coordinates
-    """
-    samples = []
-
-    for i in range(n):
-        p = stats.norm.rvs(size=3)
-        while np.linalg.norm(p) < 0.00001 or all(p[:2]) == 0:
-            p = stats.norm.rvs(size=3)
-        p /= np.linalg.norm(p)
-        p[2] = np.abs(p[2]) # only upper hemisphere
-        samples.append(p)
-    
-    return samples
 
 def uniform_samples(n: int, bounds: list) -> list:
     """
@@ -116,6 +95,105 @@ def space_evenly(n: int, bounds: list) -> list:
     
     return spaced
 
+def random_hemisphere_samples(n: int) -> list:
+    """
+    Select n random samples uniformly distributed on the surface of an upper hemisphere
+    of unit radius
+
+    Args:
+        n (int): # samples
+
+    Returns:
+        list: array of [x,y,z] coordinates
+    """
+    samples = []
+
+    for i in range(n):
+        p = stats.norm.rvs(size=3)
+        while np.linalg.norm(p) < eps or all(p[:2]) == 0:
+            p = stats.norm.rvs(size=3)
+        p /= np.linalg.norm(p)
+        p[2] = np.abs(p[2]) # only upper hemisphere
+        samples.append(p)
+    
+    return samples
+
+def rigid_hemisphere_samples(step_size: float) -> list:
+    """
+    Systematically select n samples evenly spaced on the surface of an upper hemisphere
+
+    Args:
+        step_size (float): angular distance between samples in degrees
+
+    Returns:
+        list: array of [x,y,z] coordinates
+    """
+    samples = [k_hat]
+    d_phi = np.deg2rad(step_size)
+    phis = np.arange(0, halfpi, d_phi)
+    
+    for phi in phis[1:]:
+        c_phi = twopi*np.sin(phi)
+        thetas = np.linspace(0, twopi, int(c_phi/d_phi)+1)[:-1]
+        samples.extend([pol2rect(np.array([1, theta, phi])) for theta in thetas])
+        
+    return samples
+
+def suzan_hemisphere_samples(step_size: float) -> list:
+    """
+    Systematically select n samples evenly spaced on the surface of an upper hemisphere
+    Suzan's method
+
+    Args:
+        step_size (float): angular distance between samples in degrees
+
+    Returns:
+        list: array of [x,y,z] coordinates
+    """
+    dd = np.deg2rad(step_size)
+    angles = np.arange(0,np.pi,dd)
+    Ts = [np.array([-1,0,0])] # southpole
+    # sphcs = [np.array([0,0])]
+    
+    for a in angles[1:]:    # a is "take-off angle" of T axis
+                        #(measured w.r.t. downpointing vertical) ("latitude")
+        ddo = dd/np.sin(a)  # need fewer sampling points on small-circle when close to the poles
+        angleso = np.arange(0,np.pi,ddo)
+        for o in angleso:   # o is azimuth of T axis ("longitude")
+            T = np.array([-np.cos(a), -np.sin(a)*np.cos(o), np.sin(a)*np.sin(o)])
+            Ts.append(T)
+            # sphcs.append(np.degrees(np.array([o,a])))
+    
+    return Ts
+
+def perp(vin):
+    """
+    IN: a vector (e.g. a T axis) 
+    Rotate a vector over 90 degrees around any axis
+    OUT: rotated vector of the same length as the input vector
+    """
+    vinl = np.linalg.norm(vin)
+    l = np.argmin(np.abs(vin))
+    m = np.argmax(np.abs(vin))
+    k = 0; j = 1; i = 2
+    if k != l:
+        if j != l:
+            i = k
+            k = l
+        else:
+            j = k
+            k = l     
+    if j != m:
+        i = j
+        j = m
+    v = np.zeros(3)
+    v[k] = 0
+    v[i] = 1
+    v[j] = -vin[i]/vin[j]
+    vl = np.linalg.norm(v)
+    
+    return v*vinl/vl
+
 def pol2rect(pol: list) -> list:
     """
     Convert from polar/spherical to rectangular coordinates
@@ -152,30 +230,43 @@ def rect2pol(rect: list) -> list:
     Returns:
         list: spherical coordinates
     """
-    r = np.linalg.norm(rect)
-    if rect[0] != 0:
-        theta_acute = np.arctan(rect[1]/rect[0])
-    else:
-        theta_acute = np.pi
+    # r = np.linalg.norm(rect)
+    # if rect[0] != 0:
+    #     theta_acute = np.arctan(rect[1]/rect[0])
+    # else:
+    #     theta_acute = np.pi
     
-    if np.sign(rect[0]) > 0:
-        if np.sign(rect[1]) >= 0:
-            theta = theta_acute
-        elif np.sign(rect[1]) < 0:
-            theta = twopi + theta_acute
-    elif np.sign(rect[0]) < 0:
-        theta = np.pi + theta_acute
-    else:
-        if np.sign(rect[1]) > 0:
-            theta = halfpi
-        else:
-            theta = 3*halfpi
+    # if np.sign(rect[0]) > 0:
+    #     if np.sign(rect[1]) >= 0:
+    #         theta = theta_acute
+    #     elif np.sign(rect[1]) < 0:
+    #         theta = twopi + theta_acute
+    # elif np.sign(rect[0]) < 0:
+    #     theta = np.pi + theta_acute
+    # else:
+    #     if np.sign(rect[1]) > 0:
+    #         theta = halfpi
+    #     else:
+    #         theta = 3*halfpi
     
-    if len(rect) == 3:
-        phi = np.arccos(rect[2]/r)
-        return np.array([r, theta, phi])
+    # if len(rect) == 3:
+    #     phi = np.arccos(rect[2]/r)
+    #     return np.array([r, theta, phi])
     
-    return np.array([r, theta])
+    # return np.array([r, theta])
+    
+    if len(rect) == 2:
+        x, y = rect
+        r = np.linalg.norm(rect)
+        theta = np.arctan2(y, x) % twopi
+        return np.array([r, theta])
+    
+    x, y, z = rect
+    rho = np.linalg.norm(rect)
+    theta = np.arctan2(y, x) % twopi
+    phi = np.arctan2(np.sqrt(x**2 + y**2), z)
+    
+    return np.array([rho, theta, phi])
 
 def angle2bearing(angle: float) -> float:
     """
@@ -294,10 +385,16 @@ def starting_direc(point: list, direc: list) -> list:
     # Let's get linear algebraic
     proj = (np.dot(direc, point)/np.dot(point, point)) # parallel to point
     rem = np.array(direc) - proj*np.array(point) # orthogonal to point
+    return rem/np.linalg.norm(rem) if np.linalg.norm(rem) > eps else j_hat
     
-    return rem/np.linalg.norm(rem)
+    # Let's get rotational
+    # if np.array_equal(point, direc):
+    #     print("That one exception")
+    #     return j_hat # that one exception
+    # out = rotate(point, direc, halfpi)
+    # return out/np.linalg.norm(out)
 
-def rotate(vec: list, axis: list, theta: float) -> list:
+def matrix_rotate(vec: list, axis: list, theta: float) -> list:
     """
     Rotate vec about axis
 
@@ -326,6 +423,19 @@ def rotate(vec: list, axis: list, theta: float) -> list:
     R = [row1, row2, row3]
     
     return np.matmul(vec, R)
+
+def rodrigues_rotate(vec: list, axis: list, theta: float) -> list:
+    """
+    Rotate vec around axis by theta radians
+    Assumes axis is normalized
+    """
+    rotated_vec = (
+        vec*np.cos(theta) + 
+        (np.cross(axis,vec))*np.sin(theta) + 
+        axis*(np.dot(axis,vec))*(1-np.cos(theta))
+    )
+    
+    return rotated_vec
 
 def azdp(v, units):
     """
@@ -421,8 +531,53 @@ def tp2sdr(t,p):
 
     return (st1%twopi, dip1, rake1), (st2%twopi, dip2, rake2)  # in radians
 
+def my_tp2sdr(t: list, p: list, deg: bool = False) -> tuple:
+    """
+    See tp2sdr
+    Inputs are numpy arrays
+    Outputs in radians unless deg is True
+    """
+    # First get the normals
+    n1 = t + p
+    n2 = t - p
+    
+    # Restrict to upper hemisphere
+    if n1[2] < 0: n1 *= -1
+    if n2[2] < 0: n2 *= -1
+    
+    # Get spherical coordinates, dip is restricted phi
+    _, theta1, dip1 = rect2pol(n1)
+    _, theta2, dip2 = rect2pol(n2)
+    
+    # Strike is theta measured in reverse
+    strike1 = (twopi - theta1) % twopi
+    strike2 = (twopi - theta2) % twopi
+    
+    # Check if the normals house a t or p axis
+    if abs(np.dot(n1 + n2, t)) < eps: # houses a p axis, negative slip
+        slip1 = -n2
+        slip2 = -n1       
+    else: # houses a t axis, positive slip
+        slip1 = n2
+        slip2 = n1
+
+    # Get rakes from slip vectors
+    base1 = pol2rect(np.array([1, bearing2angle(strike1), halfpi]))
+    base2 = pol2rect(np.array([1, bearing2angle(strike2), halfpi]))
+    rake1 = np.arccos(np.dot(slip1, base1)/(np.linalg.norm(slip1)*np.linalg.norm(base1)))
+    rake1 *= np.sign(slip1[2])
+    rake2 = np.arccos(np.dot(slip2, base2)/(np.linalg.norm(slip2)*np.linalg.norm(base2)))
+    rake2 *= np.sign(slip2[2])
+    
+    if deg:
+        strike1, strike2 = np.rad2deg(strike1), np.rad2deg(strike2)
+        dip1, dip2 = np.rad2deg(dip1), np.rad2deg(dip2)
+        rake1, rake2 = np.rad2deg(rake1), np.rad2deg(rake2)
+    
+    return (np.array([strike1, dip1, rake1]), np.array([strike2, dip2, rake2]))
+
 # Incorporate a3_over_b3 in this function (alpha, beta)  
-def Rpattern(fault, azimuth, takeoff_angles, alpha: float = 1, beta: float = 1): # Update Omkar on incidence -> takeoff
+def Rpattern(fault, azimuth, takeoff_angles, alpha_beta: list = []): # Update Omkar on incidence -> takeoff
     """
     Calculate predicted amplitudes of P, SV, and SH waves.
     IN: fault = [strike, dip, rake]
@@ -464,8 +619,13 @@ def Rpattern(fault, azimuth, takeoff_angles, alpha: float = 1, beta: float = 1):
     AP = sR*(3*np.cos(iP)**2 - 1) - qR*np.sin(2*iP) - pR*np.sin(iP)**2
     ASV = 1.5*sR*np.sin(2*jS) + qR*np.cos(2*jS) + 0.5*pR*np.sin(2*jS)
     ASH = qL*np.cos(jS) + pL*np.sin(jS)
+    
+    if len(alpha_beta) != 0:
+        AP /= alpha_beta[0]**3
+        ASV /= alpha_beta[1]**3
+        ASH /= alpha_beta[1]**3
 
-    return AP,ASV,ASH
+    return np.array([AP,ASV,ASH])
 
 def mag_perc(u: list, v: list) -> float:
     """
@@ -547,15 +707,15 @@ def get_gaussian_weight(angle: float, epsilon: float) -> float:
     """
     return np.exp(-angle**2/(2*epsilon**2))
 
-# Maybe something about starting_direc here
-def apply_inverse_methods(N: int, hdepth: float, epdist: float, azimuth: float,
-                          Ao: list, Uo: list, model: TauPyModel, no_rejected: bool = False) -> pd.DataFrame:
+# Incorporate b3_over_a3 into Rpattern
+def apply_inverse_methods(model: TauPyModel, t_vec: str, p_vec: str, sdr1_vec: str, sdr2_vec: str, hdepth: float, epdist: float, azimuth: float,
+                          Ao: list, Uo: list, no_rejected: bool = False) -> pd.DataFrame:
     """
     Generate a dataframe with appropriate weights attached to each simulated
     focal mechanism
 
     Args:
-        N (int): Number of rake simulations per s-d pair
+        t_vec, p_vec, sdr1, sdr2 (str): vectors of t, p, and sdr components
         hdepth (float): assumed hypocentral depth in km
         epdist (float): epicentral distance in degrees
         azimuth (float): quake azimuth in degrees
@@ -571,7 +731,8 @@ def apply_inverse_methods(N: int, hdepth: float, epdist: float, azimuth: float,
         Theta, phi are spherical coordinates of the normal vector t
         Alpha is the rotation angle of the normal vector p
     """
-    b3_over_a3 = (3.4600/5.8000)**3 # from Suzan, not part of the velocity model
+    # b3_over_a3 = (3.4600/5.8000)**3
+    alpha_beta = [5.8000, 3.4600] # incorporated into Rpattern
     arrivals = model.get_travel_times(source_depth_in_km=hdepth,
                         distance_in_degree=epdist, phase_list=['P', 'S'])
     takeoff_angles = [a.takeoff_angle for a in arrivals]
@@ -579,41 +740,42 @@ def apply_inverse_methods(N: int, hdepth: float, epdist: float, azimuth: float,
     data = collections.defaultdict(list) # initialize dataframe
     
     old_epsilon = get_sphere_epsilon(Ao, Uo)
-    t_samples = hemisphere_samples(N**2)
-    for t in t_samples:
-        p_rotations = uniform_samples(N, [0, np.pi])
-        p_start = starting_direc(t, stats.norm.rvs(size=3)) # try other vectors
-        for alpha in p_rotations:
-            r, theta, phi = rect2pol(t)
-            p = rotate(p_start, t, alpha)
-            sdr1, sdr2 = tp2sdr(coord_switch(t), coord_switch(p))
-            sdr1 = np.rad2deg(np.array(sdr1))
-            sdr2 = np.rad2deg(np.array(sdr2))
-            As = np.array(Rpattern(sdr1, azimuth, takeoff_angles))
-            As[0] *= b3_over_a3
-            angle = np.arccos(np.dot(As, Ao)/(np.linalg.norm(As)*np.linalg.norm(Ao)))
-            
-            old_weight = get_gaussian_weight(angle, old_epsilon) # old method
-            epsilon = get_ellipse_epsilon(Ao, Uo, As)
-            weight = get_gaussian_weight(angle, epsilon) # new method
-            if no_rejected:
-                if old_weight < np.exp(-2) or weight < np.exp(-2): continue
-            data["Theta"].append(np.rad2deg(theta))
-            data["Phi"].append(np.rad2deg(phi))
-            data["tx"].append(t[0])
-            data["ty"].append(t[1])
-            data["tz"].append(t[2])
-            data["px"].append(p[0])
-            data["py"].append(p[1])
-            data["pz"].append(p[2])
-            data["Strike1"].append(sdr1[0])
-            data["Dip1"].append(sdr1[1])
-            data["Rake1"].append(sdr1[2])
-            data["Strike2"].append(sdr2[0])
-            data["Dip2"].append(sdr2[1])
-            data["Rake2"].append(sdr2[2])
-            data["OldWeight"].append(old_weight)
-            data["Weight"].append(weight)
+    t_samples = np.load(t_vec)
+    p_samples = np.load(p_vec)
+    sdr1_samples = np.load(sdr1_vec)
+    sdr2_samples = np.load(sdr2_vec)
+    
+    for i in range(len(t_samples)):
+        _, theta, phi = rect2pol(t_samples[i])
+        sdr1, sdr2 = sdr1_samples[i], sdr2_samples[i]
+        As = Rpattern(sdr1, azimuth, takeoff_angles, alpha_beta)
+        # As[0] *= b3_over_a3
+        angle = np.arccos(np.dot(As, Ao)/(np.linalg.norm(As)*np.linalg.norm(Ao)))
+        
+        old_weight = get_gaussian_weight(angle, old_epsilon) # old method
+        epsilon = get_ellipse_epsilon(Ao, Uo, As)
+        weight = get_gaussian_weight(angle, epsilon) # new method
+        if no_rejected:
+            if old_weight < np.exp(-2) or weight < np.exp(-2): continue
+        data["Theta"].append(np.rad2deg(theta))
+        data["Phi"].append(np.rad2deg(phi))
+        data["tx"].append(t_samples[i][0])
+        data["ty"].append(t_samples[i][1])
+        data["tz"].append(t_samples[i][2])
+        data["px"].append(p_samples[i][0])
+        data["py"].append(p_samples[i][1])
+        data["pz"].append(p_samples[i][2])
+        data["Strike1"].append(sdr1[0])
+        data["Dip1"].append(sdr1[1])
+        data["Rake1"].append(sdr1[2])
+        data["Strike2"].append(sdr2[0])
+        data["Dip2"].append(sdr2[1])
+        data["Rake2"].append(sdr2[2])
+        data["AP"].append(As[0])
+        data["ASV"].append(As[1])
+        data["ASH"].append(As[2])
+        data["OldWeight"].append(old_weight)
+        data["Weight"].append(weight)
     
     return pd.DataFrame(data)
 
@@ -644,37 +806,51 @@ def sdr_histograms(df: pd.DataFrame, bins: int = 50):
     axs[2,1].set_xlabel("Degrees")
     plt.show()
     
-def weighted_3D_scatter(df: pd.DataFrame, weight: str, true_sol: list = []):
+def weighted_3D_scatter(df: pd.DataFrame, weight: str, true_sol: list = [], type: str = "sdr"):
     """
-    Plot a 3D scatter plot of the sdr triples, weighted by the specified column
+    Plot a 3D scatter plot of the sdr triples or amplitudes, weighted by the specified column
 
     Args:
         df (pd.DataFrame): dataframe with sdr pairs
         weight (str): method of weighting
         true_sol (list, optional): true solution, NumPy array of sdr*2. Defaults to [].
+        type (str, optional): "sdr" or "amp" (amplitude). Defaults to "sdr".
     """
+    
     fig = plt.figure(figsize=(15, 12))
     ax = fig.add_subplot(111, projection='3d')
     if weight == "OldWeight":
-        ax.set_title("Weighted sdr Scatter Plot (Old Method)", fontsize=20)
+        ax.set_title(f"Weighted {type} Scatter Plot (Old Method)", fontsize=20)
     else:
-        ax.set_title("Weighted sdr Scatter Plot (New Method)", fontsize=20)
-    ax.set_xlabel("Rake")
-    ax.set_ylabel("Strike")
-    ax.set_zlabel("Dip")
-    scatter = ax.scatter(df["Rake1"]._append(df["Rake2"]),
+        ax.set_title(f"Weighted {type} Scatter Plot (New Method)", fontsize=20)
+    
+    if type == "amp":
+        labels = ["AP", "ASV", "ASH"]
+        scatter = ax.scatter(df["AP"], df["ASV"], df["ASH"], c=df[weight], cmap="YlGnBu")
+    elif type == "sdr":
+        labels = ["Rake", "Strike", "Dip"]
+        scatter = ax.scatter(df["Rake1"]._append(df["Rake2"]),
                         df["Strike1"]._append(df["Strike2"]),
                         df["Dip1"]._append(df["Dip2"]),
                         c=df[weight]._append(df[weight]), cmap="YlGnBu")
+    else:
+        print("Invalid type")
+        return
+    
+    ax.set_xlabel(labels[0])
+    ax.set_ylabel(labels[1])
+    ax.set_zlabel(labels[2])
+    
     plt.colorbar(scatter)
-    if true_sol != []:
+    
+    if true_sol != [] and type == "sdr":
         true_sol = np.transpose(true_sol)
         ax.scatter(true_sol[2], true_sol[0], true_sol[1], c='red', marker='o', s=500)
     plt.show()
    
 def weighted_pairwise_scatter(df: pd.DataFrame, weight: str, bins: int = 50, true_sol: list = [], type: str = "sdr"):
     """
-    Plot pairwise scatter plots of the sdr pairs, weighted by the specified column
+    Plot pairwise scatter plots of the sdr, tp or amplitude pairs, weighted by the specified column
     Alternatively histograms 
 
     Args:
@@ -682,7 +858,7 @@ def weighted_pairwise_scatter(df: pd.DataFrame, weight: str, bins: int = 50, tru
         weight (str): method of weighting
         bins (int): array of bins. Defaults to 50.
         true_sol (list, optional): true solution, NumPy array of two sdr triples. Defaults to [].
-        type (str, optional): "sdr" or "tp" (theta, phi). Defaults to "sdr".
+        type (str, optional): "sdr" or "tp" (theta, phi) or "amp" (amplitudes). Defaults to "sdr".
     """
     if type == "tp":
         # Plot histograms for theta, phi, alpha
@@ -708,7 +884,8 @@ def weighted_pairwise_scatter(df: pd.DataFrame, weight: str, bins: int = 50, tru
             axs[2].set_title("Weighted Theta-Phi Scatter Plot (New Method)")
         axs[2].set_xlabel("Theta")
         axs[2].set_ylabel("Phi")
-        scatter = axs[2].scatter(df["Theta"], df["Phi"], c=df[weight], cmap="YlGnBu")
+        scatter = axs[2].scatter(df["Theta"], df["Phi"], c=df[weight], cmap="YlGnBu", label='weight')
+        axs[2].legend()
         plt.colorbar(scatter)
         if true_sol != []:
             true_sol = np.transpose(true_sol)
@@ -719,9 +896,8 @@ def weighted_pairwise_scatter(df: pd.DataFrame, weight: str, bins: int = 50, tru
     elif type == "sdr":
     
         if true_sol != []: true_sol = np.transpose(true_sol)
-        # use similar structure as sdr_histograms
-        # Don't stack yet
-        # Turn into a for loop later
+        # Use similar structure as sdr_histograms
+        # Don't stack
         fig, axs = plt.subplots(3, 3, figsize=(18, 18))
         if weight == "OldWeight":
             plt.suptitle("Weighted Pairwise Scatter Plots (Old Method)", fontsize=20)
@@ -729,6 +905,10 @@ def weighted_pairwise_scatter(df: pd.DataFrame, weight: str, bins: int = 50, tru
             plt.suptitle("Weighted Pairwise Scatter Plots (New Method)", fontsize=20)
         
         axs[0,0].hist(df["Strike1"]._append(df["Strike2"]), bins=np.linspace(0,360,bins))
+        if true_sol != []:
+            axs[0,0].axvline(x=true_sol[0][0], color='green', label='Strike1')
+            axs[0,0].axvline(x=true_sol[0][1], color='red', label='Strike2')
+            axs[0,0].legend()
         axs[0,0].set_title("Strike")
         axs[0,0].set_xlabel("Degrees")
         axs[0,0].set_ylabel("Frequency")
@@ -739,7 +919,6 @@ def weighted_pairwise_scatter(df: pd.DataFrame, weight: str, bins: int = 50, tru
         axs[0,1].set_title("Dip vs. Strike")
         axs[0,1].set_xlabel("Dip (Degrees)")
         axs[0,1].set_ylabel("Strike (Degrees)")
-        axs
         if true_sol != []:
             axs[0,1].scatter(true_sol[1], true_sol[0], c='red', marker='o', s=100)
         
@@ -762,6 +941,10 @@ def weighted_pairwise_scatter(df: pd.DataFrame, weight: str, bins: int = 50, tru
             axs[1,0].scatter(true_sol[0], true_sol[1], c='red', marker='o', s=100)
         
         axs[1,1].hist(df["Dip1"]._append(df["Dip2"]), bins=np.linspace(0,90,bins))
+        if true_sol != []:
+            axs[1,1].axvline(x=true_sol[1][0], color='green', label='Dip1')
+            axs[1,1].axvline(x=true_sol[1][1], color='red', label='Dip2')
+            axs[1,1].legend()
         axs[1,1].set_title("Dip")
         axs[1,1].set_xlabel("Degrees")
         axs[1,1].set_ylabel("Frequency")
@@ -794,26 +977,73 @@ def weighted_pairwise_scatter(df: pd.DataFrame, weight: str, bins: int = 50, tru
             axs[2,1].scatter(true_sol[1], true_sol[2], c='red', marker='o', s=100)
         
         axs[2,2].hist(df["Rake1"]._append(df["Rake2"]), bins=np.linspace(-180,180,bins))
+        if true_sol != []:
+            axs[2,2].axvline(x=true_sol[2][0], color='green', label='Rake1')
+            axs[2,2].axvline(x=true_sol[2][1], color='red', label='Rake2')
+            axs[2,2].legend()
         axs[2,2].set_title("Rake")
         axs[2,2].set_xlabel("Degrees")
+        axs[2,2].set_ylabel("Frequency")
+        
+        plt.show()
+    
+    elif type == "amp":
+        
+        fig, axs = plt.subplots(3, 3, figsize=(18, 18))
+        if weight == "OldWeight":
+            plt.suptitle("Weighted Amplitude Scatter Plots (Old Method)", fontsize=20)
+        else:
+            plt.suptitle("Weighted Amplitude Scatter Plots (New Method)", fontsize=20)
+        
+        axs[0,0].hist(df["AP"], bins=bins)
+        axs[0,0].set_title("AP")
+        axs[0,0].set_xlabel("AP (m)")
+        axs[0,0].set_ylabel("Frequency")
+        
+        axs[0,1].scatter(df["ASV"], df["AP"], c=df[weight], cmap="YlGnBu")
+        axs[0,1].set_title("ASV vs. AP")
+        axs[0,1].set_xlabel("ASV (m)")
+        axs[0,1].set_ylabel("AP (m)")
+        
+        axs[0,2].scatter(df["ASH"], df["AP"], c=df[weight], cmap="YlGnBu")
+        axs[0,2].set_title("ASH vs. AP")
+        axs[0,2].set_xlabel("ASH (m)")
+        axs[0,2].set_ylabel("AP (m)")
+               
+        axs[1,0].scatter(df["AP"], df["ASV"], c=df[weight], cmap="YlGnBu")
+        axs[1,0].set_title("AP vs. ASV")
+        axs[1,0].set_xlabel("AP (m)")
+        axs[1,0].set_ylabel("ASV (m)")
+        
+        axs[1,1].hist(df["ASV"], bins=bins)
+        axs[1,1].set_title("ASV")
+        axs[1,1].set_xlabel("ASV (m)")
+        axs[1,1].set_ylabel("Frequency")
+        
+        axs[1,2].scatter(df["ASH"], df["ASV"], c=df[weight], cmap="YlGnBu")
+        axs[1,2].set_title("ASH vs. ASV")
+        axs[1,2].set_xlabel("ASH (m)")
+        axs[1,2].set_ylabel("ASV (m)")
+        
+        axs[2,0].scatter(df["AP"], df["ASH"], c=df[weight], cmap="YlGnBu")
+        axs[2,0].set_title("AP vs. ASH")
+        axs[2,0].set_xlabel("AP (m)")
+        axs[2,0].set_ylabel("ASH (m)")
+        
+        axs[2,1].scatter(df["ASV"], df["ASH"], c=df[weight], cmap="YlGnBu")
+        axs[2,1].set_title("ASV vs. ASH")
+        axs[2,1].set_xlabel("ASV (m)")
+        axs[2,1].set_ylabel("ASH (m)")
+        
+        axs[2,2].hist(df["ASH"], bins=bins)
+        axs[2,2].set_title("ASH")
+        axs[2,2].set_xlabel("ASH (m)")
         axs[2,2].set_ylabel("Frequency")
         
         plt.show()
         
     else:
         print("Invalid type")
-
-def other_sphere_point(point: list) -> list:
-    """
-    Find the other point on the surface of a unit sphere
-
-    Args:
-        point (list): [x,y,z] coordinates of point
-
-    Returns:
-        list: [x,y,z] coordinates of other point
-    """
-    return np.array([-point[0], -point[1], -point[2]])   
         
 def plot_cross(ax, t: list, p: list, weight: float = 1, t_color: str = "black", p_color: str = "red"):
     """
@@ -916,7 +1146,6 @@ def aggregate_sdr(df: pd.DataFrame, weight: str):
     rake2 /= df[weight].sum()
     return np.array([strike1, dip1, rake1]), np.array([strike2, dip2, rake2])
 
-
 # Put beachballs on visuals
 # Plot aggregate beachballs
 # Calculate misfit angle of aggregate beachballs
@@ -924,6 +1153,44 @@ def aggregate_sdr(df: pd.DataFrame, weight: str):
 # Generate datasets without alpha
 
 """
-ENTER MONDAY WITH A PLAN FOR THE STATISTICS
-ALL VISUALIZATIONS DONE
+ENTER MONDAY WITH A PLAN FOR THE STATISTICS - yes
+GET AMPLITUDE SPACE VISUALIZATIONS
+CREATE A FUNCTION FOR AMPLITUDE SPACE VISUALIZATIONS
+INCORPORATE B3_OVER_A3
+WHAT'S THAT BUG??? --> not a bug
+"""
+
+"""
+So it's definitely not tp2sdr
+Who knows, it may not even be a bug?
+No, that's a lie, it's definitely a bug
+
+It's probably the rotation matrix
+It's definitely not the rotation matrix
+
+Turns out it's not a bug
+"""
+
+"""
+Use a uniform scale for histograms!!!
+Not a bug, use analysis of the method's geometry
+Method modifications/mathematical advances in report
+"""
+
+"""
+Advances:
+Use smaller ellipsoids for more definitive visualizations
+Plot the vectors of amplitudes
+"""
+
+"""
+there's something about the shape of the ellipsoid...
+test my_tp2sdr rigorously against tp2sdr
+
+Forward problem: scan through entire space
+Plot same mechanism over
+az = [0,360] from compass north
+takeoff = [0,180] from south pole
+turn distance into takeoff angles, scan distances
+revise the beachball code to accurately represent the beachball
 """

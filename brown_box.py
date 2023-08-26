@@ -110,7 +110,7 @@ if __name__ == '__main__':
     # format per inner list: [([strike, dip, rake], weight), ...]
     
     # this takes a while
-    t_samples = hemisphere_samples(N**2)
+    t_samples = random_hemisphere_samples(N**2)
     for t in t_samples:
         p_rotations = uniform_samples(N, [0, np.pi])
         p_start = starting_direc(t, j_hat)

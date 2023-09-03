@@ -9,7 +9,7 @@ import math
 from obspy.imaging.beachball import beachball
 from obspy.imaging.beachball import beach
 
-eps = 1e-8; halfpi = np.pi/2; twopi = 2*np.pi
+eps = 1e-10; halfpi = np.pi/2; twopi = 2*np.pi
 i_hat = np.array([1,0,0]); j_hat = np.array([0,1,0]); k_hat = np.array([0,0,1])
 np.random.seed(1029) # I hope this carries over to other files
 # It only does for randomness associated with fr
@@ -382,17 +382,17 @@ def starting_direc(point: list, direc: list) -> list:
     Returns:
         list: [x,y,z] of the normal vector
     """
+    # # Let's get rotational
+    # if np.array_equal(point, direc):
+    #     print("That one exception")
+    #     return j_hat # that one exception
+    # out = rodrigues_rotate(point, direc, halfpi)
+    # return out/np.linalg.norm(out)
+    
     # Let's get linear algebraic
     proj = (np.dot(direc, point)/np.dot(point, point)) # parallel to point
     rem = np.array(direc) - proj*np.array(point) # orthogonal to point
     return rem/np.linalg.norm(rem) if np.linalg.norm(rem) > eps else j_hat
-    
-    # Let's get rotational
-    # if np.array_equal(point, direc):
-    #     print("That one exception")
-    #     return j_hat # that one exception
-    # out = rotate(point, direc, halfpi)
-    # return out/np.linalg.norm(out)
 
 def matrix_rotate(vec: list, axis: list, theta: float) -> list:
     """
@@ -463,6 +463,7 @@ def azdp(v, units):
 def coord_switch(point: list) -> list:
     """
     Change coordinate system to fit tp2sdr function
+    First coordinate points up, second points south, third points east
 
     Args:
         point (list): [x,y,z] coordinates
@@ -536,6 +537,7 @@ def my_tp2sdr(t: list, p: list, deg: bool = False) -> tuple:
     See tp2sdr
     Inputs are numpy arrays
     Outputs in radians unless deg is True
+    Uses right-hand rule for coordinate system
     """
     # First get the normals
     n1 = t + p
@@ -553,21 +555,46 @@ def my_tp2sdr(t: list, p: list, deg: bool = False) -> tuple:
     strike1 = (twopi - theta1) % twopi
     strike2 = (twopi - theta2) % twopi
     
-    # Check if the normals house a t or p axis
-    if abs(np.dot(n1 + n2, t)) < eps: # houses a p axis, negative slip
-        slip1 = -n2
-        slip2 = -n1       
-    else: # houses a t axis, positive slip
-        slip1 = n2
-        slip2 = n1
-
-    # Get rakes from slip vectors
+    # Base directions for rakes, null for exceptions
     base1 = pol2rect(np.array([1, bearing2angle(strike1), halfpi]))
     base2 = pol2rect(np.array([1, bearing2angle(strike2), halfpi]))
-    rake1 = np.arccos(np.dot(slip1, base1)/(np.linalg.norm(slip1)*np.linalg.norm(base1)))
-    rake1 *= np.sign(slip1[2])
-    rake2 = np.arccos(np.dot(slip2, base2)/(np.linalg.norm(slip2)*np.linalg.norm(base2)))
-    rake2 *= np.sign(slip2[2])
+    null = np.cross(t,p)
+    if null[2] < 0: null *= -1
+    done1, done2 = False, False
+    
+    # Account for edge cases on perfectly vertical dips
+    if n1[2] < eps and n2[2] < eps: # double vertical dip
+        check1 = rodrigues_rotate(base1, null, np.pi/4)
+        if abs(np.dot(check1, t)) < eps: rake1 = 0.
+        else: rake1 = np.pi
+        check2 = rodrigues_rotate(base2, null, np.pi/4)
+        if abs(np.dot(check2, t)) < eps: rake2 = 0.
+        else: rake2 = np.pi
+        done1, done2 = True, True
+    elif n1[2] < eps: # single vertical dip
+        check2 = rodrigues_rotate(base2, null, np.pi/4)
+        if abs(np.dot(check2, t)) < eps: rake2 = 0.
+        else: rake2 = np.pi
+        done2 = True
+    elif n2[2] < eps: # single vertical dip
+        check1 = rodrigues_rotate(base1, null, np.pi/4)
+        if abs(np.dot(check1, t)) < eps: rake1 = 0.
+        else: rake1 = np.pi
+        done1 = True
+    
+    # Check if the restricted normals house a t or p axis
+    if abs(np.dot(n1 + n2, t)) < eps: # houses a p axis, negative slip
+        slip1, slip2 = -n2, -n1
+    else: # houses a t axis, positive slip
+        slip1, slip2 = n2, n1
+
+    # Get rakes from  base and slip vectors
+    if not done1:
+        rake1 = np.arccos(np.dot(slip1, base1)/np.linalg.norm(slip1))
+        rake1 *= np.sign(slip1[2])
+    if not done2:
+        rake2 = np.arccos(np.dot(slip2, base2)/np.linalg.norm(slip2))
+        rake2 *= np.sign(slip2[2])
     
     if deg:
         strike1, strike2 = np.rad2deg(strike1), np.rad2deg(strike2)
@@ -576,7 +603,7 @@ def my_tp2sdr(t: list, p: list, deg: bool = False) -> tuple:
     
     return (np.array([strike1, dip1, rake1]), np.array([strike2, dip2, rake2]))
 
-# Incorporate a3_over_b3 in this function (alpha, beta)  
+# Incorporate b3_over_a3 in this function (alpha, beta)  
 def Rpattern(fault, azimuth, takeoff_angles, alpha_beta: list = []): # Update Omkar on incidence -> takeoff
     """
     Calculate predicted amplitudes of P, SV, and SH waves.
@@ -596,7 +623,7 @@ def Rpattern(fault, azimuth, takeoff_angles, alpha_beta: list = []): # Update Om
     """
 
     strike, dip, rake = fault
-    a = azimuth; rela = strike - azimuth
+    rela = strike - azimuth
     sinlam = np.sin(np.radians(rake))
     coslam = np.cos(np.radians(rake))
     sind = np.sin(np.radians(dip))
@@ -620,6 +647,7 @@ def Rpattern(fault, azimuth, takeoff_angles, alpha_beta: list = []): # Update Om
     ASV = 1.5*sR*np.sin(2*jS) + qR*np.cos(2*jS) + 0.5*pR*np.sin(2*jS)
     ASH = qL*np.cos(jS) + pL*np.sin(jS)
     
+    # Incorporating b3_over_a3
     if len(alpha_beta) != 0:
         AP /= alpha_beta[0]**3
         ASV /= alpha_beta[1]**3
@@ -677,17 +705,22 @@ def get_ellipse_epsilon(Ao: list, Uo: list, As: list) -> float:
     """
     
     n1 = np.cross(Ao,As)
+    if np.linalg.norm(n1) < eps: # can't use As
+        if np.dot(Ao, As) > 0: return np.inf
+        else: return eps
     n2 = Ao/(Uo**2)
+    
     m = np.cross(n1,n2)
     v = m/Uo
     k = 1 - 1/np.dot(n2,Ao)
     b = np.dot(n2,m)/np.dot(n2,Ao)
     
-    t1 = (b - np.sqrt(b**2 + k*np.dot(v,v)))/np.dot(v,v)
-    t2 = (b + np.sqrt(b**2 + k*np.dot(v,v)))/np.dot(v,v)
+    vdot = np.dot(v,v)
+    t1 = (b - np.sqrt(b**2 + k*vdot))/vdot
+    t2 = (b + np.sqrt(b**2 + k*vdot))/vdot
     
-    r1 = k*Ao + t1*np.cross(n1,n2)
-    r2 = k*Ao + t2*np.cross(n1,n2)
+    r1 = k*Ao + t1*m
+    r2 = k*Ao + t2*m
     
     epsilon = .5*np.arccos(np.dot(r1,r2)/(np.linalg.norm(r1)*np.linalg.norm(r2)))
     
@@ -705,6 +738,7 @@ def get_gaussian_weight(angle: float, epsilon: float) -> float:
     Returns:
         float: gaussian weight
     """
+
     return np.exp(-angle**2/(2*epsilon**2))
 
 # Incorporate b3_over_a3 into Rpattern
@@ -756,7 +790,7 @@ def apply_inverse_methods(model: TauPyModel, t_vec: str, p_vec: str, sdr1_vec: s
         epsilon = get_ellipse_epsilon(Ao, Uo, As)
         weight = get_gaussian_weight(angle, epsilon) # new method
         if no_rejected:
-            if old_weight < np.exp(-2) or weight < np.exp(-2): continue
+            if old_weight < np.exp(-2) and weight < np.exp(-2): continue
         data["Theta"].append(np.rad2deg(theta))
         data["Phi"].append(np.rad2deg(phi))
         data["tx"].append(t_samples[i][0])
@@ -777,6 +811,31 @@ def apply_inverse_methods(model: TauPyModel, t_vec: str, p_vec: str, sdr1_vec: s
         data["OldWeight"].append(old_weight)
         data["Weight"].append(weight)
     
+    return pd.DataFrame(data)
+
+# Core function
+def sdr_inverse_method(sdr_vec: str, azimuth: float, takeoffs: list, Ao: list, Uo: list, alpha_beta: list = [5.8000, 3.4600], no_rejected: bool = False) -> pd.DataFrame:
+    sdrs = np.load(sdr_vec)
+    data = collections.defaultdict(list) # initialize dataframe
+    
+    for sdr in sdrs:
+        As = Rpattern(sdr, azimuth, takeoffs, alpha_beta)
+        angle = np.arccos(np.dot(As, Ao)/(np.linalg.norm(As)*np.linalg.norm(Ao)))
+        old_epsilon = get_sphere_epsilon(Ao, Uo)
+        old_weight = get_gaussian_weight(angle, old_epsilon) # old method
+        epsilon = get_ellipse_epsilon(Ao, Uo, As)
+        weight = get_gaussian_weight(angle, epsilon) # new method
+        if no_rejected:
+            if old_weight < np.exp(-2) and weight < np.exp(-2): continue
+        data['Strike'].append(sdr[0])
+        data['Dip'].append(sdr[1])
+        data['Rake'].append(sdr[2])
+        data['AP'].append(As[0])
+        data['ASV'].append(As[1])
+        data['ASH'].append(As[2])
+        data['OldWeight'].append(old_weight)
+        data['Weight'].append(weight)
+        
     return pd.DataFrame(data)
 
 def sdr_histograms(df: pd.DataFrame, bins: int = 50):
@@ -806,7 +865,7 @@ def sdr_histograms(df: pd.DataFrame, bins: int = 50):
     axs[2,1].set_xlabel("Degrees")
     plt.show()
     
-def weighted_3D_scatter(df: pd.DataFrame, weight: str, true_sol: list = [], type: str = "sdr"):
+def weighted_3D_scatter(df: pd.DataFrame, weight: str, true_sol: list = [], type: str = "sdr", save: str = ""):
     """
     Plot a 3D scatter plot of the sdr triples or amplitudes, weighted by the specified column
 
@@ -821,8 +880,10 @@ def weighted_3D_scatter(df: pd.DataFrame, weight: str, true_sol: list = [], type
     ax = fig.add_subplot(111, projection='3d')
     if weight == "OldWeight":
         ax.set_title(f"Weighted {type} Scatter Plot (Old Method)", fontsize=20)
-    else:
+    elif weight == "Weight":
         ax.set_title(f"Weighted {type} Scatter Plot (New Method)", fontsize=20)
+    else:
+        ax.set_title(f"{type} Scatter Plot", fontsize=20)
     
     if type == "amp":
         labels = ["AP", "ASV", "ASH"]
@@ -846,6 +907,8 @@ def weighted_3D_scatter(df: pd.DataFrame, weight: str, true_sol: list = [], type
     if true_sol != [] and type == "sdr":
         true_sol = np.transpose(true_sol)
         ax.scatter(true_sol[2], true_sol[0], true_sol[1], c='red', marker='o', s=500)
+    if save != "":
+        plt.savefig(save)
     plt.show()
    
 def weighted_pairwise_scatter(df: pd.DataFrame, weight: str, bins: int = 50, true_sol: list = [], type: str = "sdr"):

@@ -172,3 +172,5 @@ test_cases = [np.array(t) for t in test_cases]
 for t in test_cases:
      new_t = np.vectorize(np.rad2deg)(fr.rect2pol(np.array(t)))
      print(f"Test case: {t}\nAzimuth: {new_t[1]}\nDecline: {new_t[2]}\n")
+     
+print(np.arange(0,1,1/5))

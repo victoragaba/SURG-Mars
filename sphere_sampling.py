@@ -124,10 +124,10 @@ if __name__ == '__main__':
     """
     Plotting p axes
     """
-    dd = 5
+    dd = 3
     Ts = rigid_hemisphere_samples(dd)
     # Ts = Ts[:int(len(Ts)/8)]
-    Ts = Ts[::64]
+    # Ts = Ts[::64]
     # Ts = Ts[:16]
     Ps = []
     P_rotations = np.arange(0, np.pi, np.deg2rad(dd))
@@ -138,25 +138,28 @@ if __name__ == '__main__':
     
     fig5 = plt.figure()
     ax = plt.axes(projection='3d')
-    fig = ax.scatter3D([T[0] for T in Ts],
+    ax.set_box_aspect((1,1,.5))
+    # ax.set_aspect('equal')
+    ax.scatter3D([T[0] for T in Ts],
                     [T[1] for T in Ts],
                     [T[2] for T in Ts], c='b', s=1/10)
-    ax.set_xlabel('X')
-    ax.set_ylabel('Y')
-    ax.set_zlabel('Z')
-    print(len(Ps))
-    # plt.show()
-    
-    fig6 = plt.figure()
-    ax = plt.axes(projection='3d')
-    fig = ax.scatter3D([P[0] for P in Ps],
-                    [P[1] for P in Ps],
-                    [P[2] for P in Ps], c='b', s=1/10)
+    ax.set_title("T Axis Samples")
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
     ax.set_zlabel('Z')
     print(len(Ps))
     plt.show()
+    
+    # fig6 = plt.figure()
+    # ax = plt.axes(projection='3d')
+    # ax.scatter3D([P[0] for P in Ps],
+    #                 [P[1] for P in Ps],
+    #                 [P[2] for P in Ps], c='b', s=1/10)
+    # ax.set_xlabel('X')
+    # ax.set_ylabel('Y')
+    # ax.set_zlabel('Z')
+    # print(len(Ps))
+    # plt.show()
     
 # Spot checks per t axis, look at half rotation of p's that comes from it
 # Look at Suzan's code for t-p axis generation

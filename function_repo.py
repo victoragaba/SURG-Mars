@@ -532,12 +532,20 @@ def tp2sdr(t,p):
 
     return (st1%twopi, dip1, rake1), (st2%twopi, dip2, rake2)  # in radians
 
+# my personal favorite
 def my_tp2sdr(t: list, p: list, deg: bool = False) -> tuple:
     """
-    See tp2sdr
-    Inputs are numpy arrays
-    Outputs in radians unless deg is True
+    Converts from T and P axes to strike, dip, and rake of both fault planes
+    Inputs are numpy arrays, assumes unit vectors
     Uses right-hand rule for coordinate system
+
+    Args:
+        t (list): T axis
+        p (list): P axis
+        deg (bool, optional): output in degrees if True
+
+    Returns:
+        tuple: (sdr1)
     """
     # First get the normals
     n1 = t + p

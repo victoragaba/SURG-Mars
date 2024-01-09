@@ -91,3 +91,9 @@ p1d = np.degrees(np.array(p1))
 p2d = np.degrees(np.array(p2))
 print(p1d)
 print(p2d)
+
+# get machine precision
+eps = 1.
+while eps + 1. > 1.:
+    eps = eps/2.
+print(2*eps)

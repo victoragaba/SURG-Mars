@@ -1,0 +1,10 @@
+import numpy as np
+
+# Create an empty array
+my_array = np.array([])
+
+# Append elements to the array
+my_array = np.append(my_array, 1)
+my_array = np.append(my_array, [2, 3, 4])
+
+print(my_array)

@@ -1,0 +1,46 @@
+This is BibTeX, Version 0.99d (TeX Live 2024)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+The style file: abbrvnat_seismica_upcasetitle.bst
+Database file #1: references.bib
+You've used 2 entries,
+            2736 wiz_defined-function locations,
+            602 strings with 4974 characters,
+and the built_in function-call counts, 881 in all, are:
+= -- 78
+> -- 42
+< -- 3
++ -- 14
+- -- 12
+* -- 72
+:= -- 144
+add.period$ -- 7
+call.type$ -- 2
+change.case$ -- 8
+chr.to.int$ -- 2
+cite$ -- 4
+duplicate$ -- 35
+empty$ -- 69
+format.name$ -- 18
+if$ -- 177
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 3
+newline$ -- 19
+num.names$ -- 8
+pop$ -- 14
+preamble$ -- 1
+purify$ -- 8
+quote$ -- 0
+skip$ -- 33
+stack$ -- 0
+substring$ -- 43
+swap$ -- 3
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 17
+warning$ -- 0
+while$ -- 7
+width$ -- 0
+write$ -- 35

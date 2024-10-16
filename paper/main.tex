@@ -1,0 +1,238 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Seismica Submission Template
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Options available: 
+%%					anonymous
+%%					breakmath
+%%					languages
+%%					preprint
+%%					report
+
+%% anonymous: produces an anonymous PDF for double-blind review. Will NOT print authors information and acknowledgements, but WILL PRINT data availibility section, so be careful!
+%% breakmath: for manuscripts with many long formulas, you can specify the breakmath option (loads the package breqn and uses the dmath environment)
+%% languages: see below, use to add abstract(s) in additional languages
+%% preprint: removes line numbers, switch to two-columns
+%% report: if this is a report
+
+% \documentclass[breakmath,report]{seismica}
+\documentclass[preprint]{seismica}
+
+% import packages
+\usepackage{gensymb, nicefrac}
+
+\title{Single-seismometer Focal Mechanism and Uncertainty Estimation from Body Waves}
+\shorttitle{Single-seismometer Focal Mechanism and Uncertainty Estimation} % used for header, not mandatory
+
+%% If this is a REPORT, select a report type within: 
+%\reporttype{Null Results Report} % (null-results/failed experiments)
+%\reporttype{Software Report}
+%\reporttype{Data Report} %  (e.g., Large Community dataset initiatives, Instrument Deployments, and Field Campaigns)
+%\reporttype{Fast Report}
+
+%% Will not be printed if anonymous option ON
+\author[1]{Victor Agaba
+	% \orcid{0000-0000-0000-0000}
+	\thanks{Corresponding author: victoragaba2025@u.northwestern.edu}
+}
+\author[1]{Suzan van der Lee
+	\orcid{0000-0003-1884-1185}
+}
+\author[2]{Madelyn Sita
+	\orcid{0000-0002-7214-7058}
+}
+\author[3]{Caio Ciardelli}
+\author[4]{Paula Babirye}
+\affil[1]{Department of Earth and Planetary Sciences, Northwestern University, Evanston, IL, USA}
+\affil[2]{Department of Chemistry, University of Virginia, Charlottesville, VS, USA}
+
+%% Author CRediT roles
+%% Please use the CRediT roles as defined at https://casrai.org/credit
+%% Use as many roles as necessary; there is no requirement to use all 14 roles
+\credit{Conceptualization}{SL, MS.}
+\credit{Methodology}{VA, SL.}
+\credit{Software}{VA.}
+%\credit{Validation}{people}
+\credit{Formal Analysis}{VA, SL.}
+%\credit{Investigation}{people}
+%\credit{Resources}{people}
+\credit{Writing - Original draft}{VA, SL.}
+%\credit{Writing - Review \& Editing}{people}
+\credit{Visualization}{VA, SL.}
+\credit{Supervision}{SL.}
+%\credit{Project administration}{people}
+%\credit{Funding acquisition}{people}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Abstracts in other languages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% If your article includes abstracts in other languages, uncomment the lines below and fill in
+%%      the appropriate sections. You will need to use the [languages] option at the top,
+%%      and will need to use lualatex instead of pdflatex to compile the document.
+%% We will use luatex, polyglossia and fontspec for the compilation of the accepted version. 
+%% Feel free to use any polyglossia command.
+%\setotherlanguages{french,thai}  % replace with your language(s), per polyglossia
+%% if an additional font is needed for the abstract, load it with:
+%\newfontfamily\thaifont[Script=Thai]{Noto Serif Thai}
+
+%% If you are using Arabic, do not include it in \setotherlanguages{} as it is not supported 
+%% by polyglossia. Instead, with the [languages] option at the top, you can use these commands
+%% within the text:
+%%\begin{Arabic} and \end{Arabic} around paragraphs in Arabic
+%%\n{} to wrap any digits within Arabic text that should read left-to-right
+%%\textarabic{} for Arabic text embedded in a left-to-right paragraph
+
+%% also see https://www.overleaf.com/latex/examples/how-to-write-multilingual-text-with-different-scripts-in-latex/wfdxqhcyyjxz for reference
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Several abstracts
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% the command \makeseistitle does not allow page breaks in preprint mode. If you have
+%%		many abstracts, you can use the command \addsummaries. It will induce a pagebreak.
+
+\begin{document}
+    \makeseistitle{
+        \begin{summary}{Abstract}
+            Work on later, 200-word max.
+        \end{summary}
+        \begin{summary}{Non-technical summary}
+            Work on later, shorter than abstract.
+        \end{summary}
+    }
+	
+    %%%% In preprint mode, in case you have too many abstracts and need a page break, use this:
+    %\addsummaries{
+        %	\begin{french}
+            %	\begin{summary}{Résumé} 
+                %	The text goes here. Again, no longer than 200 words.
+                %	\end{summary}
+            %	\end{french}
+        %	\begin{summary}{Non-technical summary}
+            %	The text goes here. Again, no longer than 200 words.
+            %	\end{summary}
+        %}  %% don't forget this one!
+	
+\section{Introduction} \label{sec:introduction}
+
+    [Suzan] Insert words here...\\
+    Talk about this being an inverse method for a highly nonlinear problem\\
+    Writing tip: maximize information content of words
+
+\section{Cosine similarity misfit criterion} \label{sec:misfit}
+
+    \subsection{Derivation}
+     When a quake event happens, a single seismometer reads $P$, $SV$ and $SH$ body waves through which the respective amplitudes $A^P$, $A^{SV}$ and $A^{SH}$ along with their noise levels $\sigma^P$, $\sigma^{SV}$ and $\sigma^{SH}$ (representing standard deviation of an assumed normal distribution centered at the amplitude value) can be extracted.
+     Given a ray path's azimuth $\phi$ and take-off angles $i$, $j$ of $P$ and $S$ waves respectively, we model the amplitudes as functions of the source mechanism's fault strike $\psi$, fault dip $\delta$ and slip rake $\lambda$, further accounting for the $P$- and $S$-velocities $\alpha_h$, $\beta_h$ at source depth $h$ \citep{AkiRichards1980}. The expressions are:
+
+     \begin{align} \label{eq:eq1}
+         \nonumber &A^P \sim \nicefrac{\left( s_R(3\cos^2(i) - 1) - q_R\sin(2i) - p_R\sin^2(i) \right)}{\alpha_h^3}\\
+         &A^{SV} \sim \nicefrac{\left( 1.5 s_R\sin(2j) + q_R\cos(2j) + 0.5 p_R\sin(2j) \right)}{\beta_h^3}\\
+         \nonumber &A^{SH} \sim \nicefrac{\left( q_L\cos(j) + p_L\sin(j) \right)}{\beta_h^3}
+     \end{align}
+
+     where
+
+     \begin{align} \label{eq:eq2}
+         \nonumber s_R &= 0.5 \sin(\lambda) \sin(2\delta)\\
+         \nonumber q_R &= \sin(\lambda) \cos(2\delta) \sin(\psi_r) + \cos(\lambda) \cos(\delta) \cos(\psi_r)\\
+         p_R &= \cos(\lambda) \sin(\delta) \sin(2\psi_r) - 0.5\sin(\lambda) \sin(2\delta) \cos(2\psi_r)\\
+         \nonumber p_L &= 0.5\sin(\lambda) \sin(2\delta) \sin(2\psi_r) + \cos(\lambda) \sin(\delta) \cos(2\psi_r)\\
+         \nonumber q_L &= -\cos(\lambda) \cos(\delta) \sin(\psi_r) + \sin(\lambda) \cos(2\delta) \cos(\psi_r)
+     \end{align}
+
+     Our goal is two-fold:
+     \begin{enumerate}
+         \item [i)]
+            Find estimates $\widehat{\psi}, \widehat{\delta}, \widehat{\lambda}$ for the strike, dip and rake that \textit{best} describe the collected data.
+
+        \item [ii)]
+            Estimate the joint noise distribution of fault parameters to more accurately constrain the set of \textit{acceptable} estimates for the source mechanism.
+            
+     \end{enumerate}
+
+     We thus need a metric against which to evaluate what the best and acceptable estimates are. The misfit function used by \citet{sita_potential_2022} is defined as the angle between the vector of observed amplitudes and that synthesized from parameter estimates. In this paper, we shall use a misfit $\mu$ of cosine similarity between the two vectors which has a 1-to-1 correspondence with angle:
+
+     \begin{align} \label{eq:eq3}
+         \mu(\mathbf{p}) = \frac{\mathbf{A}_s^\top\mathbf{A}_o}{\|\mathbf{A}_s\|\|\mathbf{A}_o\|}
+     \end{align}
+
+     where $\mathbf{A}_o = (A^P, A^{SV}, A^{SH})^\top$ are observed amplitudes, $\mathbf{A}_s = (\widehat{A}^P, \widehat{A}^{SV}, \widehat{A}^{SH})^\top$ are synthetic amplitudes, and $\mathbf{p} = (\widehat{\psi}, \widehat{\delta}, \widehat{\lambda})$ are parameter estimates.
+
+     \subsection{Justification}
+     We are interested in situations where absolute amplitudes are either unknown or unnecessary, for instance if using data collected from NASA's Insight mission \citep{sita_potential_2022}.
+     In this case, we cannot know the absolute velocities because they depend on an understanding of Mars' interior that is good enough to build a reliable velocity model. Alternative misfit functions can account for the relative amplitudes, such as in Equations \ref{eq:eq4} and \ref{eq:eq5}:
+
+     \begin{align} \label{eq:eq4}
+         \mu(\mathbf{p}) = \sqrt{\left( \Delta \frac{A^{P}}{A^{SV}}\right)^2 + \left( \Delta \frac{A^{SV}}{A^{SH}}\right)^2}
+     \end{align}
+
+     \begin{align} \label{eq:eq5}
+         \mu(\mathbf{p}) = \sqrt{\log^2 \left( \Delta \frac{A^P}{A^{SV}} \right) + \log^2 \left( \Delta \frac{A^{SV}}{A^{SH}} \right)}
+     \end{align}
+
+     First, we note that using cosine similarity is more numerically stable in cases where one of the observed or synthetic amplitudes is close to zero since the norm of the associated vector in Equation \ref{eq:eq3} may still be large enough to make division feasible.
+
+     Secondly, we have chosen cosine similarity over angle because it involves one less operation, which is more computationally efficient and easier to differentiate for directed search algorithms (see Section \ref{sec:algorithms}). The Gaussian function in Equation \ref{eq:eq6} is similarly easy to differentiate, but it does not account for relative amplitudes so it would exclude otherwise acceptable solutions.
+
+     \begin{align} \label{eq:eq6}
+         &\mu(\mathbf{p}) \sim \exp \left( - \frac{1}{2} (\mathbf{A}_s - \mathbf{A}_o)^\top \mathbf{\Sigma}^{-1} (\mathbf{A}_s - \mathbf{A}_o) \right)\\
+         \nonumber &\text{where } \mathbf{\Sigma} = \text{diag}(\sigma^P, \sigma^{SV}, \sigma^{SH})
+     \end{align}
+
+     \subsection{Tolerance}
+     Given vectors $\mathbf{A}_s$ and $\mathbf{A}_o$, we would like to know the largest cosine similarity for which $\mathbf{A}_s$ is considered an acceptable fit for the recorded amplitudes while respecting the asymmetry of error levels for different amplitudes. This is visualized in 3D space as a confidence ellipsoid centered at $\mathbf{A}_o$ (Equation \ref{eq:eq7}), for which acceptable fits are vectors that fall inside the elliptical cone with vertex at the origin and tangent to the ellipsoid.
+     \begin{align} \label{eq:eq7}
+         \sum_{k \in \{P, SV, SH\}} \frac{(A^k_b-A^k)^2}{(\sigma^k)^2} = 1
+     \end{align}
+     
+     where $\mathbf{A} = (A^P_b, A^{SV}_b, A^{SH}_b)^\top$ describes a boundary point. The elliptical cone intersects with the ellipsoid at every boundary point for which
+     \begin{align} \label{eq:eq8}
+         \sum_{k \in \{P, SV, SH\}} \frac{2A^k_b(A^k_b-A^k)}{(\sigma^k)^2} = 0
+     \end{align}
+     
+     Combining equations \ref{eq:eq7} and \ref{eq:eq8} gives the plane containing every point of tangency:
+     \begin{align} \label{eq:eq9}
+         \sum_{k \in \{P, SV, SH\}} \frac{(A^k_b-A^k)^2}{(\sigma^k)^2} - \frac{2A^k_b(A^k_b-A^k)}{(\sigma^k)^2} = 1\\
+         \nonumber \sum_{k \in \{P, SV, SH\}} \frac{A^k}{(\sigma^k)^2} A^k_b = \left( \sum_{k \in \{P, SV, SH\}} \frac{(A^k)^2}{(\sigma^k)^2} \right) -1
+     \end{align}
+
+     Let $\mathbf{N}_1 = (\nicefrac{A^P}{(\sigma^P)^2}, \nicefrac{A^{SV}}{(\sigma^{SV})^2}, \nicefrac{A^{SH}}{(\sigma^{SH})^2})^\top$ be the normal of this plane. Consider also the plane containing vectors $\mathbf{A}_o$ and $\mathbf{A}_s$, with normal
+     \begin{align} \label{eq:eq10}
+         \mathbf{N}_2 = \mathbf{A}_o \times \mathbf{A}_s = (,,)^\top
+     \end{align}
+
+\section{Search Methods} \label{sec:algorithms}
+
+    Insert words here...
+
+\section{Uncertainty Quantification} \label{sec:uncertainty}
+
+    Insert words here...
+
+\section{Example: from Paula} \label{sec:example}
+
+    Insert words here...
+
+\section{Conclusions} \label{sec:conclusion}
+
+    Insert words here...
+
+%% Will not be printed if anonymous option ON
+\begin{acknowledgements}
+    [Suzan] Insert words here...
+\end{acknowledgements}
+
+\section*{Data and code availability}
+Zenodo, figshare, and Dryad to archive data and code. Citations for datasets and codes should be included in the references, including citations for any seismic networks from which data was used. Github is not considered a persistent repository, and we encourage authors to archive a snapshot of any github-hosted code on zenodo.
+
+\section*{Competing interests}
+    The authors have no competing interests.
+
+%% If the article is accepted, a separate bibfile must be uploaded along with the compiled manuscript, source file, and separate figure files.
+%% When available, DOI numbers must be provided for all references, including datasets and codes.
+\bibliography{references}
+   
+\end{document}
+	

@@ -57,7 +57,7 @@ class SeismicModel(InvProblem):
         # scale each row of C by the corresponding factor
         self.C /= factors[:,newaxis]
         
-        # also sture J and nabla_E for later use
+        # also store J and nabla_E for later use
         self.J = zeros((5,3))
         self.nabla_E = zeros(3)
         

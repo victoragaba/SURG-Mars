@@ -123,11 +123,17 @@
 \section{Cosine similarity misfit criterion} \label{sec:misfit}
 
     \subsection{Derivation}
-     When a quake event happens, a single seismometer reads $P$, $SV$ and $SH$ body waves through which the respective amplitudes $A^P$, $A^{SV}$ and $A^{SH}$ along with their noise levels $\sigma^P$, $\sigma^{SV}$ and $\sigma^{SH}$ (representing standard deviation of an assumed normal distribution centered at the amplitude value) can be extracted.
-     Given a ray path's azimuth $\phi$ and take-off angles $i$, $j$ of $P$ and $S$ waves respectively, we model the amplitudes as functions of the source mechanism's fault strike $\psi$, fault dip $\delta$ and slip rake $\lambda$, further accounting for the $P$- and $S$-velocities $\alpha_h$, $\beta_h$ at source depth $h$ \citep{AkiRichards1980}. The expressions are:
+     When a quake event happens, a single seismometer reads $P$, $SV$ and $SH$ body waves through
+     which the respective amplitudes $A^P$, $A^{SV}$ and $A^{SH}$ along with their noise levels
+     $\sigma^P$, $\sigma^{SV}$ and $\sigma^{SH}$ (representing standard deviation of an assumed normal
+     distribution centered at the amplitude value) can be extracted.
+     Given a ray path's azimuth $\phi$ and take-off angles $i$, $j$ of $P$ and $S$ waves respectively,
+     we model the amplitudes as functions of the source mechanism's fault strike $\psi$, fault dip
+     $\delta$ and slip rake $\lambda$, further accounting for the $P$- and $S$-velocities $\alpha_h$,
+     $\beta_h$ at source depth $h$ \citep{AkiRichards1980}. The expressions are:
 
      \begin{align} \label{eq:eq1}
-         \nonumber &A^P \sim \nicefrac{\left( s_R(3\cos^2(i) - 1) - q_R\sin(2i) - p_R\sin^2(i) \right)}{\alpha_h^3}\\
+         \nonumber &A^P \sim \nicefrac{\left( s_R(3\cos^2(i) - 1) - q_R\sin(2i) - p_R\sin^2(i)\right)}{\alpha_h^3}\\
          &A^{SV} \sim \nicefrac{\left( 1.5 s_R\sin(2j) + q_R\cos(2j) + 0.5 p_R\sin(2j) \right)}{\beta_h^3}\\
          \nonumber &A^{SH} \sim \nicefrac{\left( q_L\cos(j) + p_L\sin(j) \right)}{\beta_h^3}
      \end{align}
@@ -145,24 +151,35 @@
      Our goal is two-fold:
      \begin{enumerate}
          \item [i)]
-            Find estimates $\widehat{\psi}, \widehat{\delta}, \widehat{\lambda}$ for the strike, dip and rake that \textit{best} describe the collected data.
+            Find estimates $\widehat{\psi}, \widehat{\delta}, \widehat{\lambda}$ for the strike, dip
+            and rake that \textit{best} describe the collected data.
 
         \item [ii)]
-            Estimate the joint noise distribution of fault parameters to more accurately constrain the set of \textit{acceptable} estimates for the source mechanism.
+            Estimate the joint noise distribution of fault parameters to more accurately constrain the
+            set of \textit{acceptable} estimates for the source mechanism.
             
      \end{enumerate}
 
-     We thus need a metric against which to evaluate what the best and acceptable estimates are. The misfit function used by \citet{sita_potential_2022} is defined as the angle between the vector of observed amplitudes and that synthesized from parameter estimates. In this paper, we shall use a misfit $\mu$ of cosine similarity between the two vectors which has a 1-to-1 correspondence with angle:
+     We thus need a metric against which to evaluate what the best and acceptable estimates are. The
+     misfit function used by \citet{sita_potential_2022} is defined as the angle between the vector of
+     observed amplitudes and that synthesized from parameter estimates. In this paper, we shall use a
+     misfit $\mu$ of cosine similarity between the two vectors which has a 1-to-1 correspondence with angle:
 
      \begin{align} \label{eq:eq3}
          \mu(\mathbf{p}) = \frac{\mathbf{A}_s^\top\mathbf{A}_o}{\|\mathbf{A}_s\|\|\mathbf{A}_o\|}
      \end{align}
 
-     where $\mathbf{A}_o = (A^P, A^{SV}, A^{SH})^\top$ are observed amplitudes, $\mathbf{A}_s = (\widehat{A}^P, \widehat{A}^{SV}, \widehat{A}^{SH})^\top$ are synthetic amplitudes, and $\mathbf{p} = (\widehat{\psi}, \widehat{\delta}, \widehat{\lambda})$ are parameter estimates.
+     where $\mathbf{A}_o = (A^P, A^{SV}, A^{SH})^\top$ are observed amplitudes, $\mathbf{A}_s =
+     (\widehat{A}^P, \widehat{A}^{SV}, \widehat{A}^{SH})^\top$ are synthetic amplitudes, and
+     $\mathbf{p} = (\widehat{\psi}, \widehat{\delta}, \widehat{\lambda})$ are parameter estimates.
 
      \subsection{Justification}
-     We are interested in situations where absolute amplitudes are either unknown or unnecessary, for instance if using data collected from NASA's Insight mission \citep{sita_potential_2022}.
-     In this case, we cannot know the absolute velocities because they depend on an understanding of Mars' interior that is good enough to build a reliable velocity model. Alternative misfit functions can account for the relative amplitudes, such as in Equations \ref{eq:eq4} and \ref{eq:eq5}:
+     We are interested in situations where absolute amplitudes are either unknown or unnecessary, for
+     instance if using data collected from NASA's Insight mission \citep{sita_potential_2022}.
+     In this case, we cannot know the absolute velocities because they depend on an understanding of
+     Mars' interior that is good enough to build a reliable velocity model. Alternative misfit
+     functions can account for the relative amplitudes, such as in Equations \ref{eq:eq4} and
+     \ref{eq:eq5}:
 
      \begin{align} \label{eq:eq4}
          \mu(\mathbf{p}) = \sqrt{\left( \Delta \frac{A^{P}}{A^{SV}}\right)^2 + \left( \Delta \frac{A^{SV}}{A^{SH}}\right)^2}
@@ -172,9 +189,15 @@
          \mu(\mathbf{p}) = \sqrt{\log^2 \left( \Delta \frac{A^P}{A^{SV}} \right) + \log^2 \left( \Delta \frac{A^{SV}}{A^{SH}} \right)}
      \end{align}
 
-     First, we note that using cosine similarity is more numerically stable in cases where one of the observed or synthetic amplitudes is close to zero since the norm of the associated vector in Equation \ref{eq:eq3} may still be large enough to make division feasible.
+     First, we note that using cosine similarity is more numerically stable in cases where one of the
+     observed or synthetic amplitudes is close to zero since the norm of the associated vector in
+     Equation \ref{eq:eq3} may still be large enough to make division feasible.
 
-     Secondly, we have chosen cosine similarity over angle because it involves one less operation, which is more computationally efficient and easier to differentiate for directed search algorithms (see Section \ref{sec:algorithms}). The Gaussian function in Equation \ref{eq:eq6} is similarly easy to differentiate, but it does not account for relative amplitudes so it would exclude otherwise acceptable solutions.
+     Secondly, we have chosen cosine similarity over angle because it involves one less operation,
+     which is more computationally efficient and easier to differentiate for directed search
+     algorithms (see Section \ref{sec:algorithms}). The Gaussian function in Equation \ref{eq:eq6} is
+     similarly easy to differentiate, but it does not account for relative amplitudes so it would
+     exclude otherwise acceptable solutions.
 
      \begin{align} \label{eq:eq6}
          &\mu(\mathbf{p}) \sim \exp \left( - \frac{1}{2} (\mathbf{A}_s - \mathbf{A}_o)^\top \mathbf{\Sigma}^{-1} (\mathbf{A}_s - \mathbf{A}_o) \right)\\
@@ -182,23 +205,32 @@
      \end{align}
 
      \subsection{Tolerance}
-     Given vectors $\mathbf{A}_s$ and $\mathbf{A}_o$, we would like to know the largest cosine similarity for which $\mathbf{A}_s$ is considered an acceptable fit for the recorded amplitudes while respecting the asymmetry of error levels for different amplitudes. This is visualized in 3D space as a confidence ellipsoid centered at $\mathbf{A}_o$ (Equation \ref{eq:eq7}), for which acceptable fits are vectors that fall inside the elliptical cone with vertex at the origin and tangent to the ellipsoid.
+     Given vectors $\mathbf{A}_s$ and $\mathbf{A}_o$, we would like to know the largest cosine
+     similarity for which $\mathbf{A}_s$ is considered an acceptable fit for the recorded amplitudes
+     while respecting the asymmetry of error levels for different amplitudes. This is visualized in 3D
+     space as a confidence ellipsoid centered at $\mathbf{A}_o$ (Equation \ref{eq:eq7}), for which
+     acceptable fits are vectors that fall inside the elliptical cone with vertex at the origin and
+     tangent to the ellipsoid.
      \begin{align} \label{eq:eq7}
          \sum_{k \in \{P, SV, SH\}} \frac{(A^k_b-A^k)^2}{(\sigma^k)^2} = 1
      \end{align}
      
-     where $\mathbf{A} = (A^P_b, A^{SV}_b, A^{SH}_b)^\top$ describes a boundary point. The elliptical cone intersects with the ellipsoid at every boundary point for which
+     where $\mathbf{A} = (A^P_b, A^{SV}_b, A^{SH}_b)^\top$ describes a boundary point. The elliptical
+     cone intersects with the ellipsoid at every boundary point for which
      \begin{align} \label{eq:eq8}
          \sum_{k \in \{P, SV, SH\}} \frac{2A^k_b(A^k_b-A^k)}{(\sigma^k)^2} = 0
      \end{align}
      
-     Combining equations \ref{eq:eq7} and \ref{eq:eq8} gives the plane containing every point of tangency:
+     Combining equations \ref{eq:eq7} and \ref{eq:eq8} gives the plane containing every point of 
+     tangency:
      \begin{align} \label{eq:eq9}
          \sum_{k \in \{P, SV, SH\}} \frac{(A^k_b-A^k)^2}{(\sigma^k)^2} - \frac{2A^k_b(A^k_b-A^k)}{(\sigma^k)^2} = 1\\
          \nonumber \sum_{k \in \{P, SV, SH\}} \frac{A^k}{(\sigma^k)^2} A^k_b = \left( \sum_{k \in \{P, SV, SH\}} \frac{(A^k)^2}{(\sigma^k)^2} \right) -1
      \end{align}
 
-     Let $\mathbf{N}_1 = (\nicefrac{A^P}{(\sigma^P)^2}, \nicefrac{A^{SV}}{(\sigma^{SV})^2}, \nicefrac{A^{SH}}{(\sigma^{SH})^2})^\top$ be the normal of this plane. Consider also the plane containing vectors $\mathbf{A}_o$ and $\mathbf{A}_s$, with normal
+     Let $\mathbf{N}_1 = (\nicefrac{A^P}{(\sigma^P)^2}, \nicefrac{A^{SV}}{(\sigma^{SV})^2},
+     \nicefrac{A^{SH}}{(\sigma^{SH})^2})^\top$ be the normal of this plane. Consider also the plane
+     containing vectors $\mathbf{A}_o$ and $\mathbf{A}_s$, with normal
      \begin{align} \label{eq:eq10}
          \mathbf{N}_2 = \mathbf{A}_o \times \mathbf{A}_s = (,,)^\top
      \end{align}
@@ -225,7 +257,10 @@
 \end{acknowledgements}
 
 \section*{Data and code availability}
-Zenodo, figshare, and Dryad to archive data and code. Citations for datasets and codes should be included in the references, including citations for any seismic networks from which data was used. Github is not considered a persistent repository, and we encourage authors to archive a snapshot of any github-hosted code on zenodo.
+Zenodo, figshare, and Dryad to archive data and code. Citations for datasets and codes should be
+included in the references, including citations for any seismic networks from which data was used.
+Github is not considered a persistent repository, and we encourage authors to archive a snapshot of
+any github-hosted code on zenodo.
 
 \section*{Competing interests}
     The authors have no competing interests.

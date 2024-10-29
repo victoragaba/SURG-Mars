@@ -19,7 +19,7 @@
 \documentclass[preprint]{seismica}
 
 % import packages
-\usepackage{gensymb, amssymb, nicefrac, bm}
+\usepackage{gensymb, amssymb, nicefrac, bm, tikz}
 
 
 \title{Single-seismometer Focal Mechanism and Uncertainty Estimation from Body Waves}
@@ -133,7 +133,7 @@
     $\delta$ and slip rake $\lambda$, further accounting for the $P$- and $S$-velocities $\alpha_h$,
     $\beta_h$ at source depth $h$ \citep{AkiRichards1980}. The expressions are:
 
-    \begin{align} \label{eq:eq1}
+    \begin{align} \label{eq:1}
       \nonumber &A^P \sim \nicefrac{\left( s_R(3\cos^2(i) - 1) - q_R\sin(2i) - p_R\sin^2(i)\right)}{\alpha_h^3}\\
       &A^{SV} \sim \nicefrac{\left( 1.5 s_R\sin(2j) + q_R\cos(2j) + 0.5 p_R\sin(2j) \right)}{\beta_h^3}\\
       \nonumber &A^{SH} \sim \nicefrac{\left( q_L\cos(j) + p_L\sin(j) \right)}{\beta_h^3}
@@ -141,7 +141,7 @@
 
     where
 
-    \begin{align} \label{eq:eq2}
+    \begin{align} \label{eq:2}
       \nonumber s_R &= 0.5 \sin(\lambda) \sin(2\delta)\\
       \nonumber q_R &= \sin(\lambda) \cos(2\delta) \sin(\psi_r) + \cos(\lambda) \cos(\delta) \cos(\psi_r)\\
       p_R &= \cos(\lambda) \sin(\delta) \sin(2\psi_r) - 0.5\sin(\lambda) \sin(2\delta) \cos(2\psi_r)\\
@@ -167,7 +167,7 @@
     In this paper, we shall use a misfit $\mu$ of cosine similarity between the two vectors which has a
     1-to-1 correspondence with angle:
 
-    \begin{align} \label{eq:eq3}
+    \begin{align} \label{eq:3}
       \mu(\bm{p}) = \frac{\bm{A}_o^\top\bm{A}_s}{\|\bm{A}_o\|\|\bm{A}_s\|}
     \end{align}
 
@@ -180,28 +180,28 @@
     instance if using data collected from NASA's Insight mission \citep{sita_potential_2022}.
     In this case, we cannot know the absolute velocities because they depend on an understanding of
     Mars' interior that is good enough to build a reliable velocity model. Alternative misfit
-    functions can account for the relative amplitudes, such as in equations \ref{eq:eq4} and
-    \ref{eq:eq5}:
+    functions can account for the relative amplitudes, such as in equations \ref{eq:4} and
+    \ref{eq:5}:
 
-    \begin{align} \label{eq:eq4}
+    \begin{align} \label{eq:4}
       \mu(\bm{p}) = \sqrt{\left( \Delta \frac{A^{P}}{A^{SV}}\right)^2 + \left( \Delta \frac{A^{SV}}{A^{SH}}\right)^2}
     \end{align}
 
-    \begin{align} \label{eq:eq5}
+    \begin{align} \label{eq:5}
       \mu(\bm{p}) = \sqrt{\log^2 \left( \Delta \frac{A^P}{A^{SV}} \right) + \log^2 \left( \Delta \frac{A^{SV}}{A^{SH}} \right)}
     \end{align}
 
     First, we note that using cosine similarity is more numerically stable in cases where one of the
     observed or synthetic amplitudes is close to zero since the norm of the associated vector in
-    equation \ref{eq:eq3} may still be large enough to make division feasible.
+    equation \ref{eq:3} may still be large enough to make division feasible.
 
     Secondly, we have chosen cosine similarity over angle because it involves one less operation,
     which is more computationally efficient and easier to differentiate for directed search
-    algorithms (see Section \ref{sec:algorithms}). The Gaussian function in equation \ref{eq:eq6} is
+    algorithms (see Section \ref{sec:algorithms}). The Gaussian function in equation \ref{eq:6} is
     similarly easy to differentiate, but it does not account for relative amplitudes so it would
     exclude otherwise acceptable solutions.
 
-    \begin{align} \label{eq:eq6}
+    \begin{align} \label{eq:6}
       &\mu(\bm{p}) \sim |\Sigma|^{-1/2} \exp \left( - \frac{1}{2} (\bm{A} - \bm{A}_o)^\top \bm{\Sigma}^{-1} (\bm{A} - \bm{A}_o) \right)
     \end{align}
 
@@ -209,23 +209,23 @@
     Given vectors $\bm{A}_s$ and $\bm{A}_o$, we would like to know the largest cosine
     similarity for which $\bm{A}_s$ is considered an acceptable fit with respect to the recorded amplitudes
     while accounting for the asymmetry of error levels for different amplitudes. Visualized in 3D
-    space, we have a confidence ellipsoid centered at $\bm{A}_o$ (equation \ref{eq:eq7}) such that
+    space, we have a confidence ellipsoid centered at $\bm{A}_o$ (equation \ref{eq:7}) such that
     acceptable fits are vectors which fall inside the elliptical cone tangent to it with vertex at the
     origin.
-    \begin{align} \label{eq:eq7}
+    \begin{align} \label{eq:7}
       E(\bm{p}) = (\bm{A} - \bm{A}_o)^\top \hat{\bm{\Sigma}}^{-1} (\bm{A} - \bm{A}_o)  = 1
     \end{align}
     
     \noindent where $\bm{A} = (A^P, A^{SV}, A^{SH})^\top$ is arbitrary
     and $\hat{\bm{\Sigma}} = \text{diag}(\sigma_P^2, \sigma_{SV}^2, \sigma_{SH}^2)/\chi^2_{2,\alpha}$ for some $\alpha \in (0,1)$. The elliptical
     cone intersects with the ellipsoid at every boundary point for which
-    \begin{align} \label{eq:eq8}
+    \begin{align} \label{eq:8}
       (\nabla_{\bm{A}} E)^\top \bm{A} = 2(\bm{A} - \bm{A}_o)^\top \hat{\bm{\Sigma}}^{-1} \bm{A} = 0
     \end{align}
     
-    Combining equations \ref{eq:eq7} and \ref{eq:eq8} gives the plane containing every point of 
+    Combining equations \ref{eq:7} and \ref{eq:8} gives the plane containing every point of 
     tangency:
-    \begin{align} \label{eq:eq9}
+    \begin{align} \label{eq:9}
       \frac{1}{2} (\nabla_{\bm{A}} E)^\top \bm{A} - f(\bm{A}) = 
               \bm{A}_o^\top \hat{\bm{\Sigma}}^{-1} (\bm{A} - \bm{A}_o)  = -1
     \end{align}
@@ -233,49 +233,49 @@
     To account for asymmetry, we recognize that the orientation of $\bm{A}_s$ relative to $\bm{A}_o$
     has an effect on the tolerance because the associated "thickness" of the ellipsoid changes.
     This information is captured by the plane containing vectors $\bm{A}_o$ and $\bm{A}_s$:
-    \begin{align} \label{eq:eq10}
+    \begin{align} \label{eq:10}
       (\bm{A}_s \times \bm{A}_o)^\top \bm{A} = 0
     \end{align}
 
     To find the constrained points of tangency, we can intersect the original ellipsoid with planes
-    \ref{eq:eq9} and \ref{eq:eq10}. The line of intersection is such that
-    \begin{align} \label{eq:eq11}
+    \ref{eq:9} and \ref{eq:10}. The line of intersection is such that
+    \begin{align} \label{eq:11}
       \bm{A}(t) = (1 - \nicefrac{1}{c_1}) \bm{A}_o + t\bm{D}
     \end{align}
 
-    \noindent where $c_1$ (equation \ref{eq:eq12}) is a location parameter projecting $\bm{A}_o$ onto plane \ref{eq:eq9}
-    and $\bm{D}$ (equation \ref{eq:eq13}) is the direction perpendicular to planes \ref{eq:eq9} and \ref{eq:eq10}. 
+    \noindent where $c_1$ (equation \ref{eq:12}) is a location parameter projecting $\bm{A}_o$ onto plane \ref{eq:9}
+    and $\bm{D}$ (equation \ref{eq:13}) is the direction perpendicular to planes \ref{eq:9} and \ref{eq:10}. 
 
-    \begin{align} \label{eq:eq12}
+    \begin{align} \label{eq:12}
       \nonumber \bm{A}_o^\top \hat{\bm{\Sigma}}^{-1} ((1 - \nicefrac{1}{c_1})\bm{A}_o - \bm{A}_o)  = -1\\
       \Rightarrow c_1 = \bm{A}_o^\top \hat{\bm{\Sigma}}^{-1} \bm{A}_o = \|\bm{A}_o^\top, \bm{A}_o\|_{\hat{\bm{\Sigma}}^{-1}}^2
     \end{align}
-    \begin{align} \label{eq:eq13}
+    \begin{align} \label{eq:13}
       \nonumber\bm{D} &= (\bm{A}_o^\top \hat{\bm{\Sigma}}^{-1})^\top \times (\bm{A}_s \times \bm{A}_o)\\
         &= c_1\bm{A}_s - c_2\bm{A}_o
     \end{align}
 
     \noindent where $c_2 = \bm{A}_o^\top \hat{\bm{\Sigma}}^{-1} \bm{A}_s = \langle\bm{A}_o^\top, \bm{A}_s\rangle_{\hat{\bm{\Sigma}}^{-1}}$.
 
-    Combining equations \ref{eq:eq7} and \ref{eq:eq11} produces a quadratic parameterized by the scalar $t$,
+    Combining equations \ref{eq:7} and \ref{eq:11} produces a quadratic parameterized by the scalar $t$,
     from which we can obtain a quadratic equation for the points of tangency:
 
-    \begin{align} \label{eq:eq14}
+    \begin{align} \label{eq:14}
       \nonumber (t\bm{D} - \nicefrac{1}{c_1}\bm{A}_o)^\top \hat{\bm{\Sigma}}^{-1} (t\bm{D} - \nicefrac{1}{c_1}\bm{A}_o)  = 1\\
-      \nonumber ({\bm{D}^\top \hat{\bm{\Sigma}}^{-1} \bm{D}})t^2 - \nicefrac{2}{c_1}(\bm{A}_o^\top \hat{\bm{\Sigma}}^{-1} \bm{D})t + (\nicefrac{1}{c_1} - 1) = 0\\
-      % \Rightarrow t = \nicefrac{c_3}{c_1c_2} \pm \nicefrac{1}{c_1c_2} \sqrt{c_3^2 + c_1c_2(c_1 - 1)}
+      ({\bm{D}^\top \hat{\bm{\Sigma}}^{-1} \bm{D}})t^2 - 
+          \nicefrac{2}{c_1}(\bm{A}_o^\top \hat{\bm{\Sigma}}^{-1} \bm{D})t + (\nicefrac{1}{c_1} - 1) = 0
     \end{align}
 
     Denote $c_3 = \bm{A}_s^\top \hat{\bm{\Sigma}}^{-1} \bm{A}_s = \|\bm{A}_s^\top, \bm{A}_s\|_{\hat{\bm{\Sigma}}^{-1}}^2$. Then by
     substitution we have
     ${\bm{D}^\top \hat{\bm{\Sigma}}^{-1} \bm{D}} = c_1(c_1c_3 - c_2^2)$ and ${\bm{A}_o^\top \hat{\bm{\Sigma}}^{-1} \bm{D}} = 0$.
     Solving then yields the necessary points (denoted $\bm{A}_b$) as
-    \begin{align} \label{eq:eq15}
+    \begin{align} \label{eq:15}
       \bm{A}_b = \left(1 - \frac{1}{c_1}\right)\bm{A}_o \pm
         \left(\frac{1}{c_1} \sqrt{\frac{c_1 - 1}{c_1c_3 - c_2^2}}\right)(c_1\bm{A}_s - c_2\bm{A}_o)
     \end{align}
 
-    Equation \ref{eq:eq15} shows that for the points to be well-defined, the following conditions
+    Equation \ref{eq:15} shows that for the points to be well-defined, the following conditions
     must hold relative to the inner-product space defined by $\hat{\bm{\Sigma}}^{-1}$:
     
     \begin{itemize}
@@ -290,7 +290,7 @@
     Thus, given 2 nonparallel vectors $\bm{A}_o$ and $\bm{A}_s$ and positive definite covariance
     matrix $\hat{\bm{\Sigma}}$, we accept the simulation if $\hat{\bm{A}}_o^\top \hat{\bm{A}_s} \geq \text{tol} 
     = \min_b \hat{\bm{A}}_o^\top \hat{\bm{A}_b}$. The condition, more formally, is
-    \begin{align} \label{eq:eq16}
+    \begin{align} \label{eq:16}
       \max_b \hat{\bm{A}}_o^\top (\hat{\bm{A}}_b - \hat{\bm{A}}_s) \leq 0
     \end{align}
 
@@ -300,13 +300,63 @@
 \section{Search Methods} \label{sec:algorithms}
 
     The vector $\bm{A} = (A^P, A^{SV}, A^{SH})^\top$ can be treated as a continuously differentiable nonlinear function of
-    parameters $\bm{p} = (\psi, \delta, \lambda)^\top$, defined by equation \ref{eq:eq1}. We can thus apply
+    parameters $\bm{p} = (\psi, \delta, \lambda)^\top$, defined by equation \ref{eq:1}. We can thus apply
     directed search methods to minimize the following cost function:
-    \begin{align} \label{eq:eq17}
+    \begin{align} \label{eq:17}
       \mu(\bm{p}) = \hat{\bm{A}}_o^\top \hat{\bm{A}}
     \end{align}
 
-    TODO: draw computational graph, derive gradients
+    \textcolor{red}{Continue from here...}
+
+    \begin{figure}[ht!]
+      \centering
+      \begin{tikzpicture}[every node/.style={circle, draw, minimum size=.8cm}]
+        \node (P1) at (0,2) {$\psi$};
+        \node (P2) at (0,0) {$\delta$};
+        \node (P3) at (0,-2) {$\lambda$};
+        
+        \node (H1) at (2.6,3) {$s_R$};
+        \node (H2) at (2.6,1.5) {$q_R$};
+        \node (H3) at (2.6,0) {$p_R$};
+        \node (H4) at (2.6,-1.5) {$q_L$};
+        \node (H5) at (2.6,-3) {$p_L$};
+        
+        \node (A1) at (5,1.5) {\scriptsize $A^P$};
+        \node (A2) at (5,0) {\scriptsize $A^{SV}$};
+        \node (A3) at (5,-1.5) {\scriptsize $A^{SH}$};
+        
+        \node (M) at (7,0) {$\mu$};
+        
+        \foreach \p in {2,3}
+          \foreach \h in {1,2,3,4,5}
+            \draw (P\p) -- (H\h);
+        
+        % \foreach \h in {1,2,3,4,5}
+        %   \foreach \a in {1,2,3}
+        %     \draw[dashed] (H\h) -- (A\a);
+        
+        \foreach \a in {1,2,3}
+          \draw (A\a) -- (M);
+  
+        % \draw[dashed] (P1) -- (H1);
+        \draw (P1) -- (H2);
+        \draw (P1) -- (H3);
+        \draw (P1) -- (H4);
+        \draw (P1) -- (H5);
+  
+        \draw (H1) -- (A3);
+        \draw (H1) -- (A1);
+        \draw (H1) -- (A2);
+        \draw (H2) -- (A1);
+        \draw (H2) -- (A2);
+        \draw (H3) -- (A1);
+        \draw (H3) -- (A2);
+        \draw (H4) -- (A3);
+        \draw (H5) -- (A3);
+      \end{tikzpicture}
+      \caption{Computational graph of forwayd model.}
+      \label{fig:1}
+    \end{figure}
 
 \section{Uncertainty Quantification} \label{sec:uncertainty}
 

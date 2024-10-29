@@ -212,21 +212,21 @@
     acceptable fits are vectors which fall inside the elliptical cone tangent to it with vertex at the
     origin.
     \begin{align} \label{eq:7}
-      E(\bm{p}) = (\bm{A} - \bm{A}_o)^\top \hat{\bm{\Sigma}}^{-1} (\bm{A} - \bm{A}_o)  = 1
+      E(\bm{p}) = (\bm{A} - \bm{A}_o)^\top \tilde{\bm{\Sigma}}^{-1} (\bm{A} - \bm{A}_o)  = 1
     \end{align}
     
     \noindent where $\bm{A} = (A^P, A^{SV}, A^{SH})^\top$ is arbitrary
-    and $\hat{\bm{\Sigma}} = \text{diag}(\sigma_P^2, \sigma_{SV}^2, \sigma_{SH}^2)/\chi^2_{2,\alpha}$ for some $\alpha \in (0,1)$. The elliptical
+    and $\tilde{\bm{\Sigma}} = \text{diag}(\sigma_P^2, \sigma_{SV}^2, \sigma_{SH}^2)/\chi^2_{2,\alpha}$ for some $\alpha \in (0,1)$. The elliptical
     cone intersects with the ellipsoid at every boundary point for which
     \begin{align} \label{eq:8}
-      (\nabla_{\bm{A}} E)^\top \bm{A} = 2(\bm{A} - \bm{A}_o)^\top \hat{\bm{\Sigma}}^{-1} \bm{A} = 0
+      (\nabla_{\bm{A}} E)^\top \bm{A} = 2(\bm{A} - \bm{A}_o)^\top \tilde{\bm{\Sigma}}^{-1} \bm{A} = 0
     \end{align}
     
     Combining equations \ref{eq:7} and \ref{eq:8} gives the plane containing every point of 
     tangency:
     \begin{align} \label{eq:9}
       \frac{1}{2} (\nabla_{\bm{A}} E)^\top \bm{A} - f(\bm{A}) = 
-              \bm{A}_o^\top \hat{\bm{\Sigma}}^{-1} (\bm{A} - \bm{A}_o)  = -1
+              \bm{A}_o^\top \tilde{\bm{\Sigma}}^{-1} (\bm{A} - \bm{A}_o)  = -1
     \end{align}
 
     To account for asymmetry, we recognize that the orientation of $\bm{A}_s$ relative to $\bm{A}_o$
@@ -246,28 +246,28 @@
     and $\bm{D}$ (equation \ref{eq:13}) is the direction perpendicular to planes \ref{eq:9} and \ref{eq:10}. 
 
     \begin{align} \label{eq:12}
-      \nonumber \bm{A}_o^\top \hat{\bm{\Sigma}}^{-1} ((1 - \nicefrac{1}{c_1})\bm{A}_o - \bm{A}_o)  = -1\\
-      \Rightarrow c_1 = \bm{A}_o^\top \hat{\bm{\Sigma}}^{-1} \bm{A}_o = \|\bm{A}_o^\top, \bm{A}_o\|_{\hat{\bm{\Sigma}}^{-1}}^2
+      \nonumber \bm{A}_o^\top \tilde{\bm{\Sigma}}^{-1} ((1 - \nicefrac{1}{c_1})\bm{A}_o - \bm{A}_o)  = -1\\
+      \Rightarrow c_1 = \bm{A}_o^\top \tilde{\bm{\Sigma}}^{-1} \bm{A}_o = \|\bm{A}_o^\top, \bm{A}_o\|_{\tilde{\bm{\Sigma}}^{-1}}^2
     \end{align}
     \begin{align} \label{eq:13}
-      \nonumber\bm{D} &= (\bm{A}_o^\top \hat{\bm{\Sigma}}^{-1})^\top \times (\bm{A}_s \times \bm{A}_o)\\
+      \nonumber\bm{D} &= (\bm{A}_o^\top \tilde{\bm{\Sigma}}^{-1})^\top \times (\bm{A}_s \times \bm{A}_o)\\
         &= c_1\bm{A}_s - c_2\bm{A}_o
     \end{align}
 
-    \noindent where $c_2 = \bm{A}_o^\top \hat{\bm{\Sigma}}^{-1} \bm{A}_s = \langle\bm{A}_o^\top, \bm{A}_s\rangle_{\hat{\bm{\Sigma}}^{-1}}$.
+    \noindent where $c_2 = \bm{A}_o^\top \tilde{\bm{\Sigma}}^{-1} \bm{A}_s = \langle\bm{A}_o^\top, \bm{A}_s\rangle_{\tilde{\bm{\Sigma}}^{-1}}$.
 
     Combining equations \ref{eq:7} and \ref{eq:11} produces a quadratic parameterized by the scalar $t$,
     from which we can obtain a quadratic equation for the points of tangency:
 
     \begin{align} \label{eq:14}
-      \nonumber (t\bm{D} - \nicefrac{1}{c_1}\bm{A}_o)^\top \hat{\bm{\Sigma}}^{-1} (t\bm{D} - \nicefrac{1}{c_1}\bm{A}_o)  = 1\\
-      ({\bm{D}^\top \hat{\bm{\Sigma}}^{-1} \bm{D}})t^2 - 
-          \nicefrac{2}{c_1}(\bm{A}_o^\top \hat{\bm{\Sigma}}^{-1} \bm{D})t + (\nicefrac{1}{c_1} - 1) = 0
+      \nonumber (t\bm{D} - \nicefrac{1}{c_1}\bm{A}_o)^\top \tilde{\bm{\Sigma}}^{-1} (t\bm{D} - \nicefrac{1}{c_1}\bm{A}_o)  = 1\\
+      ({\bm{D}^\top \tilde{\bm{\Sigma}}^{-1} \bm{D}})t^2 - 
+          \nicefrac{2}{c_1}(\bm{A}_o^\top \tilde{\bm{\Sigma}}^{-1} \bm{D})t + (\nicefrac{1}{c_1} - 1) = 0
     \end{align}
 
-    Denote $c_3 = \bm{A}_s^\top \hat{\bm{\Sigma}}^{-1} \bm{A}_s = \|\bm{A}_s^\top, \bm{A}_s\|_{\hat{\bm{\Sigma}}^{-1}}^2$. Then by
+    Denote $c_3 = \bm{A}_s^\top \tilde{\bm{\Sigma}}^{-1} \bm{A}_s = \|\bm{A}_s^\top, \bm{A}_s\|_{\tilde{\bm{\Sigma}}^{-1}}^2$. Then by
     substitution we have
-    ${\bm{D}^\top \hat{\bm{\Sigma}}^{-1} \bm{D}} = c_1(c_1c_3 - c_2^2)$ and ${\bm{A}_o^\top \hat{\bm{\Sigma}}^{-1} \bm{D}} = 0$.
+    ${\bm{D}^\top \tilde{\bm{\Sigma}}^{-1} \bm{D}} = c_1(c_1c_3 - c_2^2)$ and ${\bm{A}_o^\top \tilde{\bm{\Sigma}}^{-1} \bm{D}} = 0$.
     Solving then yields the necessary points (denoted $\bm{A}_b$) as
     \begin{align} \label{eq:15}
       \bm{A}_b = \left(1 - \frac{1}{c_1}\right)\bm{A}_o \pm
@@ -275,11 +275,11 @@
     \end{align}
 
     Equation \ref{eq:15} shows that for the points to be well-defined, the following conditions
-    must hold relative to the inner-product space defined by $\hat{\bm{\Sigma}}^{-1}$:
+    must hold relative to the inner-product space defined by $\tilde{\bm{\Sigma}}^{-1}$:
     
     \begin{itemize}
       \item Strict Cauchy-Schwarz inequality: $c_1c_3 > c_2^2$. This also implies that
-        $\hat{\bm{\Sigma}} \succ 0$ and $\bm{A}_s \nparallel \bm{A}_o$. Practically, it means that all
+        $\tilde{\bm{\Sigma}} \succ 0$ and $\bm{A}_s \nparallel \bm{A}_o$. Practically, it means that all
         uncertainties are necessary and inversion methods that depend on forward simulation should
         treat parallelism as an edge case.
       \item Confidence ellipsoid cannot contain origin: $c_1 \geq 1$. Practically, we should expect
@@ -287,7 +287,7 @@
     \end{itemize}
 
     Thus, given 2 nonparallel vectors $\bm{A}_o$ and $\bm{A}_s$ and positive definite covariance
-    matrix $\hat{\bm{\Sigma}}$, we accept the simulation if $\hat{\bm{A}}_o^\top \hat{\bm{A}_s} \geq \text{tol} 
+    matrix $\tilde{\bm{\Sigma}}$, we accept the simulation if $\hat{\bm{A}}_o^\top \hat{\bm{A}_s} \geq \text{tol} 
     = \min_b \hat{\bm{A}}_o^\top \hat{\bm{A}_b}$. The condition, more formally, is
     \begin{align} \label{eq:16}
       \max_b \hat{\bm{A}}_o^\top (\hat{\bm{A}}_b - \hat{\bm{A}}_s) \leq 0

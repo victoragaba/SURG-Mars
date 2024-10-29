@@ -1,14 +1,14 @@
 # Fdb version 3
-["bibtex main"] 1730210752 "main.aux" "main.bbl" "main" 1730210753
+["bibtex main"] 1730230431 "main.aux" "main.bbl" "main" 1730230432
   "./abbrvnat_seismica_upcasetitle.bst" 1729100731 26655 c6352442426273aacf5cc58cc9e6f2ba ""
-  "main.aux" 1730210753 6221 f9ac9b485405ac0a862bbb499e0f0da0 "pdflatex"
+  "main.aux" 1730230432 10447 74e523c4dc3c656c26f329787bc7c2fe "pdflatex"
   "references.bib" 1729106014 2394 758a75cd5679d5c21a351f078315ef9d ""
   (generated)
   "main.bbl"
   "main.blg"
-["pdflatex"] 1730210753 "/home/vay3059/Desktop/SURG-Mars/paper/main.tex" "main.pdf" "main" 1730210753
+["pdflatex"] 1730230431 "/home/vay3059/Desktop/SURG-Mars/paper/main.tex" "main.pdf" "main" 1730230432
   "/etc/texmf/web2c/texmf.cnf" 1729518115 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/vay3059/Desktop/SURG-Mars/paper/main.tex" 1730210751 18129 89a844a6642bb8835fc3116d2d1ac9e8 ""
+  "/home/vay3059/Desktop/SURG-Mars/paper/main.tex" 1730230430 21439 fff42e6548ff56bab7bfd614693c0162 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/sourcesanspro/a_4jropk.enc" 1587936753 3267 177411e539fcc6ace86309ff03b22da6 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/sourcesanspro/a_emkxm5.enc" 1587936753 3021 665788e9679767ade2a71155215d25e0 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/sourceserifpro/a_5mjl2d.enc" 1536266730 2996 4eac4f75d003875749efc5dde4ee7502 ""
@@ -24,6 +24,7 @@
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/sourcesanspro/SourceSansPro-Regular-tlf-sc-t1.tfm" 1587936753 38620 f169de344947771df64b8724cde8c161 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/sourcesanspro/SourceSansPro-Regular-tlf-t1--base.tfm" 1587936753 1652 31b9d596c0c8dcc7bcfc0431833ece08 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/sourcesanspro/SourceSansPro-Regular-tlf-t1.tfm" 1587936753 37576 ac3ddef6397b06e0361b81f77f4ab180 ""
+  "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/sourceserifpro/SourceSerifPro-Bold-lf-t1--base.tfm" 1536266730 1676 3ebdacb5a47cafdc80d7f2cb550c5e8c ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/sourceserifpro/SourceSerifPro-Bold-lf-t1.tfm" 1536266730 113412 74a3d81c631918ceab2adb81b873f359 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/sourceserifpro/SourceSerifPro-It-lf-t1--base.tfm" 1536266730 1920 d1de50f52d2a88a8665e8c59eeb9d522 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/sourceserifpro/SourceSerifPro-It-lf-t1.tfm" 1536266730 76772 96da74a8d3c141f8e5686d2d32157f12 ""
@@ -71,6 +72,7 @@
   "/usr/share/texlive/texmf-dist/fonts/type1/adobe/sourcesanspro/SourceSansPro-Bold.pfb" 1587936753 356260 5bc504cea2bf4f3148de985d938ed606 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/adobe/sourcesanspro/SourceSansPro-It.pfb" 1587936753 263595 c7d0bf539613db43888d746e8e621f5b ""
   "/usr/share/texlive/texmf-dist/fonts/type1/adobe/sourcesanspro/SourceSansPro-Regular.pfb" 1587936753 336785 795f953d37ac49dd5bce485becd006cc ""
+  "/usr/share/texlive/texmf-dist/fonts/type1/adobe/sourceserifpro/SourceSerifPro-Bold.pfb" 1536266730 284292 b8fd5c40dc99e5f8d455615b975715f7 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/adobe/sourceserifpro/SourceSerifPro-It.pfb" 1536266730 99042 7891b443218d157d1f720a75140d12c3 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/adobe/sourceserifpro/SourceSerifPro-Regular.pfb" 1536266730 297822 09951c22efbe72a3e5c55dfb0dc7a5d8 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb" 1248133631 34811 78b52f49e893bcba91bd7581cdc144c0 ""
@@ -93,6 +95,7 @@
   "/usr/share/texlive/texmf-dist/fonts/vf/adobe/sourcesanspro/SourceSansPro-Bold-tlf-t1.vf" 1587936753 1728 b87be699681a04d54541fcaa47fe285c ""
   "/usr/share/texlive/texmf-dist/fonts/vf/adobe/sourcesanspro/SourceSansPro-It-tlf-t1.vf" 1587936753 1728 cd0ad4aba341a5f4c4f098074aa956aa ""
   "/usr/share/texlive/texmf-dist/fonts/vf/adobe/sourcesanspro/SourceSansPro-Regular-tlf-t1.vf" 1587936753 1732 92bc4ab7a012370b497bd8030a4c8332 ""
+  "/usr/share/texlive/texmf-dist/fonts/vf/adobe/sourceserifpro/SourceSerifPro-Bold-lf-t1.vf" 1536266730 1760 36b900185ff6913ed88d8c9713ed5462 ""
   "/usr/share/texlive/texmf-dist/fonts/vf/adobe/sourceserifpro/SourceSerifPro-It-lf-t1.vf" 1536266730 1776 ff9f77c208859a4d1535b3e26a242929 ""
   "/usr/share/texlive/texmf-dist/fonts/vf/adobe/sourceserifpro/SourceSerifPro-Regular-lf-t1.vf" 1536266730 1764 72e7837a75dc300a9652bf3ab02a3930 ""
   "/usr/share/texlive/texmf-dist/fonts/vf/adobe/sourceserifpro/SourceSerifPro-Regular-lf-ts1.vf" 1536266730 636 96b3d94bdddb6bde9a01bebfc0bbc33b ""
@@ -278,7 +281,6 @@
   "/usr/share/texlive/texmf-dist/tex/latex/tools/bm.sty" 1622581934 13197 df0fe9a9695763546b59e02a008447b3 ""
   "/usr/share/texlive/texmf-dist/tex/latex/units/nicefrac.sty" 1137111039 4029 0462ee5ab265cf59dc15a41a3b883101 ""
   "/usr/share/texlive/texmf-dist/tex/latex/url/url.sty" 1388531844 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
-  "/usr/share/texlive/texmf-dist/tex/latex/was/gensymb.sty" 1137111079 4612 29d19942d7123701aa6a3876b9ba11b1 ""
   "/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty" 1635798903 56029 3f7889dab51d620aa43177c391b7b190 ""
   "/usr/share/texlive/texmf-dist/tex/latex/xfor/xfor.sty" 1233902931 2689 44855b72da58344b1c1d9b3087bce6ca ""
   "/usr/share/texlive/texmf-dist/tex/latex/xkeyval/xkeyval.sty" 1605910342 4902 efb3d66683a2da2a232f71e3a571a899 ""
@@ -288,9 +290,9 @@
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1729520018 2797840 27216a138e23bbbfa063783e7cef986a ""
   "abbrvnat_seismica_upcasetitle.bst" 1729100731 26655 c6352442426273aacf5cc58cc9e6f2ba ""
   "banner.png" 1729100731 76827 830502f369a56ef30c0a2045f6561aac ""
-  "main.aux" 1730210753 6221 f9ac9b485405ac0a862bbb499e0f0da0 "pdflatex"
-  "main.bbl" 1730210753 848 8e98071490084d095497b1ca99fb3fa7 "bibtex main"
-  "main.tex" 1730210751 18129 89a844a6642bb8835fc3116d2d1ac9e8 ""
+  "main.aux" 1730230432 10447 74e523c4dc3c656c26f329787bc7c2fe "pdflatex"
+  "main.bbl" 1730230431 848 8e98071490084d095497b1ca99fb3fa7 "bibtex main"
+  "main.tex" 1730230430 21439 fff42e6548ff56bab7bfd614693c0162 ""
   "seismica.cls" 1729100731 14517 d3a0423df1205df196a4f9c2ba37702c ""
   (generated)
   "main.aux"

@@ -19,7 +19,7 @@
 \documentclass[preprint]{seismica}
 
 % import packages
-\usepackage{gensymb, amssymb, nicefrac, bm, tikz}
+\usepackage{amssymb, nicefrac, bm, tikz}
 
 
 \title{Single-seismometer Focal Mechanism and Uncertainty Estimation from Body Waves}
@@ -118,12 +118,11 @@
 \section{Introduction} \label{sec:introduction}
 
     [Suzan] Insert words here...\\
-    Talk about inverse method for a highly nonlinear problem\\
     Writing tip: maximize information content of words
 
 \section{Cosine similarity misfit criterion} \label{sec:misfit}
 
-    \subsection{Derivation}
+  \subsection{Background}
     When a quake event happens, a single seismometer reads $P$, $SV$ and $SH$ body waves through
     which the respective amplitudes $A^P$, $A^{SV}$ and $A^{SH}$ along with their noise levels
     $\sigma_P$, $\sigma_{SV}$ and $\sigma_{SH}$ (representing standard deviation of an assumed normal
@@ -134,9 +133,9 @@
     $\beta_h$ at source depth $h$ \citep{AkiRichards1980}. The expressions are:
 
     \begin{align} \label{eq:1}
-      \nonumber &A^P \sim \nicefrac{\left( s_R(3\cos^2(i) - 1) - q_R\sin(2i) - p_R\sin^2(i)\right)}{\alpha_h^3}\\
-      &A^{SV} \sim \nicefrac{\left( 1.5 s_R\sin(2j) + q_R\cos(2j) + 0.5 p_R\sin(2j) \right)}{\beta_h^3}\\
-      \nonumber &A^{SH} \sim \nicefrac{\left( q_L\cos(j) + p_L\sin(j) \right)}{\beta_h^3}
+      \nonumber &A^P \sim \left( s_R(3\cos^2(i) - 1) - q_R\sin(2i) - p_R\sin^2(i)\right)/\alpha_h^3\\
+      \nonumber &A^{SV} \sim \left( 1.5 s_R\sin(2j) + q_R\cos(2j) + 0.5 p_R\sin(2j) \right)/\beta_h^3\\
+      &A^{SH} \sim \left( q_L\cos(j) + p_L\sin(j) \right)/\beta_h^3
     \end{align}
 
     where
@@ -144,9 +143,9 @@
     \begin{align} \label{eq:2}
       \nonumber s_R &= 0.5 \sin(\lambda) \sin(2\delta)\\
       \nonumber q_R &= \sin(\lambda) \cos(2\delta) \sin(\psi_r) + \cos(\lambda) \cos(\delta) \cos(\psi_r)\\
-      p_R &= \cos(\lambda) \sin(\delta) \sin(2\psi_r) - 0.5\sin(\lambda) \sin(2\delta) \cos(2\psi_r)\\
+      \nonumber p_R &= \cos(\lambda) \sin(\delta) \sin(2\psi_r) - 0.5\sin(\lambda) \sin(2\delta) \cos(2\psi_r)\\
       \nonumber p_L &= 0.5\sin(\lambda) \sin(2\delta) \sin(2\psi_r) + \cos(\lambda) \sin(\delta) \cos(2\psi_r)\\
-      \nonumber q_L &= -\cos(\lambda) \cos(\delta) \sin(\psi_r) + \sin(\lambda) \cos(2\delta) \cos(\psi_r)
+      q_L &= -\cos(\lambda) \cos(\delta) \sin(\psi_r) + \sin(\lambda) \cos(2\delta) \cos(\psi_r)
     \end{align}
 
     Our goal is two-fold:
@@ -164,18 +163,18 @@
     We thus need a metric against which to evaluate what the best and acceptable estimates are. The
     misfit function used by \citet{sita_potential_2022} is defined as the angle between the vector of
     observed amplitudes and that produced from a forward simulation of synthetic parameters.
-    In this paper, we shall use a misfit $\mu$ of cosine similarity between the two vectors which has a
-    1-to-1 correspondence with angle:
+    In this paper, we shall use a misfit $\Phi$ of negative cosine similarity between the two vectors
+    which has a 1-to-1 correspondence with angle:
 
     \begin{align} \label{eq:3}
-      \mu(\bm{p}) = \frac{\bm{A}_o^\top\bm{A}_s}{\|\bm{A}_o\|\|\bm{A}_s\|}
+      \Phi(\bm{p}) = \frac{-\bm{A}_o^\top\bm{A}_s}{\|\bm{A}_o\|\|\bm{A}_s\|}
     \end{align}
 
     where $\bm{A}_o = (A_o^P, A_o^{SV}, A_o^{SH})^\top$ are observed amplitudes, $\bm{A}_s =
     (A_s^P, A_s^{SV}, A_s^{SH})^\top$ are synthetic amplitudes, and
     $\bm{p} = (\psi, \delta, \lambda)^\top$ are the underlying parameters.
 
-    \subsection{Justification}
+  \subsection{Justification}
     We are interested in situations where absolute amplitudes are either unknown or unnecessary, for
     instance if using data collected from NASA's Insight mission \citep{sita_potential_2022}.
     In this case, we cannot know the absolute velocities because they depend on an understanding of
@@ -184,11 +183,11 @@
     \ref{eq:5}:
 
     \begin{align} \label{eq:4}
-      \mu(\bm{p}) = \sqrt{\left( \Delta \frac{A^{P}}{A^{SV}}\right)^2 + \left( \Delta \frac{A^{SV}}{A^{SH}}\right)^2}
+      \Phi(\bm{p}) = \sqrt{\left( \Delta \frac{A^{P}}{A^{SV}}\right)^2 + \left( \Delta \frac{A^{SV}}{A^{SH}}\right)^2}
     \end{align}
 
     \begin{align} \label{eq:5}
-      \mu(\bm{p}) = \sqrt{\log^2 \left( \Delta \frac{A^P}{A^{SV}} \right) + \log^2 \left( \Delta \frac{A^{SV}}{A^{SH}} \right)}
+      \Phi(\bm{p}) = \sqrt{\log^2 \left( \Delta \frac{A^P}{A^{SV}} \right) + \log^2 \left( \Delta \frac{A^{SV}}{A^{SH}} \right)}
     \end{align}
 
     First, we note that using cosine similarity is more numerically stable in cases where one of the
@@ -202,10 +201,10 @@
     exclude otherwise acceptable solutions.
 
     \begin{align} \label{eq:6}
-      &\mu(\bm{p}) \sim |\Sigma|^{-1/2} \exp \left( - \frac{1}{2} (\bm{A} - \bm{A}_o)^\top \bm{\Sigma}^{-1} (\bm{A} - \bm{A}_o) \right)
+      &\Phi(\bm{p}) \sim |\Sigma|^{-1/2} \exp \left( - \frac{1}{2} (\bm{A} - \bm{A}_o)^\top \bm{\Sigma}^{-1} (\bm{A} - \bm{A}_o) \right)
     \end{align}
 
-    \subsection{Tolerance}
+  \subsection{Tolerance derivation}
     Given vectors $\bm{A}_s$ and $\bm{A}_o$, we would like to know the largest cosine
     similarity for which $\bm{A}_s$ is considered an acceptable fit with respect to the recorded amplitudes
     while accounting for the asymmetry of error levels for different amplitudes. Visualized in 3D
@@ -298,15 +297,19 @@
 
 
 \section{Search Methods} \label{sec:algorithms}
-
-    The vector $\bm{A} = (A^P, A^{SV}, A^{SH})^\top$ can be treated as a continuously differentiable nonlinear function of
-    parameters $\bm{p} = (\psi, \delta, \lambda)^\top$, defined by equation \ref{eq:1}. We can thus apply
-    directed search methods to minimize the following cost function:
+  
+  \subsection{Misfit gradient}
+    The vector $\bm{A} = (A^P, A^{SV}, A^{SH})^\top$ can be treated as a continuously differentiable 
+    nonlinear function of parameters $\bm{p} = (\psi, \delta, \lambda)^\top$, defined by equation 
+    \ref{eq:1}. We can thus apply directed search methods to minimize the following cost function:
     \begin{align} \label{eq:17}
-      \mu(\bm{p}) = \hat{\bm{A}}_o^\top \hat{\bm{A}}
+      \Phi(\bm{p}) = -\hat{\bm{A}}_o^\top \hat{\bm{A}}
     \end{align}
 
-    \textcolor{red}{Continue from here...}
+    To calculate the gradient, first note that $\bm{A}$ is a linear combination of nonlinear functions
+    of $\bm{p}$ (equation \ref{eq:2}).
+
+
 
     \begin{figure}[ht!]
       \centering
@@ -325,7 +328,7 @@
         \node (A2) at (5,0) {\scriptsize $A^{SV}$};
         \node (A3) at (5,-1.5) {\scriptsize $A^{SH}$};
         
-        \node (M) at (7,0) {$\mu$};
+        \node (M) at (7,0) {$\Phi$};
         
         \foreach \p in {2,3}
           \foreach \h in {1,2,3,4,5}
@@ -354,21 +357,102 @@
         \draw (H4) -- (A3);
         \draw (H5) -- (A3);
       \end{tikzpicture}
-      \caption{Computational graph of forwayd model.}
+      \caption{Computational graph of forward model (edges are non-zero partial derivatives).}
       \label{fig:1}
     \end{figure}
 
+    Define a vector $\bm{\eta} = (s_R, q_R, p_R, q_L, p_L)^\top$. Then we can encode
+    the misfit as
+    \begin{align} \label{eq:18}
+      \Phi(\bm{p}) = \Phi(\bm{A}(\bm{\eta}(\bm{p})))
+    \end{align}
+
+    \noindent This composition is visualized as a computational graph in figure \ref{fig:1}.
+    Each stage of the composition has an associated Jacobian, which we can demonstrate layer by layer:
+    
+    i) From $\bm{p}$ to $\bm{\eta}$, we can use equation \ref{eq:2} to define the Jacobian
+    as follows:
+    \begin{align*}
+      &a = \sin(\lambda)\;\;\;\;\;\;\;\;\;\;\;\;\; b = \cos(2\delta)\;\;\;\;\;\;\;\;\;\;\; c = \cos(\lambda)\\
+      &d = \sin(2\delta)\;\;\;\;\;\;\;\;\;\;\;\; e = \sin(\delta)\;\;\;\;\;\;\;\;\;\;\;\; f = \cos(\delta)\\
+      &g = \sin(\psi - \phi)\;\;\;\;\;\; h = \cos(\psi - \phi)\;\;\;\;\; p = cos(2(\psi - \phi))\\
+      &q = \sin(2(\psi - \phi))
+    \end{align*}
+    \begin{align} \label{eq:19}
+      \nonumber&\bm{J_p}(\bm{\eta}) = \\
+      &\begin{bmatrix}
+        0         &ab         &0.5cd\\
+        abh-cfg   &-2adg-ceh  &cbg-afh\\
+        2cep+adq  &cfq-abp    &-aeq-0.5cdp\\
+        -cfh-abg  &ceg-2adh   &afg+cbh\\
+        adp-2ceq  &abq+cfp    &0.5cdq-aep
+      \end{bmatrix}
+    \end{align}
+
+    ii) From $\bm{\eta}$ to $A$, we have a linear transformation whose Jacobian is the matrix
+    of coefficients from equation \ref{eq:1}:
+    \begin{align} \label{eq:20}
+      \nonumber&\bm{J_\eta}(\bm{A}) = \\
+      &\begin{bmatrix}
+        \frac{3\cos^2(i)-1}{\alpha^3}    &\frac{-\sin(2i)}{\alpha^3}    &\frac{-sin^2(i)}{\alpha^3}   &0    &0\\
+        \frac{1.5\sin(2j)}{\beta^3}      &\frac{\cos(2j)}{\beta^3}      &\frac{0.5\sin(2j)}{\beta^3}  &0    &0\\
+        0         &0           &0        &\frac{\cos(j)}{\beta^3}       &\frac{\sin(j)}{\beta^3}
+      \end{bmatrix}
+    \end{align}
+
+    iii) From $\bm{A}$ to $\Phi$, we have a scalar function whose Jacobian is the gradient
+    transposed.
+    \begin{align} \label{eq:21}
+      \nonumber\nabla_{\bm{A}}\Phi &= \frac{\|\bm{A}\|\nabla_{\bm{A}}(-\hat{\bm{A}}_o^\top\bm{A}) + 
+      \hat{\bm{A}}_o^\top \bm{A} \nabla_{\bm{A}}(\|\bm{A}\|)}{\|\bm{A}\|^2}\\
+            &= \frac{1}{\|\bm{A}\|}(\Phi\hat{\bm{A}} - \hat{\bm{A}}_o)
+    \end{align}
+
+    Combining \ref{eq:19}, \ref{eq:20} and \ref{eq:21} gives the overall gradient:
+    \begin{align} \label{eq:22}
+      \nabla_{\bm{p}}\Phi = \bm{J_p}(\bm{\eta})^\top \bm{J_\eta}(\bm{A})^\top \nabla_{\bm{A}}\Phi
+    \end{align}
+
+  \subsection{Optimization algorithms}
+    Something about gradient-based methods. Try different algorithms, they may produce
+    interesting results >> IEMS 450-2.
+
+    \noindent \textbf{TODO:} Create one 3D image with the results of gradient descent from random points in space.
+
+
 \section{Uncertainty Quantification} \label{sec:uncertainty}
 
-    Insert words here...
+    \subsection{Error propagation}
+      Say something here, composed Jacobian is important >> Earth 353, IEMS 401.
 
-\section{Example: from Paula} \label{sec:example}
+      \noindent Emphasize the interest in modality.
 
-    Insert words here...
+    \subsection{Monte Carlo methods}
+      Place to talk about different seeding stategies and their effect on uncertainty.
+      Why hybrid search was used, why systematic over random.
+    
+    \subsection{Kagan angle}
+      An alternative way of quantifying model deviations.
+
+
+\section{Testing} \label{sec:example}
+
+    \subsection{Synthetic data}
+      Say something here about the Monte Carlo
+    
+    \subsection{Earth data}
+      From Uganda (Paula)
+
+    \subsection{Mars data}
+      From Insight (Suzan/Maddy)
 
 \section{Conclusions} \label{sec:conclusion}
 
-    Insert words here...
+    \subsection{Performance overview}
+      Put some words here...
+
+    \subsection{Growth avenues}
+      Put some more words here...
 
 %% Will not be printed if anonymous option ON
 \begin{acknowledgements}
@@ -376,10 +460,7 @@
 \end{acknowledgements}
 
 \section*{Data and code availability}
-Zenodo, figshare, and Dryad to archive data and code. Citations for datasets and codes should be
-included in the references, including citations for any seismic networks from which data was used.
-Github is not considered a persistent repository, and we encourage authors to archive a snapshot of
-any github-hosted code on zenodo.
+Create a new repo with beautiful code, READMEs and everything. One function/algorithm at a time.
 
 \section*{Competing interests}
     The authors have no competing interests.

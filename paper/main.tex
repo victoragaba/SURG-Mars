@@ -247,7 +247,7 @@
 
     \begin{align} \label{eq:12}
       \nonumber \bm{A}_o^\top \tilde{\bm{\Sigma}}^{-1} ((1 - \nicefrac{1}{c_1})\bm{A}_o - \bm{A}_o)  = -1\\
-      \Rightarrow c_1 = \bm{A}_o^\top \tilde{\bm{\Sigma}}^{-1} \bm{A}_o = \|\bm{A}_o^\top, \bm{A}_o\|_{\tilde{\bm{\Sigma}}^{-1}}^2
+      \Rightarrow c_1 = \bm{A}_o^\top \tilde{\bm{\Sigma}}^{-1} \bm{A}_o = \|\bm{A}_o\|_{\tilde{\bm{\Sigma}}^{-1}}^2
     \end{align}
     \begin{align} \label{eq:13}
       \nonumber\bm{D} &= (\bm{A}_o^\top \tilde{\bm{\Sigma}}^{-1})^\top \times (\bm{A}_s \times \bm{A}_o)\\
@@ -265,7 +265,7 @@
           \nicefrac{2}{c_1}(\bm{A}_o^\top \tilde{\bm{\Sigma}}^{-1} \bm{D})t + (\nicefrac{1}{c_1} - 1) = 0
     \end{align}
 
-    Denote $c_3 = \bm{A}_s^\top \tilde{\bm{\Sigma}}^{-1} \bm{A}_s = \|\bm{A}_s^\top, \bm{A}_s\|_{\tilde{\bm{\Sigma}}^{-1}}^2$. Then by
+    Denote $c_3 = \bm{A}_s^\top \tilde{\bm{\Sigma}}^{-1} \bm{A}_s = \|\bm{A}_s\|_{\tilde{\bm{\Sigma}}^{-1}}^2$. Then by
     substitution we have
     ${\bm{D}^\top \tilde{\bm{\Sigma}}^{-1} \bm{D}} = c_1(c_1c_3 - c_2^2)$ and ${\bm{A}_o^\top \tilde{\bm{\Sigma}}^{-1} \bm{D}} = 0$.
     Solving then yields the necessary points (denoted $\bm{A}_b$) as
@@ -394,9 +394,9 @@
     \begin{align} \label{eq:20}
       \nonumber&\bm{J_\eta}(\bm{A}) = \\
       &\begin{bmatrix}
-        \frac{3\cos^2(i)-1}{\alpha^3}    &\frac{-\sin(2i)}{\alpha^3}    &\frac{-sin^2(i)}{\alpha^3}   &0    &0\\
-        \frac{1.5\sin(2j)}{\beta^3}      &\frac{\cos(2j)}{\beta^3}      &\frac{0.5\sin(2j)}{\beta^3}  &0    &0\\
-        0         &0           &0        &\frac{\cos(j)}{\beta^3}       &\frac{\sin(j)}{\beta^3}
+        \frac{3\cos^2(i)-1}{\alpha_h^3}    &\frac{-\sin(2i)}{\alpha_h^3}    &\frac{-sin^2(i)}{\alpha_h^3}   &0    &0\\
+        \frac{1.5\sin(2j)}{\beta_h^3}      &\frac{\cos(2j)}{\beta_h^3}      &\frac{0.5\sin(2j)}{\beta_h^3}  &0    &0\\
+        0         &0           &0        &\frac{\cos(j)}{\beta_h^3}       &\frac{\sin(j)}{\beta_h^3}
       \end{bmatrix}
     \end{align}
 

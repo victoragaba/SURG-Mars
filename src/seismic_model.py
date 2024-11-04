@@ -3,23 +3,22 @@ Name: Victor Agaba
 
 Date: 2nd November 2024
 
-The goal of this file is to create a model of the nonlinear inverse
+The goal of this module is to create a model of the nonlinear inverse
 problem to which we will apply the optimization algorithms.
 '''
 
 
 import numpy as np
 from numpy import linalg
-from matplotlib import pyplot as plt
 import functions as fn
 
 
-class InvProblem:
+class Model:
     '''
     Base class for an unconstrained optimzation problem.
     Catch anything whose method is not implemented.
     '''
-
+    
     def __call__(self, p):
         raise Exception('Class is not callable')
 
@@ -33,7 +32,7 @@ class InvProblem:
         raise Exception('Method "starting_point" not implemented')
 
 
-class SeismicModel(InvProblem):
+class SeismicModel(Model):
     '''
     This class computes the misfit function and its gradient
     for a given model.

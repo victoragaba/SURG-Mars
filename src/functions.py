@@ -32,9 +32,9 @@ def boundary_points(Ao: list, Uo: list, As: list = [], chi2: float = 1):
     Sigma_inv = linalg.inv(Sigma)
     
     # constants
-    c1 = Ao@Sigma_inv@Ao
-    c2 = Ao@Sigma_inv@As
-    c3 = As@Sigma_inv@As
+    c1 = Ao @ Sigma_inv @ Ao
+    c2 = Ao @ Sigma_inv @ As
+    c3 = As @ Sigma_inv @ As
     
     # conditions
     assert c1 >= 1, "COnfidence ellipsoid is too big."

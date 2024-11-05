@@ -19,7 +19,7 @@
 \documentclass[preprint]{seismica}
 
 % import packages
-\usepackage{amssymb, nicefrac, bm, tikz}
+\usepackage{amssymb, nicefrac, bm, tikz, subfigure}
 
 
 \title{Single-seismometer Focal Mechanism and Uncertainty Estimation from Body Waves}
@@ -151,8 +151,9 @@
     Our goal is two-fold:
     \begin{enumerate}
       \item [i)]
-        Find estimates $\widehat{\psi}, \widehat{\delta}, \widehat{\lambda}$ for the strike, dip
-        and rake that \textit{best} describe the collected data.
+        Find estimates $\widehat{\psi}, \widehat{\delta}, \widehat{\lambda} \in [0^\circ,360^\circ) \times 
+        [0^\circ,90^\circ] \times [-180^\circ,180^\circ)$ for the strike, dip and rake that \textit{best} describe
+        the collected data.
 
       \item [ii)]
         Estimate the joint noise distribution of fault parameters to more accurately constrain the
@@ -167,12 +168,12 @@
     which has a 1-to-1 correspondence with angle:
 
     \begin{align} \label{eq:3}
-      \Phi(\bm{p}) = \frac{-\bm{A}_o^\top\bm{A}_s}{\|\bm{A}_o\|\|\bm{A}_s\|}
+      \Phi(\bm{m}) = \frac{-\bm{A}_o^\top\bm{A}_s}{\|\bm{A}_o\|\|\bm{A}_s\|}
     \end{align}
 
     where $\bm{A}_o = (A_o^P, A_o^{SV}, A_o^{SH})^\top$ are observed amplitudes, $\bm{A}_s =
     (A_s^P, A_s^{SV}, A_s^{SH})^\top$ are synthetic amplitudes, and
-    $\bm{p} = (\psi, \delta, \lambda)^\top$ are the underlying parameters.
+    $\bm{m} = (\psi, \delta, \lambda)^\top$ are the underlying parameters.
 
   \subsection{Justification}
     We are interested in situations where absolute amplitudes are either unknown or unnecessary, for
@@ -183,11 +184,11 @@
     \ref{eq:5}:
 
     \begin{align} \label{eq:4}
-      \Phi(\bm{p}) = \sqrt{\left( \Delta \frac{A^{P}}{A^{SV}}\right)^2 + \left( \Delta \frac{A^{SV}}{A^{SH}}\right)^2}
+      \Phi(\bm{m}) = \sqrt{\left( \Delta \frac{A^{P}}{A^{SV}}\right)^2 + \left( \Delta \frac{A^{SV}}{A^{SH}}\right)^2}
     \end{align}
 
     \begin{align} \label{eq:5}
-      \Phi(\bm{p}) = \sqrt{\log^2 \left( \Delta \frac{A^P}{A^{SV}} \right) + \log^2 \left( \Delta \frac{A^{SV}}{A^{SH}} \right)}
+      \Phi(\bm{m}) = \sqrt{\log^2 \left( \Delta \frac{A^P}{A^{SV}} \right) + \log^2 \left( \Delta \frac{A^{SV}}{A^{SH}} \right)}
     \end{align}
 
     First, we note that using cosine similarity is more numerically stable in cases where one of the
@@ -201,7 +202,7 @@
     exclude otherwise acceptable solutions.
 
     \begin{align} \label{eq:6}
-      &\Phi(\bm{p}) \sim |\Sigma|^{-1/2} \exp \left( - \frac{1}{2} (\bm{A} - \bm{A}_o)^\top \bm{\Sigma}^{-1} (\bm{A} - \bm{A}_o) \right)
+      &\Phi(\bm{m}) \sim |\Sigma|^{-1/2} \exp \left( - \frac{1}{2} (\bm{A} - \bm{A}_o)^\top \bm{\Sigma}^{-1} (\bm{A} - \bm{A}_o) \right)
     \end{align}
 
   \subsection{Tolerance derivation}
@@ -212,7 +213,7 @@
     acceptable fits are vectors which fall inside the elliptical cone tangent to it with vertex at the
     origin.
     \begin{align} \label{eq:7}
-      E(\bm{p}) = (\bm{A} - \bm{A}_o)^\top \tilde{\bm{\Sigma}}^{-1} (\bm{A} - \bm{A}_o)  = 1
+      E(\bm{m}) = (\bm{A} - \bm{A}_o)^\top \tilde{\bm{\Sigma}}^{-1} (\bm{A} - \bm{A}_o)  = 1
     \end{align}
     
     \noindent where $\bm{A} = (A^P, A^{SV}, A^{SH})^\top$ is arbitrary
@@ -300,14 +301,14 @@
   
   \subsection{Misfit gradient}
     The vector $\bm{A} = (A^P, A^{SV}, A^{SH})^\top$ can be treated as a continuously differentiable 
-    nonlinear function of parameters $\bm{p} = (\psi, \delta, \lambda)^\top$, defined by equation 
+    nonlinear function of parameters $\bm{m} = (\psi, \delta, \lambda)^\top$, defined by equation 
     \ref{eq:1}. We can thus apply directed search methods to minimize the following cost function:
     \begin{align} \label{eq:17}
-      \Phi(\bm{p}) = -\hat{\bm{A}}_o^\top \hat{\bm{A}}
+      \Phi(\bm{m}) = -\hat{\bm{A}}_o^\top \hat{\bm{A}}
     \end{align}
 
     To calculate the gradient, first note that $\bm{A}$ is a linear combination of nonlinear functions
-    of $\bm{p}$ (equation \ref{eq:2}).
+    of $\bm{m}$ (equation \ref{eq:2}).
 
 
 
@@ -364,13 +365,13 @@
     Define a vector $\bm{\eta} = (s_R, q_R, p_R, q_L, p_L)^\top$. Then we can encode
     the misfit as
     \begin{align} \label{eq:18}
-      \Phi(\bm{p}) = \Phi(\bm{A}(\bm{\eta}(\bm{p})))
+      \Phi(\bm{m}) = \Phi(\bm{A}(\bm{\eta}(\bm{m})))
     \end{align}
 
     \noindent This composition is visualized as a computational graph in figure \ref{fig:1}.
     Each stage of the composition has an associated Jacobian, which we can demonstrate layer by layer:
     
-    i) From $\bm{p}$ to $\bm{\eta}$, we can use equation \ref{eq:2} to define the Jacobian
+    i) From $\bm{m}$ to $\bm{\eta}$, we can use equation \ref{eq:2} to define the Jacobian
     as follows:
     \begin{align*}
       &a = \sin(\lambda)\;\;\;\;\;\;\;\;\;\;\;\;\; b = \cos(2\delta)\;\;\;\;\;\;\;\;\;\;\; c = \cos(\lambda)\\
@@ -403,24 +404,28 @@
     iii) From $\bm{A}$ to $\Phi$, we have a scalar function whose Jacobian is the gradient
     transposed.
     \begin{align} \label{eq:21}
-      \nonumber\nabla_{\bm{A}}\Phi &= \frac{\|\bm{A}\|\nabla_{\bm{A}}(-\hat{\bm{A}}_o^\top\bm{A}) + 
-      \hat{\bm{A}}_o^\top \bm{A} \nabla_{\bm{A}}(\|\bm{A}\|)}{\|\bm{A}\|^2}\\
-            &= \frac{1}{\|\bm{A}\|}(\Phi\hat{\bm{A}} - \hat{\bm{A}}_o)
+      \nonumber\nabla_{\bm{A}}\Phi &= \frac{\|\bm{A}\|\nabla_{\bm{A}}(-\hat{\bm{A}}_o^\top\bm{A}) - 
+      (-\hat{\bm{A}}_o^\top \bm{A}) \nabla_{\bm{A}}(\|\bm{A}\|)}{\|\bm{A}\|^2}\\
+            &= \frac{-1}{\|\bm{A}\|}(\hat{\bm{A}}_o + \Phi\hat{\bm{A}})
     \end{align}
 
     Combining \ref{eq:19}, \ref{eq:20} and \ref{eq:21} gives the overall gradient:
     \begin{align} \label{eq:22}
-      \nabla_{\bm{p}}\Phi = \bm{J_p}(\bm{\eta})^\top \bm{J_\eta}(\bm{A})^\top \nabla_{\bm{A}}\Phi
+      \nabla_{\bm{m}}\Phi = \bm{J_p}(\bm{\eta})^\top \bm{J_\eta}(\bm{A})^\top \nabla_{\bm{A}}\Phi
     \end{align}
 
   \subsection{Optimization algorithms}
-    Something about gradient-based methods. Try different algorithms, they may produce
-    interesting results >> IEMS 450-2.
-
-    \noindent \textbf{TODO:} Create one 3D image with the results of gradient descent from random points in space.
+    \begin{figure}[ht!]
+      \includegraphics[width=8.6cm]{seed_2024} 
+      \caption{Results of steepest descent algorithm after a systematic sweep of starting points.}
+      \label{fig:2}
+    \end{figure}
 
 
 \section{Uncertainty Quantification} \label{sec:uncertainty}
+
+    \subsection{Kagan angle distribution}
+      An alternative way of quantifying model deviations.
 
     \subsection{Error propagation}
       Say something here, composed Jacobian is important >> Earth 353, IEMS 401.
@@ -430,9 +435,6 @@
     \subsection{Monte Carlo methods}
       Place to talk about different seeding stategies and their effect on uncertainty.
       Why hybrid search was used, why systematic over random.
-    
-    \subsection{Kagan angle}
-      An alternative way of quantifying model deviations.
 
 
 \section{Testing} \label{sec:example}

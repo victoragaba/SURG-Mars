@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.10.21)  4 NOV 2024 10:41
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.10.21)  4 NOV 2024 20:20
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -883,6 +883,25 @@ Package bm Info: No bold for \OMX/cmex/m/n, using \pmb.
 Package bm Info: No bold for \U/msa/m/n, using \pmb.
 Package bm Info: No bold for \U/msb/m/n, using \pmb.
 LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 149.
+) (/usr/share/texlive/texmf-dist/tex/latex/subfigure/subfigure.sty
+Package: subfigure 2002/03/15 v2.1.5 subfigure package
+\subfigtopskip=\skip84
+\subfigcapskip=\skip85
+\subfigcaptopadj=\dimen295
+\subfigbottomskip=\skip86
+\subfigcapmargin=\dimen296
+\subfiglabelskip=\skip87
+\c@subfigure=\count375
+\c@lofdepth=\count376
+\c@subtable=\count377
+\c@lotdepth=\count378
+
+****************************************
+* Local config file subfigure.cfg used *
+****************************************
+(/usr/share/texlive/texmf-dist/tex/latex/subfigure/subfigure.cfg)
+\subfig@top=\skip88
+\subfig@bottom=\skip89
 ) (./main.aux)
 \openout1 = `main.aux'.
 
@@ -947,16 +966,16 @@ LaTeX Font Info:    ... okay on input line 96.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count375
-\scratchdimen=\dimen295
+\scratchcounter=\count379
+\scratchdimen=\dimen297
 \scratchbox=\box70
-\nofMPsegments=\count376
-\nofMParguments=\count377
+\nofMPsegments=\count380
+\nofMParguments=\count381
 \everyMPshowfont=\toks66
-\MPscratchCnt=\count378
-\MPscratchDim=\dimen296
-\MPnumerator=\count379
-\makeMPintoPDFobject=\count380
+\MPscratchCnt=\count382
+\MPscratchDim=\dimen298
+\MPnumerator=\count383
+\makeMPintoPDFobject=\count384
 \everyMPtoPDFconversion=\toks67
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -972,18 +991,19 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ) (/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count381
+\c@section@level=\count385
 )
 LaTeX Info: Redefining \ref on input line 96.
 LaTeX Info: Redefining \pageref on input line 96.
 LaTeX Info: Redefining \nameref on input line 96.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: changepage package is loaded.
-\caption@adjustwidth@hsize=\dimen297
-\caption@adjustwidth@linewidth=\dimen298
+\caption@adjustwidth@hsize=\dimen299
+\caption@adjustwidth@linewidth=\dimen300
 Package caption Info: listings package is loaded.
+Package caption Info: subfigure package is loaded.
 Package caption Info: End \AtBeginDocument code.
-\c@lstlisting=\count382
+\c@lstlisting=\count386
 <banner.png, id=8, 2670.48793pt x 241.96123pt>
 File: banner.png Graphic file (type png)
 <use banner.png>
@@ -1075,38 +1095,41 @@ LaTeX Font Info:    Font shape `T1/SourceSerifPro-LF/b/n' will be
 LaTeX Font Info:    Font shape `T1/SourceSerifPro-LF/m/it' will be
 (Font)              scaled to size 10.0pt on input line 155.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/b/n' aliased to
-(Font)              `T1/SourceSansPro-TLF/bold/n' on input line 196.
+(Font)              `T1/SourceSansPro-TLF/bold/n' on input line 192.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/bold/n' will be
-(Font)              scaled to size 8.0pt on input line 196.
+(Font)              scaled to size 8.0pt on input line 192.
 [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
  <./banner.png>]
 LaTeX Font Info:    Font shape `T1/SourceSerifPro-LF/m/n' will be
-(Font)              scaled to size 5.0pt on input line 219.
-LaTeX Font Info:    Trying to load font information for TS1+SourceSerifPro-LF on input line 281.
+(Font)              scaled to size 5.0pt on input line 220.
+LaTeX Font Info:    Trying to load font information for TS1+SourceSerifPro-LF on input line 282.
  (/usr/share/texlive/texmf-dist/tex/latex/sourceserifpro/TS1SourceSerifPro-LF.fd
 File: TS1SourceSerifPro-LF.fd 2018/09/05 (autoinst) Font definitions for TS1/SourceSerifPro-LF.
 )
 LaTeX Font Info:    Font shape `TS1/SourceSerifPro-LF/m/n' will be
-(Font)              scaled to size 10.0pt on input line 281.
+(Font)              scaled to size 10.0pt on input line 282.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/m/sc' aliased to
-(Font)              `T1/SourceSansPro-TLF/regular/sc' on input line 380.
+(Font)              `T1/SourceSansPro-TLF/regular/sc' on input line 373.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/regular/sc' will be
-(Font)              scaled to size 8.0pt on input line 380.
+(Font)              scaled to size 8.0pt on input line 373.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/b/sc' aliased to
-(Font)              `T1/SourceSansPro-TLF/bold/sc' on input line 380.
+(Font)              `T1/SourceSansPro-TLF/bold/sc' on input line 373.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/bold/sc' will be
-(Font)              scaled to size 8.0pt on input line 380.
+(Font)              scaled to size 8.0pt on input line 373.
  [2]
-LaTeX Font Info:    Font shape `T1/SourceSerifPro-LF/b/n' will be
-(Font)              scaled to size 10.0pt on input line 420.
- (./main.bbl
+<seed_2024.png, id=113, 977.0904pt x 338.2236pt>
+File: seed_2024.png Graphic file (type png)
+<use seed_2024.png>
+Package pdftex.def Info: seed_2024.png  used on input line 419.
+(pdftex.def)             Requested size: 244.69386pt x 84.7002pt.
+ [3 <./seed_2024.png>] (./main.bbl
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/m/it' aliased to
 (Font)              `T1/SourceSansPro-TLF/regular/it' on input line 10.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/regular/it' will be
 (Font)              scaled to size 9.0pt on input line 10.
- [3]
+
 Underfull \hbox (badness 6078) in paragraph at lines 14--20
 \T1/SourceSansPro-TLF/regular/n/9 De-tected by a Sin-gle In-Sight Seis-mome-ter.  \T1/SourceSansPro-TLF/regular/it/9 Jour-nal of
  []
@@ -1115,18 +1138,18 @@ Underfull \hbox (badness 6078) in paragraph at lines 14--20
 
 ] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 30360 strings out of 478287
- 548230 string characters out of 5849288
- 879323 words of memory out of 5000000
- 47892 multiletter control sequences out of 15000+600000
- 908181 words of font info for 120 fonts, out of 8000000 for 9000
+ 30526 strings out of 478287
+ 550954 string characters out of 5849288
+ 880469 words of memory out of 5000000
+ 48052 multiletter control sequences out of 15000+600000
+ 879457 words of font info for 118 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  106i,17n,105p,514b,848s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/sourceserifpro/a_rlbtkr.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/sourceserifpro/a_nqu667.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/sourcesanspro/a_4jropk.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/sourceserifpro/a_5mjl2d.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/sourcesanspro/a_emkxm5.enc}</usr/share/texlive/texmf-dist/fonts/type1/adobe/sourcesanspro/SourceSansPro-Bold.pfb></usr/share/texlive/texmf-dist/fonts/type1/adobe/sourcesanspro/SourceSansPro-It.pfb></usr/share/texlive/texmf-dist/fonts/type1/adobe/sourcesanspro/SourceSansPro-Regular.pfb></usr/share/texlive/texmf-dist/fonts/type1/adobe/sourceserifpro/SourceSerifPro-Bold.pfb></usr/share/texlive/texmf-dist/fonts/type1/adobe/sourceserifpro/SourceSerifPro-It.pfb></usr/share/texlive/texmf-dist/fonts/type1/adobe/sourceserifpro/SourceSerifPro-Regular.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (4 pages, 544677 bytes).
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/sourceserifpro/a_nqu667.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/sourcesanspro/a_4jropk.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/sourceserifpro/a_5mjl2d.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/sourcesanspro/a_emkxm5.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/sourceserifpro/a_rlbtkr.enc}</usr/share/texlive/texmf-dist/fonts/type1/adobe/sourcesanspro/SourceSansPro-Bold.pfb></usr/share/texlive/texmf-dist/fonts/type1/adobe/sourcesanspro/SourceSansPro-It.pfb></usr/share/texlive/texmf-dist/fonts/type1/adobe/sourcesanspro/SourceSansPro-Regular.pfb></usr/share/texlive/texmf-dist/fonts/type1/adobe/sourceserifpro/SourceSerifPro-It.pfb></usr/share/texlive/texmf-dist/fonts/type1/adobe/sourceserifpro/SourceSerifPro-Regular.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on main.pdf (4 pages, 656233 bytes).
 PDF statistics:
- 317 PDF objects out of 1000 (max. 8388607)
- 260 compressed objects within 3 object streams
- 57 named destinations out of 1000 (max. 500000)
- 170 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 315 PDF objects out of 1000 (max. 8388607)
+ 258 compressed objects within 3 object streams
+ 58 named destinations out of 1000 (max. 500000)
+ 175 words of extra memory for PDF output out of 10000 (max. 10000000)
 

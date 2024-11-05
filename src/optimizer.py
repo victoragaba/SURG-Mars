@@ -18,7 +18,7 @@ def get_config():
     
     Output:
         config (dict): Default configuration for the optimization algorithm.
-        method (str): Optimization method to use: 'SD', 'Newton', 'BFGS'.
+        method (str): Optimization method to use: 'SD' or 'Newton'.
         c_decrease (float): Sufficient decrease factor.
         c_increase (float): Curvature condition factor.
         k_max (int): Maximum number of iterations.
@@ -30,9 +30,8 @@ def get_config():
     config = {
         'method': 'SD',
         'c_decrease':1e-4,
-        'c_increase': 1-1e-4,
-        'k_max': 20000,
-        'alpha': 1,
+        'k_max': 1000,
+        'alpha': 1e-2,
         'rho': 0.5,
         'tolerance': 1e-6,
         'print_every': 1
@@ -56,7 +55,6 @@ def minimize(objective, config, start=None):
     # extract config parameters
     method = config['method']
     c_decrease = config['c_decrease']
-    c_increase = config['c_increase']
     k_max = config['k_max']
     alpha_init = config['alpha']
     rho = config['rho']
@@ -70,11 +68,12 @@ def minimize(objective, config, start=None):
     
     
     # print output header
-    if len(x_k) > 5:
-        print(f'{method} optimization with backtracking linesearch from start = {x_k[:5]}...')
-    else:
-        print(f'{method} optimization with backtracking linesearch from start = {x_k}')
-    print(f'iter                f       ||p_k||       alpha     #func     ||grad_f||')
+    if print_every > 0:
+        if len(x_k) > 5:
+            print(f'{method} optimization with backtracking linesearch from start = {x_k[:5]}...')
+        else:
+            print(f'{method} optimization with backtracking linesearch from start = {x_k}')
+        print(f'iter                f       ||p_k||       alpha     #func     ||grad_f||')
     
     # evaluate function at start for later comparison
     f_k = objective(x_k)
@@ -84,13 +83,14 @@ def minimize(objective, config, start=None):
     k = 1
     
     # optimization loop
-    while k < k_max:
+    converged = False
+    while not converged:
         
         # reset hyperparameters for line iteration
         num_calls = 0
         alpha = alpha_init
 
-        # compute gradient at x_k, cuts across all methods       
+        # compute gradient at x_k, cuts across all methods
         grad_k = objective.gradient(x_k)
         
         # compute search direction
@@ -99,8 +99,6 @@ def minimize(objective, config, start=None):
         elif method == 'Newton':
             H_k = objective.hessian(x_k)
             p_k = -linalg.solve(H_k, grad_k)
-        elif method == 'BFGS':
-            p_k = -H_k @ grad_k
         else:
             raise Exception(f'Unknown optimization method: {method}')
         
@@ -111,40 +109,23 @@ def minimize(objective, config, start=None):
         
         # perform line search to satisfy Wolfe conditions
         f_k1 = objective(x_k + alpha*p_k)
-        grad_k1 = objective.gradient(x_k + alpha*p_k)
         num_calls += 1
-        assert c_increase > c_decrease
         upper_boundary = f_k + c_decrease*alpha*(grad_k @ p_k)
-        lower_boundary = c_increase*(grad_k @ p_k)
-        while f_k1 > upper_boundary or (grad_k1 @ p_k) < lower_boundary:
+        
+        while f_k1 > upper_boundary:
             alpha *= rho
             f_k1 = objective(x_k + alpha*p_k)
-            grad_k1 = objective.gradient(x_k + alpha*p_k)
             num_calls += 1
-            if num_calls > 1000:
-                print(f'Error: Line search failed to converge')
-                if f_k1 > upper_boundary:
-                    print(f'Error: f_k1 > upper_boundary')
-                if (grad_k @ p_k) < lower_boundary:
-                    print(f'Error: dot(grad_k1, p_k) < lower_boundary')
-                return x_k
+            upper_boundary = f_k + c_decrease*alpha*(grad_k @ p_k)
         
         # make the step
         x_k1 = x_k + alpha*p_k
-    
-        # implement BFGS update 
-        if method == 'BFGS':
-            s_k = x_k1 - x_k
-            y_k = grad_k1 - grad_k
-            rho_k = 1/(y_k @ s_k)
-            H_k = (np.eye(len(x_k)) - rho_k*np.outer(s_k, y_k)) @ H_k @\
-                (np.eye(len(x_k)) - rho_k*np.outer(y_k, s_k)) + rho_k*np.outer(s_k, s_k)
         
         # print iteration output
         max_grad_k = linalg.norm(grad_k, ord=np.inf)
-        if k % print_every == 0:
+        if print_every > 0 and k % print_every == 0:
             norm_p_k = linalg.norm(p_k)
-            print(f'{k:<5d}      {f_k:<5.4e}      {norm_p_k:<5.2e}    {alpha:<5.2e}         {num_calls:<5d}   {max_grad_k:<5.2e}')
+            print(f'{k:<5d}     {f_k:<+5.4e}      {norm_p_k:<5.2e}    {alpha:<5.2e}         {num_calls:<5d}   {max_grad_k:<5.2e}')
         
         # update variables
         x_k = x_k1
@@ -153,7 +134,15 @@ def minimize(objective, config, start=None):
         
         # check stopping criterion
         if max_grad_k < tolerance:
-            print(f'CONVERGED!')
+            if print_every > 0:
+                print('------------------------------------------------------------------------')
+                print(f'Coneverged in {k} iterations!')
+            converged = True
+        elif k == k_max:
+            if print_every > 0:
+                print('------------------------------------------------------------------------')
+                print('Maximum number of iterations reached!')
+                
             break
     
-    return x_k
+    return x_k, f_k, converged

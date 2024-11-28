@@ -255,6 +255,41 @@ def tp2sdr(t: list, p: list, deg: bool = False) -> tuple:
     return (np.array([strike1, dip1, rake1]), np.array([strike2, dip2, rake2]))
 
 
+def sdr2tp(sdr: list, deg: bool = False) -> tuple:
+    """
+    Converts from strike, dip, and rake to T and P axes.
+
+    Args:
+        sdr (list): strike, dip, and rake
+        deg (bool, optional): input in degrees if True
+
+    Returns:
+        tuple: (t, p) as unit vectors in x, y, z
+    """
+    if deg: sdr = np.deg2rad(sdr)
+    
+    # first normal from strike and dip
+    strike, dip, rake = sdr
+    
+    n1_theta = bearing2angle(strike + halfpi)
+    n1_phi = dip
+    n1 = pol2rect(np.array([1, n1_theta, n1_phi]))
+
+    n2_theta = bearing2angle(strike)
+    n2_init = pol2rect(np.array([1, n2_theta, halfpi]))
+    n2 = rotate_vec(n2_init, n1, rake)
+    
+    # get T and P axes
+    t = (n1 + n2)/np.linalg.norm(n1 + n2)
+    p = (n1 - n2)/np.linalg.norm(n1 - n2)
+    
+    # restrict to upper hemisphere
+    if t[2] < 0: t *= -1
+    if p[2] < 0: p *= -1
+    
+    return t, p
+
+
 def bound(params: list) -> list:
     '''
     Put params in the range [0, 2pi], [0, pi/2], [-pi, pi].
@@ -288,7 +323,7 @@ def bound(params: list) -> list:
     return out
 
 
-def rigid_hemisphere_samples(step_size: float) -> list:
+def systematic_hemisphere_samples(step_size: float) -> list:
     """
     Systematically samples n samples evenly spaced on an upper hemisphere surface.
 
@@ -320,7 +355,7 @@ def systematic_params(dd: float) -> list:
         dd (float): angular distance between samples in DEGREES
     '''
     params = []
-    Ts = rigid_hemisphere_samples(dd)
+    Ts = systematic_hemisphere_samples(dd)
     P_rotations = np.arange(0, np.pi, np.deg2rad(dd))
     for T in Ts:
         P_start = starting_direc(T, i_hat + j_hat + k_hat)
@@ -332,16 +367,68 @@ def systematic_params(dd: float) -> list:
     return np.array(params)
 
 
+def orthogonalize(v: list, u: list) -> list:
+    '''
+    Orthogonalize vector v to u.
+    
+    Args:
+        v (list): vector to orthogonalize
+        u (list): vector to orthogonalize to
+    '''
+    assert np.linalg.norm(u) > eps, "u must be a non-zero vector."
+    assert np.linalg.norm(v) > eps, "v must be a non-zero vector."
+    if np.abs(1 - np.abs(unit_vec(v) @ unit_vec(u))) < eps:
+        return np.zeros(3)
+    return unit_vec(v - (v @ u)/(u @ u)*u)
+
+
+def random_hemisphere_samples(n: int) -> list:
+    '''
+    Select n random samples uniformly distributed on the surface of an
+    upper hemisphere of unit radius
+
+    Args:
+        n (int): # samples
+
+    Returns:
+        list: array of [x,y,z] coordinates
+    '''
+    samples = []
+
+    for i in range(n):
+        # generate from normal distribution
+        p = np.random.normal(size=3)
+        while np.linalg.norm(p) < eps or all(p[:2]) == 0:
+            p = np.random.normal(size=3)
+        p = unit_vec(p)
+        
+        # restrict to upper hemisphere
+        p[2] = np.abs(p[2])
+        
+        samples.append(p)
+    
+    return samples
+
+
 def random_params(n:int) -> list:
     '''
-    Returns n uniformly sampled random parameters for the inversion.
+    Returns n random parameters for the inversion.
+    Sampled uniformly from TP space.
     Output is in RADIANS.
     '''
-    strike = np.random.uniform(0, twopi, n)
-    dip = np.random.uniform(0, halfpi, n)
-    rake = np.random.uniform(-np.pi, np.pi, n)
+    Ts = random_hemisphere_samples(n)
+    raw_Ps = random_hemisphere_samples(n)
+    Ps = []
+    for i in range(n):
+        Ptry = orthogonalize(raw_Ps[i], Ts[i])
+        while np.linalg.norm(Ptry) < eps:
+            print(f"Ptry: {Ptry}")
+            raw_P = random_hemisphere_samples(1)[0]
+            Ptry = orthogonalize(raw_P, Ts[i])
+        Ps.append(Ptry)
+    params = [tp2sdr(Ts[i], Ps[i])[0] for i in range(n)]
     
-    return np.array([strike, dip, rake]).T
+    return np.array(params)
 
 
 def plot_beachball_set(params: list) -> None:

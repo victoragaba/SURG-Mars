@@ -66,7 +66,6 @@ def minimize(objective, config, start=None):
         start = function.get_start()
     x_k = start
     
-    
     # print output header
     if print_every > 0:
         if len(x_k) > 5:
@@ -89,7 +88,7 @@ def minimize(objective, config, start=None):
         # reset hyperparameters for line iteration
         num_calls = 0
         alpha = alpha_init
-
+        
         # compute gradient at x_k, cuts across all methods
         grad_k = objective.gradient(x_k)
         
@@ -108,18 +107,17 @@ def minimize(objective, config, start=None):
             return x_k
         
         # perform line search to satisfy Wolfe conditions
-        f_k1 = objective(x_k + alpha*p_k)
+        x_k1 = x_k + alpha*p_k
+        f_k1 = objective(x_k1)
         num_calls += 1
         upper_boundary = f_k + c_decrease*alpha*(grad_k @ p_k)
         
         while f_k1 > upper_boundary:
             alpha *= rho
-            f_k1 = objective(x_k + alpha*p_k)
+            x_k1 = x_k + alpha*p_k
+            f_k1 = objective(x_k1)
             num_calls += 1
             upper_boundary = f_k + c_decrease*alpha*(grad_k @ p_k)
-        
-        # make the step
-        x_k1 = x_k + alpha*p_k
         
         # print iteration output
         max_grad_k = linalg.norm(grad_k, ord=np.inf)
@@ -127,7 +125,7 @@ def minimize(objective, config, start=None):
             norm_p_k = linalg.norm(p_k)
             print(f'{k:<5d}     {f_k:<+5.4e}      {norm_p_k:<5.2e}    {alpha:<5.2e}         {num_calls:<5d}   {max_grad_k:<5.2e}')
         
-        # update variables
+        # make the step
         x_k = x_k1
         f_k = f_k1
         k += 1
@@ -144,5 +142,9 @@ def minimize(objective, config, start=None):
                 print('Maximum number of iterations reached!')
                 
             break
+    
+    if converged:
+        objective.set_optimal_iterate(x_k)
+        objective.set_optimal_amplitude()
     
     return x_k, f_k, converged

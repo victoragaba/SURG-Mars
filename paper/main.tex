@@ -365,7 +365,7 @@
     Define a vector $\bm{\eta} = (s_R, q_R, p_R, q_L, p_L)^\top$. Then we can encode
     the misfit as
     \begin{align} \label{eq:18}
-      \Phi(\bm{m}) = \Phi(\bm{A}(\bm{\eta}(\bm{m})))
+      \Phi(\bm{m}) = \tilde{\Phi}(\bm{A}(\bm{\eta}(\bm{m})))
     \end{align}
 
     \noindent This composition is visualized as a computational graph in figure \ref{fig:1}.
@@ -404,14 +404,14 @@
     iii) From $\bm{A}$ to $\Phi$, we have a scalar function whose Jacobian is the gradient
     transposed.
     \begin{align} \label{eq:21}
-      \nonumber\nabla_{\bm{A}}\Phi &= \frac{\|\bm{A}\|\nabla_{\bm{A}}(-\hat{\bm{A}}_o^\top\bm{A}) - 
+      \nonumber\nabla_{\bm{A}}\tilde{\Phi} &= \frac{\|\bm{A}\|\nabla_{\bm{A}}(-\hat{\bm{A}}_o^\top\bm{A}) - 
       (-\hat{\bm{A}}_o^\top \bm{A}) \nabla_{\bm{A}}(\|\bm{A}\|)}{\|\bm{A}\|^2}\\
             &= \frac{-1}{\|\bm{A}\|}(\hat{\bm{A}}_o + \Phi\hat{\bm{A}})
     \end{align}
 
     Combining \ref{eq:19}, \ref{eq:20} and \ref{eq:21} gives the overall gradient:
     \begin{align} \label{eq:22}
-      \nabla_{\bm{m}}\Phi = \bm{J_p}(\bm{\eta})^\top \bm{J_\eta}(\bm{A})^\top \nabla_{\bm{A}}\Phi
+      \nabla_{\bm{m}}\Phi = \bm{J_p}(\bm{\eta})^\top \bm{J_\eta}(\bm{A})^\top \nabla_{\bm{A}}\tilde{\Phi}
     \end{align}
 
   \subsection{Optimization algorithms}

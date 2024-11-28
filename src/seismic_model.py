@@ -222,18 +222,6 @@ class SeismicModel(Model):
         self.tp_axes = []
         self.amplitudes = []
         self.optimal_amplitudes = []
-    
-    
-    def plot_misfit(self):
-        '''
-        Plot the misfits in a subplot.
-        '''
-        fig, ax = plt.subplots(1, 1, figsize=(6, 5))
-        ax.plot(self.misfits)
-        ax.set_title('Misfit function')
-        ax.set_xlabel('Iteration')
-        ax.set_ylabel('Misfit')
-        plt.show()
         
     
     def mirror(self, what, index=0):
@@ -255,9 +243,11 @@ class SeismicModel(Model):
                     iterates.append(fn.tp2sdr(t, p)[index])
                 self.iterates = iterates
             elif what == 'axes':
+                tp_axes = []
                 for m in self.optimal_iterates:
                     t, p = fn.sdr2tp(m)
-                    self.tp_axes.append([t, p])
+                    tp_axes.append([t, p])
+                self.tp_axes = fn.filter_axes(tp_axes)
             else:
                 raise ValueError('Invalid keyword for "what"')
         elif len(what) > 1:
@@ -267,6 +257,18 @@ class SeismicModel(Model):
             raise ValueError('Invalid argument for "what"')
     
     
+    def plot_misfit(self):
+        '''
+        Plot the misfits in a subplot.
+        '''
+        fig, ax = plt.subplots(1, 1, figsize=(6, 5))
+        ax.plot(self.misfits)
+        ax.set_title('Misfit function')
+        ax.set_xlabel('Iteration')
+        ax.set_ylabel('Misfit')
+        plt.show()
+        
+        
     def plot_iterates_2D(self, cmap='rainbow', s=10, optimal=True, index=2):
         '''
         Make 3 2D plots of the iterates: psi, delta, lambda.
@@ -316,7 +318,6 @@ class SeismicModel(Model):
         opt_strikes = [np.rad2deg(m[0]) for m in optimal_iterates]
         opt_dips = [np.rad2deg(m[1]) for m in optimal_iterates]
         opt_rakes = [np.rad2deg(m[2]) for m in optimal_iterates]
-        
         
         # make the plots
         fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(18, 5))
@@ -487,12 +488,14 @@ class SeismicModel(Model):
         Make a 3D plot of the optimal tp axes.
         '''
         self.mirror(['axes'])
+        _, normal = fn.regression_axes(self.tp_axes)
+        zero = np.zeros(3)
         
         fig = plt.figure(figsize=(15, 10))
         ax = fig.add_subplot(111, projection='3d')
         
         t, p = self.tp_axes[0]
-        if half: t_prime, p_prime = np.zeros(3), np.zeros(3)
+        if half: t_prime, p_prime = zero, zero
         else: t_prime, p_prime = -t, -p
         ax.plot([t[0], t_prime[0]], [t[1], t_prime[1]], [t[2], t_prime[2]],
                     c='black', alpha=0.5, label="t axis")
@@ -501,12 +504,16 @@ class SeismicModel(Model):
         
         for i in range(1, len(self.tp_axes)):
             t, p = self.tp_axes[i]
-            if half: t_prime, p_prime = np.zeros(3), np.zeros(3)
+            if half: t_prime, p_prime = zero, zero
             else: t_prime, p_prime = -t, -p
             ax.plot([t[0], t_prime[0]], [t[1], t_prime[1]], [t[2], t_prime[2]],
                     c='black', alpha=0.5)
             ax.plot([p[0], p_prime[0]], [p[1], p_prime[1]], [p[2], p_prime[2]],
                     c='red', alpha=0.5)
+        
+        ax.plot([normal[0], zero[0]], [normal[1], zero[1]], [normal[2], zero[2]],
+                c='green', alpha=0.5, label="normal", linewidth=3)
+        
         ax.set_xlabel('x')
         ax.set_ylabel('y')
         ax.set_zlabel('z')
@@ -518,3 +525,15 @@ class SeismicModel(Model):
         
         plt.show()
         
+    
+    def optimal_parameterization():
+        '''
+        Compute optimal parameterization of fault planes.
+        Returns axis name, direction and half-angle.
+        '''
+        # split via dot product
+        # regression on narrow cone
+        # half-angle histogram diagnostic
+        # spit out parameters
+        # THANK YOU LORD JESUS
+        pass

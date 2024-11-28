@@ -91,7 +91,7 @@ def starting_direc(point: list, direc: list) -> list:
     
     proj = (np.dot(direc, point)/np.dot(point, point))
     rem = np.array(direc) - proj*np.array(point)
-    return rem/np.linalg.norm(rem) if np.linalg.norm(rem) > eps else j_hat
+    return rem/linalg.norm(rem) if linalg.norm(rem) > eps else j_hat
 
 
 def rect2pol(rect: list) -> list:
@@ -104,12 +104,12 @@ def rect2pol(rect: list) -> list:
     
     if len(rect) == 2:
         x, y = rect
-        r = np.linalg.norm(rect)
+        r = linalg.norm(rect)
         theta = np.arctan2(y, x) % twopi
         return np.array([r, theta])
     
     x, y, z = rect
-    rho = np.linalg.norm(rect)
+    rho = linalg.norm(rect)
     theta = np.arctan2(y, x) % twopi
     phi = np.arctan2(np.sqrt(x**2 + y**2), z)
     
@@ -241,10 +241,10 @@ def tp2sdr(t: list, p: list, deg: bool = False) -> tuple:
 
     # get rakes from  base and slip vectors
     if not done1:
-        rake1 = np.arccos(np.dot(slip1, base1)/np.linalg.norm(slip1))
+        rake1 = np.arccos(np.dot(slip1, base1)/linalg.norm(slip1))
         rake1 *= np.sign(slip1[2])
     if not done2:
-        rake2 = np.arccos(np.dot(slip2, base2)/np.linalg.norm(slip2))
+        rake2 = np.arccos(np.dot(slip2, base2)/linalg.norm(slip2))
         rake2 *= np.sign(slip2[2])
     
     if deg:
@@ -280,8 +280,8 @@ def sdr2tp(sdr: list, deg: bool = False) -> tuple:
     n2 = rotate_vec(n2_init, n1, rake)
     
     # get T and P axes
-    t = (n1 + n2)/np.linalg.norm(n1 + n2)
-    p = (n1 - n2)/np.linalg.norm(n1 - n2)
+    t = (n1 + n2)/linalg.norm(n1 + n2)
+    p = (n1 - n2)/linalg.norm(n1 - n2)
     
     # restrict to upper hemisphere
     if t[2] < 0: t *= -1
@@ -375,8 +375,8 @@ def orthogonalize(v: list, u: list) -> list:
         v (list): vector to orthogonalize
         u (list): vector to orthogonalize to
     '''
-    assert np.linalg.norm(u) > eps, "u must be a non-zero vector."
-    assert np.linalg.norm(v) > eps, "v must be a non-zero vector."
+    assert linalg.norm(u) > eps, "u must be a non-zero vector."
+    assert linalg.norm(v) > eps, "v must be a non-zero vector."
     if np.abs(1 - np.abs(unit_vec(v) @ unit_vec(u))) < eps:
         return np.zeros(3)
     return unit_vec(v - (v @ u)/(u @ u)*u)
@@ -398,7 +398,7 @@ def random_hemisphere_samples(n: int) -> list:
     for i in range(n):
         # generate from normal distribution
         p = np.random.normal(size=3)
-        while np.linalg.norm(p) < eps or all(p[:2]) == 0:
+        while linalg.norm(p) < eps or all(p[:2]) == 0:
             p = np.random.normal(size=3)
         p = unit_vec(p)
         
@@ -421,7 +421,7 @@ def random_params(n:int) -> list:
     Ps = []
     for i in range(n):
         Ptry = orthogonalize(raw_Ps[i], Ts[i])
-        while np.linalg.norm(Ptry) < eps:
+        while linalg.norm(Ptry) < eps:
             print(f"Ptry: {Ptry}")
             raw_P = random_hemisphere_samples(1)[0]
             Ptry = orthogonalize(raw_P, Ts[i])
@@ -451,3 +451,68 @@ def kagan_angle(sdr1: list, sdr2: list) -> float:
         sdr2 (list): second mechanism's SDR parameters in RADIANS
     '''
     pass # Nseko
+
+
+def filter_axes(tp_axes: list) -> list:
+    '''
+    Filters out the T and P axes to get one side of the cone.
+    
+    Args:
+        tps (list): list of tp axes
+    '''
+    # pick a random tp pair
+    t_ref, p_ref = tp_axes[0]
+    
+    # output list
+    tp_filtered = np.zeros((len(tp_axes), 2, 3))
+    
+    # use sign of dot product to determine side
+    for i, (t, p) in enumerate(tp_axes):
+        if np.dot(t, t_ref) < 0: t *= -1
+        if np.dot(p, p_ref) < 0: p *= -1
+        tp_filtered[i] = np.array([t, p])
+    
+    return tp_filtered
+
+
+def regression_plane(data: list) -> tuple:
+    '''
+    Returns the best fit plane for a set of data points.
+    
+    Args:
+        data (list): list of data points
+    '''
+    centroid = np.mean(data, axis=0)
+    A = np.c_[data, np.ones(data.shape[0])]
+    print(f'Rank of A: {linalg.matrix_rank(A)}')
+    # TODO: why is this not working?
+    normal = np.lin
+    normal = normal[:-1]
+    print(f"Centroid: {centroid}, Normal: {normal}")
+    
+    return centroid, normal
+
+def regression_axes(tp_axes: list) -> tuple:
+    '''
+    Returns the best fit plane for a set of TP axis endpoints.
+    Assumes they are alreaady filtered.
+    Uses the narrower cone to determine the plane.
+    
+    Args:
+        tp_axes (list): list of tp axes
+    '''
+    Ts = np.array([tp[0] for tp in tp_axes])
+    Ps = np.array([tp[1] for tp in tp_axes])
+    
+    T_centroid, T_normal = regression_plane(Ts)
+    P_centroid, P_normal = regression_plane(Ps)
+    
+    # normalize all vecs
+    T_try, T_normal = unit_vec(T_centroid), unit_vec(T_normal)
+    P_try, P_normal = unit_vec(P_centroid), unit_vec(P_normal)
+    
+    # return Centroid and normal whose dot product is largest
+    if T_try @ T_normal > P_try @ P_normal:
+        return T_centroid, T_normal
+    else:
+        return P_centroid, P_normal

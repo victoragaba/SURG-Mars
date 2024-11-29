@@ -174,7 +174,7 @@ class SeismicModel(Model):
         self.converged += converged
     
     
-    def get_convergence_rate(self):
+    def convergence_rate(self):
         ''' Return the convergence rate. '''
         return 100*self.converged/self.runs
     
@@ -293,7 +293,7 @@ class SeismicModel(Model):
         '''
         fig, ax = plt.subplots(1, 1, figsize=(6, 5))
         ax.hist(np.rad2deg(self.half_angles), bins=bins)
-        ax.set_title('Half-angles diagnostic histogram')
+        ax.set_title('Diagnostic histogram of half-angles')
         ax.set_xlabel('Half angle (deg)')
         ax.set_ylabel('Frequency')
         plt.show()
@@ -520,7 +520,7 @@ class SeismicModel(Model):
         '''
         if len(self.tp_axes) == 0: self.mirror(['axes'])
         zero = np.zeros(3)
-        _, normal, _ = fn.regression_axes(self.tp_axes)
+        _, c, _ = fn.regression_axes(self.tp_axes)
         
         fig = plt.figure(figsize=(15, 10))
         ax = fig.add_subplot(111, projection='3d')
@@ -542,7 +542,9 @@ class SeismicModel(Model):
             ax.plot([p[0], p_prime[0]], [p[1], p_prime[1]], [p[2], p_prime[2]],
                     c='red', alpha=0.5)
         
-        ax.plot([normal[0], zero[0]], [normal[1], zero[1]], [normal[2], zero[2]],
+        if half: c_prime = zero
+        else: c_prime = -c
+        ax.plot([c[0], c_prime[0]], [c[1], c_prime[1]], [c[2], c_prime[2]],
                 c='green', alpha=0.5, label="central", linewidth=3)
         
         ax.set_xlabel('x')

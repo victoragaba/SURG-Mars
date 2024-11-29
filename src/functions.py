@@ -483,14 +483,15 @@ def regression_plane(data: list) -> tuple:
         data (list): list of data points
     '''
     centroid = np.mean(data, axis=0)
-    A = np.c_[data, np.ones(data.shape[0])]
-    print(f'Rank of A: {linalg.matrix_rank(A)}')
-    # TODO: why is this not working?
-    normal = np.lin
-    normal = normal[:-1]
-    print(f"Centroid: {centroid}, Normal: {normal}")
+    A = np.c_[data[:,:-1], np.ones(data.shape[0])]
+    b = data[:,-1]
+    x = linalg.solve(A.T @ A, A.T @ b)
+    normal = unit_vec(np.array([x[0], x[1], -1]))
+    if np.dot(normal, centroid) < 0: normal *= -1
+    normal = unit_vec(normal)
     
     return centroid, normal
+
 
 def regression_axes(tp_axes: list) -> tuple:
     '''
@@ -511,8 +512,8 @@ def regression_axes(tp_axes: list) -> tuple:
     T_try, T_normal = unit_vec(T_centroid), unit_vec(T_normal)
     P_try, P_normal = unit_vec(P_centroid), unit_vec(P_normal)
     
-    # return Centroid and normal whose dot product is largest
+    # return centroid and normal whose dot product is largest
     if T_try @ T_normal > P_try @ P_normal:
-        return T_centroid, T_normal
+        return T_centroid, T_normal, 0
     else:
-        return P_centroid, P_normal
+        return P_centroid, P_normal, 1

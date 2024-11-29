@@ -30,11 +30,11 @@ def get_config():
     config = {
         'method': 'SD',
         'c_decrease':1e-4,
-        'k_max': 1000,
-        'alpha': 1e-2,
+        'k_max': 3000,
+        'alpha': 5e-2,
         'rho': 0.5,
-        'tolerance': 1e-6,
-        'print_every': 1
+        'tolerance': 1e-5,
+        'print_every': 0
     }
     return config
 
@@ -146,5 +146,7 @@ def minimize(objective, config, start=None):
     if converged:
         objective.set_optimal_iterate(x_k)
         objective.set_optimal_amplitude()
+        
+    objective.update_convergence(converged)
     
-    return x_k, f_k, converged
+    return x_k

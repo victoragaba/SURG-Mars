@@ -64,8 +64,8 @@ class SeismicModel(Model):
         self.tp_axes = []
         self.amplitudes = []
         self.optimal_amplitudes = []
-        
-        # TODO: get convergence rate built in
+        self.half_angles = []
+        self.runs, self.converged = 0, 0
         
         # initialize constant Jacobian matrix
         factors = np.array([alpha_h, beta_h, beta_h])**3
@@ -168,6 +168,17 @@ class SeismicModel(Model):
         self.Ao = Ao
     
     
+    def update_convergence(self, converged):
+        ''' Update the number of runs and the number of convergences. '''
+        self.runs += 1
+        self.converged += converged
+    
+    
+    def get_convergence_rate(self):
+        ''' Return the convergence rate. '''
+        return 100*self.converged/self.runs
+    
+    
     def get_iterates(self):
         ''' Return parameter iterates from optimization. '''
         return self.iterates
@@ -203,6 +214,11 @@ class SeismicModel(Model):
         return self.tp_axes
     
     
+    def get_half_angles(self):
+        ''' Return the half angles. '''
+        return self.half_angles
+    
+    
     def filter_outliers(self, threshold=2):
         ''' Filter out outliers based on Z-score of optimal amplitude norms. '''
         norms = np.array([linalg.norm(a) for a in self.optimal_amplitudes])
@@ -222,6 +238,8 @@ class SeismicModel(Model):
         self.tp_axes = []
         self.amplitudes = []
         self.optimal_amplitudes = []
+        self.half_angles = []
+        self.runs, self.converged = 0, 0
         
     
     def mirror(self, what, index=0):
@@ -268,6 +286,18 @@ class SeismicModel(Model):
         ax.set_ylabel('Misfit')
         plt.show()
         
+    
+    def plot_half_angles(self, bins=20):
+        '''
+        Plot the half angles in a subplot.
+        '''
+        fig, ax = plt.subplots(1, 1, figsize=(6, 5))
+        ax.hist(np.rad2deg(self.half_angles), bins=bins)
+        ax.set_title('Half-angles diagnostic histogram')
+        ax.set_xlabel('Half angle (deg)')
+        ax.set_ylabel('Frequency')
+        plt.show()
+        
         
     def plot_iterates_2D(self, cmap='rainbow', s=10, optimal=True, index=2):
         '''
@@ -279,7 +309,6 @@ class SeismicModel(Model):
             optimal (bool): If True, plot only the optimal points.
             index (int): 0 is 1st fault plane, 1 is 2nd fault plane, 2 is both.
         '''
-        # convert the angles to degrees
         if index == 0 or index == 1:
             if not optimal:
                 self.mirror(['optimals', 'iterates'], index)
@@ -303,6 +332,7 @@ class SeismicModel(Model):
                 self.mirror(['optimals'], 1)
                 optimal_iterates.extend(self.optimal_iterates)
         
+        # convert the angles to degrees
         if not optimal:
             strikes = [np.rad2deg(m[0]) for m in iterates]
             dips = [np.rad2deg(m[1]) for m in iterates]
@@ -322,19 +352,19 @@ class SeismicModel(Model):
         # make the plots
         fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(18, 5))
         if not optimal: ax1.scatter(strikes, dips, c=weights, cmap=cmap, norm=norm, s=s)
-        ax1.scatter(opt_strikes, opt_dips, c='black', marker='*', s=50*s, label='Optimal')
+        ax1.scatter(opt_strikes, opt_dips, c='black', marker='*', s=s, label='Optimal')
         ax1.set_title('Strike against Dip')
         ax1.set_xlabel('Strike (deg)')
         ax1.set_ylabel('Dip (deg)')
         
         if not optimal: ax2.scatter(strikes, rakes, c=weights, cmap=cmap, norm=norm, s=s)
-        ax2.scatter(opt_strikes, opt_rakes, c='black', marker='*', s=50*s, label='Optimal')
+        ax2.scatter(opt_strikes, opt_rakes, c='black', marker='*', s=s, label='Optimal')
         ax2.set_title('Strike against Rake')
         ax2.set_xlabel('Strike (deg)')
         ax2.set_ylabel('Rake (deg)')
         
         if not optimal: ax3.scatter(dips, rakes, c=weights, cmap=cmap, norm=norm, s=s)
-        ax3.scatter(opt_dips, opt_rakes, c='black', marker='*', s=50*s, label='Optimal')
+        ax3.scatter(opt_dips, opt_rakes, c='black', marker='*', s=s, label='Optimal')
         ax3.set_title('Dip against Rake')
         ax3.set_xlabel('Dip (deg)')
         ax3.set_ylabel('Rake (deg)')
@@ -362,7 +392,6 @@ class SeismicModel(Model):
             optimal (bool): If True, plot only the optimal points.
             warm (bool): If False, 
         '''
-        # convert the angles to degrees
         if index == 0 or index == 1:
             if not optimal:
                 self.mirror(['optimals', 'iterates'], index)
@@ -386,20 +415,22 @@ class SeismicModel(Model):
                 self.mirror(['optimals'], 1)
                 optimal_iterates.extend(self.optimal_iterates)
         
+        # convert the angles to degrees
         if not optimal:
             strikes = [np.rad2deg(m[0]) for m in iterates]
             dips = [np.rad2deg(m[1]) for m in iterates]
             rakes = [np.rad2deg(m[2]) for m in iterates]
             weights = -np.array(self.misfits)
             if index == 2: weights = np.concatenate([weights, weights])
-        
+            
+            # normalize weights for consistent coloring
+            norm = plt.Normalize(vmin=weights.min(), vmax=weights.max())
+            cmap_instance = plt.cm.get_cmap(cmap)
+            
         opt_strikes = [np.rad2deg(m[0]) for m in optimal_iterates]
         opt_dips = [np.rad2deg(m[1]) for m in optimal_iterates]
         opt_rakes = [np.rad2deg(m[2]) for m in optimal_iterates]
         
-        # normalize weights for consistent coloring
-        norm = plt.Normalize(vmin=weights.min(), vmax=weights.max())
-        cmap_instance = plt.cm.get_cmap(cmap)
         
         # create a 3D scatter plot
         fig = plt.figure(figsize=(15, 10))
@@ -411,7 +442,7 @@ class SeismicModel(Model):
             )
         ax.scatter(
             opt_strikes, opt_dips, opt_rakes,
-            c='black', marker='*', s=50*s, label='Optimal'
+            c='black', marker='*', s=s, label='Optimal'
         )
         ax.set_xlabel('Strike (deg)')
         ax.set_ylabel('Dip (deg)')
@@ -430,7 +461,7 @@ class SeismicModel(Model):
         plt.show()
         
         
-    def plot_amplitudes(self, elev=30, azim=45, cmap='rainbow', s=50, alpha=0.5, iterates=False):
+    def plot_amplitudes(self, elev=30, azim=45, cmap='rainbow', s=10, alpha=0.5, iterates=False):
         '''
         Make a 3D scatter plot of the optimal amplitudes.
         '''
@@ -480,16 +511,16 @@ class SeismicModel(Model):
         # adjust the view angle
         ax.view_init(elev=elev, azim=azim)
         
-        plt.show()
-        
-        
+        plt.show()    
+    
+    
     def plot_tp_axes(self, elev=30, azim=45, half=False):
         '''
         Make a 3D plot of the optimal tp axes.
         '''
-        self.mirror(['axes'])
-        _, normal = fn.regression_axes(self.tp_axes)
+        if len(self.tp_axes) == 0: self.mirror(['axes'])
         zero = np.zeros(3)
+        _, normal, _ = fn.regression_axes(self.tp_axes)
         
         fig = plt.figure(figsize=(15, 10))
         ax = fig.add_subplot(111, projection='3d')
@@ -512,7 +543,7 @@ class SeismicModel(Model):
                     c='red', alpha=0.5)
         
         ax.plot([normal[0], zero[0]], [normal[1], zero[1]], [normal[2], zero[2]],
-                c='green', alpha=0.5, label="normal", linewidth=3)
+                c='green', alpha=0.5, label="central", linewidth=3)
         
         ax.set_xlabel('x')
         ax.set_ylabel('y')
@@ -526,14 +557,26 @@ class SeismicModel(Model):
         plt.show()
         
     
-    def optimal_parameterization():
+    def optimal_parameterization(self):
         '''
         Compute optimal parameterization of fault planes.
-        Returns axis name, direction and half-angle.
+        Returns axis direction, half-angle, error and name.
         '''
-        # split via dot product
-        # regression on narrow cone
-        # half-angle histogram diagnostic
-        # spit out parameters
-        # THANK YOU LORD JESUS
-        pass
+        if len(self.tp_axes) == 0: self.mirror(['axes'])
+        centroid, normal, position = fn.regression_axes(self.tp_axes)
+        
+        central = normal
+        for axis in self.tp_axes:
+            half_angle = np.arccos(axis[position] @ central)
+            self.half_angles.append(half_angle)
+        half_angle = np.mean(self.half_angles)
+        error = np.arccos(fn.unit_vec(centroid) @ normal)/2
+        
+        if position == 0: name = 'T'
+        elif position == 1: name = 'P'
+        else: raise ValueError('Invalid position')
+        
+        if central[2] < 0: central *= -1
+        
+        return central, half_angle, error, name
+    

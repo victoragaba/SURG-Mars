@@ -150,3 +150,4 @@ def minimize(objective, config, start=None):
     objective.update_convergence(converged)
     
     return x_k
+

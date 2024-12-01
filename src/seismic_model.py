@@ -13,6 +13,7 @@ from numpy import linalg
 from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import functions as fn
+import optimizer as opt
 
 
 class Model:
@@ -21,13 +22,13 @@ class Model:
     Catch anything whose method is not implemented.
     '''
     
-    def __call__(self, params):
+    def __call__(self):
         raise Exception('Class is not callable')
 
-    def gradient(self, params):
+    def gradient(self):
         raise Exception('Method "gradient" is not implemented')
 
-    def hessian(self, params):
+    def hessian(self):
         raise Exception('Method "hessian" not is implemented')
 
     def starting_point(self):
@@ -56,7 +57,7 @@ class SeismicModel(Model):
         i, j = np.deg2rad(i), np.deg2rad(j)
         alpha_h, beta_h = velocities
         
-        # initialize misfits, iterates and optimals for tracking
+        # initialize variables for tracking
         self.misfits = []
         self.iterates = []
         self.optimal_iterates = []
@@ -66,6 +67,14 @@ class SeismicModel(Model):
         self.optimal_amplitudes = []
         self.half_angles = []
         self.runs, self.converged = 0, 0
+        
+        # initialize variables for hybrid search
+        self.convergence_rates = []
+        self.optimal_parameterizations = []
+        self.optimal_errors = []
+        self.optimal_axes = []
+        self.sampled_amplitudes = []
+        self.sampled_weights = []
         
         # initialize constant Jacobian matrix
         factors = np.array([alpha_h, beta_h, beta_h])**3
@@ -106,7 +115,7 @@ class SeismicModel(Model):
         eta = np.array([sR, qR, pR, qL, pL])
         self.A = self.J_A @ eta
         
-        # optionally set the observed amplitudes
+        # set observed amplitudes for synthetic parameters
         if set_Ao: self.Ao = self.A
         
         # compute and store misfit
@@ -289,7 +298,8 @@ class SeismicModel(Model):
     
     def plot_half_angles(self, bins=20):
         '''
-        Plot the half angles in a subplot.
+        Plot the half angles in a histogram.
+        This is a diagnostic plot.
         '''
         fig, ax = plt.subplots(1, 1, figsize=(6, 5))
         ax.hist(np.rad2deg(self.half_angles), bins=bins)
@@ -309,6 +319,8 @@ class SeismicModel(Model):
             optimal (bool): If True, plot only the optimal points.
             index (int): 0 is 1st fault plane, 1 is 2nd fault plane, 2 is both.
         '''
+        fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(18, 5))
+        
         if index == 0 or index == 1:
             if not optimal:
                 self.mirror(['optimals', 'iterates'], index)
@@ -350,7 +362,6 @@ class SeismicModel(Model):
         opt_rakes = [np.rad2deg(m[2]) for m in optimal_iterates]
         
         # make the plots
-        fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(18, 5))
         if not optimal: ax1.scatter(strikes, dips, c=weights, cmap=cmap, norm=norm, s=s)
         ax1.scatter(opt_strikes, opt_dips, c='black', marker='*', s=s, label='Optimal')
         ax1.set_title('Strike against Dip')
@@ -520,7 +531,7 @@ class SeismicModel(Model):
         '''
         if len(self.tp_axes) == 0: self.mirror(['axes'])
         zero = np.zeros(3)
-        _, c, _ = fn.regression_axes(self.tp_axes)
+        c, _ = fn.regression_axes(self.tp_axes)
         
         fig = plt.figure(figsize=(15, 10))
         ax = fig.add_subplot(111, projection='3d')
@@ -564,15 +575,16 @@ class SeismicModel(Model):
         Compute optimal parameterization of fault planes.
         Returns axis direction, half-angle, error and name.
         '''
-        if len(self.tp_axes) == 0: self.mirror(['axes'])
-        centroid, normal, position = fn.regression_axes(self.tp_axes)
+        self.filter_outliers()
         
-        central = normal
+        if len(self.tp_axes) == 0: self.mirror(['axes'])
+        central, position = fn.regression_axes(self.tp_axes)
+        
         for axis in self.tp_axes:
             half_angle = np.arccos(axis[position] @ central)
             self.half_angles.append(half_angle)
         half_angle = np.mean(self.half_angles)
-        error = np.arccos(fn.unit_vec(centroid) @ normal)/2
+        error = np.std(self.half_angles)
         
         if position == 0: name = 'T'
         elif position == 1: name = 'P'
@@ -580,5 +592,335 @@ class SeismicModel(Model):
         
         if central[2] < 0: central *= -1
         
-        return central, half_angle, error, name
+        rho, theta, phi = fn.rect2pol(central)
+        assert np.abs(rho - 1) < fn.eps, 'Central axis is not a unit vector'
+        params = np.array([theta, phi, half_angle])
+        
+        return params, error, position
     
+    
+    ######################################################################
+    # (MONTE-CARLO) METHODS FOR UNCERTAINTY QUANTIFICATION
+    ######################################################################
+    
+    
+    def super_reset(self):
+        ''' Reset all variables. '''
+        self.reset()
+        self.convergence_rates = []
+        self.optimal_parameterizations = []
+        self.optimal_errors = []
+        self.optimal_axes = []
+        self.sampled_amplitudes = []
+        self.sampled_weights = []
+    
+    
+    def init_uncertainty(self):
+        ''' Initialize the uncertainty ellipsoid. '''
+        self.set_Uo()
+        self.set_chi2()
+    
+    
+    def set_Uo(self, Uo = []):
+        ''' Set the observed uncertainties and chi2 value. '''
+        if len(Uo) == 0: Uo = np.abs(self.Ao*0.01)
+        self.Uo = Uo
+    
+    
+    def get_Uo(self):
+        ''' Return the observed uncertainties. '''
+        return self.Uo
+
+
+    def set_chi2(self, chi2 = 1):
+        ''' Set the chi2 value. '''
+        self.chi2 = chi2
+    
+    
+    def get_chi2(self):
+        ''' Return the chi2 value. '''
+        return self.chi2
+
+
+    def get_normal(self):
+        ''' Return the normal vector. '''
+        assert len(self.Uo) > 0, 'Observed uncertainties not set'
+        Sigma_tilde = np.diag(self.Uo)/self.chi2
+        Sigma_tilde_inv = linalg.inv(Sigma_tilde)
+        normal = Sigma_tilde_inv @ self.Ao
+        
+        return fn.unit_vec(normal)
+    
+    
+    def sample_amplitudes(self, dd=15, num_samples=50):
+        ''' Sample amplitudes in a systematic elliptical cone. '''
+        normal = self.get_normal()
+        Ao = self.get_Ao()
+        Uo = self.get_Uo()
+        chi2 = self.get_chi2()
+        self.sampled_amplitudes = fn.systematic_ellipse(normal, Ao, Uo, chi2, dd, num_samples)
+        self.sampled_weights = [fn.unit_vec(As) @ fn.unit_vec(Ao) for As in self.sampled_amplitudes]
+        
+    
+    def get_sampled_amplitudes(self):
+        ''' Return the sampled amplitudes. '''
+        return self.sampled_amplitudes
+    
+    
+    def plot_sampled_amplitudes(self, cmap='rainbow', s=10, alpha=1):
+        '''
+        Make a 3D scatter plot of the sampled amplitudes.
+        Weight them by cosine similarity with Ao.
+        '''
+        fig = plt.figure(figsize=(15, 10))
+        ax = fig.add_subplot(111, projection='3d')
+        
+        AP = [As[0] for As in self.sampled_amplitudes]
+        ASV = [As[1] for As in self.sampled_amplitudes]
+        ASH = [As[2] for As in self.sampled_amplitudes]
+        weights = np.array(self.sampled_weights)
+        
+        norm = plt.Normalize(vmin=weights.min(), vmax=weights.max())
+        cmap_instance = plt.cm.get_cmap(cmap)
+        
+        scatter = ax.scatter(
+            AP, ASV, ASH,
+            c=weights, cmap=cmap_instance, norm=norm, s=s, alpha=alpha
+        )
+        
+        # plot the max weight with a black star
+        max_index = np.argmax(weights)
+        ax.scatter(
+            AP[max_index], ASV[max_index], ASH[max_index],
+            c='black', marker='*', s=10*s, label='Max weight'
+        )
+        
+        ax.set_xlabel('AP')
+        ax.set_ylabel('ASV')
+        ax.set_zlabel('ASH')
+        plt.legend()
+        plt.title('Sampled amplitudes', fontsize=15)
+        
+        cbar = fig.colorbar(scatter, ax=ax, pad=0.1, shrink=0.6)
+        cbar.set_label('Cosine similarity')
+        
+        plt.show()
+    
+     
+    def hybrid_search(self, num_runs=30, print_every=0):
+        '''
+        Perform a random hybrid search to find the optimal parameterization.
+        '''
+        self.reset()
+        config = opt.get_config()
+        starts = fn.random_params(num_runs)
+        
+        for index, start in enumerate(starts):
+            if print_every > 0 and index % print_every == 0:
+                print(f'Run {index} of {num_runs}')
+            opt.minimize(self, config, start)
+            
+        self.convergence_rates.append(self.convergence_rate())
+        params, error, position = self.optimal_parameterization()
+        self.optimal_parameterizations.append(params)
+        self.optimal_errors.append(error)
+        self.optimal_axes.append(position)
+    
+    
+    def get_convergence_rates(self):
+        ''' Return the convergence rates. '''
+        return self.convergence_rates
+    
+    
+    def get_optimal_parameterizations(self):
+        ''' Return the optimal parameterizations. '''
+        return self.optimal_parameterizations
+    
+    
+    def get_optimal_errors(self):
+        ''' Return the optimal errors. '''
+        return self.optimal_errors
+    
+    
+    def get_optimal_axes(self):
+        ''' Return the optimal axes. '''
+        return self.optimal_axes
+    
+    
+    def post_filter(self, threshold=90, orig=False):
+        '''
+        Remove the minority axis from the optimal parameterizations. 
+        Filter out errors above a threshold in DEGREES.
+        threshold=0 means revert to the original values.
+        '''
+        threshold = np.deg2rad(threshold)
+        majority_axis = int(self.optimal_axes.count(1) > self.optimal_axes.count(0))
+        
+        # save original values
+        if orig:
+            self.orig_optimal_parameterizations = self.optimal_parameterizations
+            self.orig_optimal_errors = self.optimal_errors
+            self.orig_convergence_rates = self.convergence_rates
+            self.orig_sampled_weights = self.sampled_weights
+            self.orig_sampled_amplitudes = self.sampled_amplitudes
+            self.orig_optimal_axes = self.optimal_axes
+        
+        if threshold == 0:
+            self.optimal_parameterizations = self.orig_optimal_parameterizations
+            self.optimal_errors = self.orig_optimal_errors
+            self.convergence_rates = self.orig_convergence_rates
+            self.sampled_weights = self.orig_sampled_weights
+            self.sampled_amplitudes = self.orig_sampled_amplitudes
+            self.optimal_axes = self.orig_optimal_axes
+            return
+    
+        # filter out the minority axis
+        self.optimal_parameterizations = [p for i, p in enumerate(self.optimal_parameterizations)
+                                            if self.optimal_axes[i] == majority_axis]
+        self.optimal_errors = [e for i, e in enumerate(self.optimal_errors)
+                                if self.optimal_axes[i] == majority_axis]
+        self.convergence_rates = [c for i, c in enumerate(self.convergence_rates)
+                                    if self.optimal_axes[i] == majority_axis]
+        self.sampled_weights = [w for i, w in enumerate(self.sampled_weights)
+                                    if self.optimal_axes[i] == majority_axis]
+        self.sampled_amplitudes = [a for i, a in enumerate(self.sampled_amplitudes)
+                                    if self.optimal_axes[i] == majority_axis]
+        self.optimal_axes = [a for a in self.optimal_axes if a == majority_axis]
+        
+        # filter out errors above threshold
+        self.optimal_parameterizations = [p for i, p in enumerate(self.optimal_parameterizations)
+                                            if self.optimal_errors[i] < threshold]
+        self.sampled_weights = [w for i, w in enumerate(self.sampled_weights)
+                                    if self.optimal_errors[i] < threshold]
+        self.sampled_amplitudes = [a for i, a in enumerate(self.sampled_amplitudes)
+                                    if self.optimal_errors[i] < threshold]
+        self.convergence_rates = [c for i, c in enumerate(self.convergence_rates)
+                                        if self.optimal_errors[i] < threshold]
+        self.optimal_axes = [a for i, a in enumerate(self.optimal_axes)
+                                if self.optimal_errors[i] < threshold]
+        self.optimal_errors = [e for e in self.optimal_errors if e < threshold]
+
+    
+    def monte_carlo(self, dd=15, num_samples=50, num_runs=30, print_every=0):
+        '''
+        Trace out shape of the uncertainty ellipsoid in the parameter space.
+        '''
+        self.super_reset()
+        
+        self.sample_amplitudes(dd, num_samples)
+        Ao = self.get_Ao()
+        num_samples = len(self.sampled_amplitudes)
+        
+        for i, As in enumerate(self.sampled_amplitudes):
+            print(f"Sample {i} of {num_samples}")
+            self.set_Ao(As)
+            self.hybrid_search(num_runs, print_every)
+        
+        self.set_Ao(Ao)
+        self.post_filter(orig=True)
+    
+    
+    def plot_uncertainty_2D(self, cmap='rainbow', s=10):
+        '''
+        Plot the uncertainty ellipsoid in the parameter space.
+        '''
+        fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(18, 5))
+        
+        thetas = [np.rad2deg(p[0]) for p in self.optimal_parameterizations]
+        phis = [np.rad2deg(p[1]) for p in self.optimal_parameterizations]
+        half_angles = [np.rad2deg(p[2]) for p in self.optimal_parameterizations]
+        weights = np.array(self.sampled_weights)
+        max_index = np.argmax(weights)
+        
+        # create a ScalarMappable for consistent colorbar scaling
+        norm = plt.Normalize(vmin=weights.min(), vmax=weights.max())
+        sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
+        sm.set_array([])
+        
+        ax1.scatter(thetas, phis, c=weights, cmap=cmap, norm=norm, s=s)
+        ax1.scatter(thetas[max_index], phis[max_index], c='black', marker='*', s=10*s,
+                    label='Max weight')
+        ax1.set_title('Theta against Phi')
+        ax1.set_xlabel('Theta')
+        ax1.set_ylabel('Phi')
+        ax1.legend()
+        
+        ax2.scatter(thetas, half_angles, c=weights, cmap=cmap, norm=norm, s=s)
+        ax2.scatter(thetas[max_index], half_angles[max_index], c='black', marker='*', s=10*s,
+                    label='Max weight')
+        ax2.set_title('Theta against Half-angle')
+        ax2.set_xlabel('Theta')
+        ax2.set_ylabel('Half-angle')
+        ax2.legend()
+        
+        ax3.scatter(phis, half_angles, c=weights, cmap=cmap, norm=norm, s=s)
+        ax3.scatter(phis[max_index], half_angles[max_index], c='black', marker='*', s=10*s,
+                    label='Max weight')
+        ax3.set_title('Phi against Half-angle')
+        ax3.set_xlabel('Phi')
+        ax3.set_ylabel('Half-angle')
+        ax3.legend()
+        
+        # add a colorbar
+        fig.subplots_adjust(right=0.9)
+        cbar_ax = fig.add_axes([0.93, 0.15, 0.01, 0.7])
+        cbar = fig.colorbar(sm, cax=cbar_ax)
+        cbar.set_label('Cosine similarity')
+        
+        plt.show()
+    
+    
+    def plot_uncertainty_3D(self, elev=30, azim=45, cmap='rainbow', s=10, alpha=1):
+        '''
+        Plot the uncertainty ellipsoid in the parameter space.
+        '''
+        fig = plt.figure(figsize=(15, 10))
+        ax = fig.add_subplot(111, projection='3d')
+        thetas = [p[0] for p in self.optimal_parameterizations]
+        phis = [p[1] for p in self.optimal_parameterizations]
+        half_angles = [p[2] for p in self.optimal_parameterizations]
+        weights = np.array(self.sampled_weights)
+        max_index = np.argmax(weights)
+        
+        norm = plt.Normalize(vmin=weights.min(), vmax=weights.max())
+        cmap_instance = plt.cm.get_cmap(cmap)
+        
+        scatter = ax.scatter(
+            thetas, phis, half_angles,
+            c=weights, cmap=cmap_instance, norm=norm, s=s, alpha=alpha
+        )
+        ax.scatter(
+            thetas[max_index], phis[max_index], half_angles[max_index],
+            c='black', marker='*', s=10*s, label='Max weight'
+        )
+        
+        ax.set_xlabel('Theta')
+        ax.set_ylabel('Phi')
+        ax.set_zlabel('Half angle')
+        ax.legend()
+        plt.title('Optimal parameterizations', fontsize=15)
+        
+        cbar = fig.colorbar(scatter, ax=ax, pad=0.1, shrink=0.6)
+        cbar.set_label('Cosine similarity')
+        
+        plt.show()
+        
+        
+    def plot_optimal_errors(self, bins=10):
+        '''
+        Plot the optimal errors in a histogram.
+        This is a diagnostic plot.
+        '''
+        fig, ax = plt.subplots(1, 1, figsize=(6, 5))
+        ax.hist(np.rad2deg(self.optimal_errors), bins=bins)
+        ax.set_title('Diagnostic histogram of optimal errors')
+        ax.set_xlabel('Error (deg)')
+        ax.set_ylabel('Frequency')
+        
+        plt.show()
+
+
+# TODO: Make this accessible to other seismologists
+# TODO: Make SeismicModel a parent class to allow for other cost functions
+# TODO: Will need to make optimal configs in optimizer per cost function
+

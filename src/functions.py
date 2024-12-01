@@ -26,7 +26,7 @@ def unit_vec(vector: list) -> list:
     return vector / linalg.norm(vector)
 
 
-def boundary_points(Ao: list, Uo: list, As: list = [], chi2: float = 1) -> tuple:
+def boundary_points(Ao: list, Uo: list, As: list, chi2: float) -> tuple:
     '''
     Returns the boundary points of the model.
 
@@ -36,10 +36,6 @@ def boundary_points(Ao: list, Uo: list, As: list = [], chi2: float = 1) -> tuple
         As (list, optional): Vector of simulated amplitudes. Defaults to [].
         chi2 (float, optional): _description_. Defaults to 1.
     '''
-    # get a simulation for spherical model
-    if len(As) == 0:
-        As = i_hat
-        if abs(Ao @ j_hat) < eps: As = As + j_hat 
     
     # adjusted covariance matrix
     assert all(Uo > 0), "All uncertainties must be positive."
@@ -52,7 +48,7 @@ def boundary_points(Ao: list, Uo: list, As: list = [], chi2: float = 1) -> tuple
     c3 = As @ Sigma_tilde_inv @ As
     
     # conditions
-    assert c1 >= 1, "COnfidence ellipsoid is too big."
+    assert c1 >= 1, f"Confidence ellipsoid is too big: c1 = {c1}"
     assert c1*c3 > c2**2, "Cauchy-Schwarz inequality is not satisfied."
     
     # boundary points
@@ -81,7 +77,7 @@ def get_epsilon(Ao: list, bounds: tuple) -> float:
 
 def starting_direc(point: list, direc: list) -> list:
     '''
-    Find what vector is perpendicular to point vector and lies in the
+    Find what unit vector is perpendicular to point vector and lies in the
     plane that contains point and direc.
 
     Args:
@@ -174,7 +170,7 @@ def rotate_vec(vec: list, axis: list, theta: float) -> list:
     Axis must be a unit vector.
     """
     rotated_vec = vec*np.cos(theta) + (np.cross(axis,vec))*np.sin(theta) + \
-        axis*(np.dot(axis,vec))*(1-np.cos(theta))
+        axis*(axis @ vec)*(1-np.cos(theta))
     
     return rotated_vec
 
@@ -219,17 +215,17 @@ def tp2sdr(t: list, p: list, deg: bool = False) -> tuple:
         if abs(np.dot(check1, t)) < eps: rake1 = 0.
         else: rake1 = np.pi
         check2 = rotate_vec(base2, null, np.pi/4)
-        if abs(np.dot(check2, t)) < eps: rake2 = 0.
+        if abs(check2 @ t) < eps: rake2 = 0.
         else: rake2 = np.pi
         done1, done2 = True, True
     elif n1[2] < eps: # single vertical dip
         check2 = rotate_vec(base2, null, np.pi/4)
-        if abs(np.dot(check2, t)) < eps: rake2 = 0.
+        if abs(check2 @ t) < eps: rake2 = 0.
         else: rake2 = np.pi
         done2 = True
     elif n2[2] < eps: # single vertical dip
         check1 = rotate_vec(base1, null, np.pi/4)
-        if abs(np.dot(check1, t)) < eps: rake1 = 0.
+        if abs(check1 @ t) < eps: rake1 = 0.
         else: rake1 = np.pi
         done1 = True
     
@@ -512,8 +508,53 @@ def regression_axes(tp_axes: list) -> tuple:
     T_try, T_normal = unit_vec(T_centroid), unit_vec(T_normal)
     P_try, P_normal = unit_vec(P_centroid), unit_vec(P_normal)
     
-    # return centroid and normal whose dot product is largest
+    # return closest-aligned centroid + normal
     if T_try @ T_normal > P_try @ P_normal:
-        return T_centroid, T_normal, 0
+        return T_normal, 0
     else:
-        return P_centroid, P_normal, 1
+        return P_normal, 1
+
+
+def systematic_ellipse(normal: list, Ao: list, Uo: list, chi2: float,
+                               dd: float, n: int) -> list:
+    '''
+    Returns n systematically sampled parameters for the inversion.
+    Sampled from TP space for better coverage.
+    Output is in RADIANS.
+    
+    Args:
+        normal (list): normal to the plane of tangents
+        Ao (list): observed amplitudes
+        dd (float): angular distance between samples in DEGREES
+        n (int): number of samples
+    '''
+    assert np.abs(1 - linalg.norm(normal)) < eps, "Normal must be a unit vector."
+    bounds = []
+    
+    direc = Ao
+    if np.abs(1 - np.abs(unit_vec(Ao) @ normal)) < eps: direc = k_hat
+    
+    start = starting_direc(normal, direc)
+    rotations = np.arange(0, np.pi, np.deg2rad(dd))
+    Sigma_tilde = np.diag(Uo)/chi2
+    Sigma_tilde_inv = linalg.inv(Sigma_tilde)
+    c1 = Ao @ Sigma_tilde_inv @ Ao
+    for theta in rotations:
+        vec = rotate_vec(start, normal, theta)
+        As = (1 - 1/c1)*Ao + vec
+        bounds.append(list(boundary_points(Ao, Uo, As, chi2)))
+    
+    norms = [linalg.norm(bound[1] - bound[0]) for bound in bounds]
+    total_norm = np.sum(norms)
+    
+    amps = []
+    for i, bound in enumerate(bounds):
+        Ab_low, Ab_high = bound
+        along = unit_vec(Ab_high - Ab_low)
+        num_steps = int(np.ceil(n*norms[i]/total_norm))
+        steps = np.linspace(0, norms[i], num_steps)
+        for step in steps:
+            amps.append(Ab_low + step*along)
+    
+    return amps
+

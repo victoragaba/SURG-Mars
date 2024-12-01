@@ -223,7 +223,7 @@
       (\nabla_{\bm{A}} E)^\top \bm{A} = 2(\bm{A} - \bm{A}_o)^\top \tilde{\bm{\Sigma}}^{-1} \bm{A} = 0
     \end{align}
     
-    Combining equations \ref{eq:7} and \ref{eq:8} gives the plane containing every point of 
+    \noindent Combining equations \ref{eq:7} and \ref{eq:8} gives the plane containing every point of 
     tangency:
     \begin{align} \label{eq:9}
       \frac{1}{2} (\nabla_{\bm{A}} E)^\top \bm{A} - f(\bm{A}) = 
@@ -237,7 +237,7 @@
       (\bm{A}_s \times \bm{A}_o)^\top \bm{A} = 0
     \end{align}
 
-    To find the constrained points of tangency, we can intersect the original ellipsoid with planes
+    \noindent To find the constrained points of tangency, we can intersect the original ellipsoid with planes
     \ref{eq:9} and \ref{eq:10}. The line of intersection is such that
     \begin{align} \label{eq:11}
       \bm{A}(t) = (1 - \nicefrac{1}{c_1}) \bm{A}_o + t\bm{D}
@@ -256,8 +256,9 @@
     \end{align}
 
     \noindent where $c_2 = \bm{A}_o^\top \tilde{\bm{\Sigma}}^{-1} \bm{A}_s = \langle\bm{A}_o^\top, \bm{A}_s\rangle_{\tilde{\bm{\Sigma}}^{-1}}$.
+    Equation \ref{eq:13} is the triple product expansion of constituent vectors.
 
-    Combining equations \ref{eq:7} and \ref{eq:11} produces a quadratic parameterized by the scalar $t$,
+    \noindent Combining equations \ref{eq:7} and \ref{eq:11} produces a quadratic parameterized by the scalar $t$,
     from which we can obtain a quadratic equation for the points of tangency:
 
     \begin{align} \label{eq:14}
@@ -266,7 +267,7 @@
           \nicefrac{2}{c_1}(\bm{A}_o^\top \tilde{\bm{\Sigma}}^{-1} \bm{D})t + (\nicefrac{1}{c_1} - 1) = 0
     \end{align}
 
-    Denote $c_3 = \bm{A}_s^\top \tilde{\bm{\Sigma}}^{-1} \bm{A}_s = \|\bm{A}_s\|_{\tilde{\bm{\Sigma}}^{-1}}^2$. Then by
+    \noindent Denote $c_3 = \bm{A}_s^\top \tilde{\bm{\Sigma}}^{-1} \bm{A}_s = \|\bm{A}_s\|_{\tilde{\bm{\Sigma}}^{-1}}^2$. By
     substitution we have
     ${\bm{D}^\top \tilde{\bm{\Sigma}}^{-1} \bm{D}} = c_1(c_1c_3 - c_2^2)$ and ${\bm{A}_o^\top \tilde{\bm{\Sigma}}^{-1} \bm{D}} = 0$.
     Solving then yields the necessary points (denoted $\bm{A}_b$) as
@@ -287,14 +288,17 @@
       errors to be a small fraction of observed amplitudes.
     \end{itemize}
 
-    Thus, given 2 nonparallel vectors $\bm{A}_o$ and $\bm{A}_s$ and positive definite covariance
-    matrix $\tilde{\bm{\Sigma}}$, we accept the simulation if $\hat{\bm{A}}_o^\top \hat{\bm{A}_s} \geq \text{tol} 
-    = \min_b \hat{\bm{A}}_o^\top \hat{\bm{A}_b}$. The condition, more formally, is
-    \begin{align} \label{eq:16}
-      \max_b \hat{\bm{A}}_o^\top (\hat{\bm{A}}_b - \hat{\bm{A}}_s) \leq 0
-    \end{align}
+    \noindent The calculated boundary points are necessary to design reliable Monte-Carlo methods for uncertainty
+    quantification (see section \ref{sec:uncertainty}).
+    
+    % Thus, given 2 nonparallel vectors $\bm{A}_o$ and $\bm{A}_s$ and positive definite covariance
+    % matrix $\tilde{\bm{\Sigma}}$, we accept the simulation if $\hat{\bm{A}}_o^\top \hat{\bm{A}_s} \geq \text{tol} 
+    % = \min_b \hat{\bm{A}}_o^\top \hat{\bm{A}_b}$. The condition, more formally, is
+    % \begin{align} \label{eq:16}
+    %   \max_b \hat{\bm{A}}_o^\top (\hat{\bm{A}}_b - \hat{\bm{A}}_s) \leq 0
+    % \end{align}
 
-    \noindent where $\hat{\bm{A}}_o$, $\hat{\bm{A}}_s$ and $\hat{\bm{A}}_b$ are unit vectors.
+    % \noindent where $\hat{\bm{A}}_o$, $\hat{\bm{A}}_s$ and $\hat{\bm{A}}_b$ are unit vectors.
 
 
 \section{Search Methods} \label{sec:algorithms}
@@ -303,7 +307,7 @@
     The vector $\bm{A} = (A^P, A^{SV}, A^{SH})^\top$ can be treated as a continuously differentiable 
     nonlinear function of parameters $\bm{m} = (\psi, \delta, \lambda)^\top$, defined by equation 
     \ref{eq:1}. We can thus apply directed search methods to minimize the following cost function:
-    \begin{align} \label{eq:17}
+    \begin{align} \label{eq:16}
       \Phi(\bm{m}) = -\hat{\bm{A}}_o^\top \hat{\bm{A}}
     \end{align}
 
@@ -364,7 +368,7 @@
 
     Define a vector $\bm{\eta} = (s_R, q_R, p_R, q_L, p_L)^\top$. Then we can encode
     the misfit as
-    \begin{align} \label{eq:18}
+    \begin{align} \label{eq:17}
       \Phi(\bm{m}) = \tilde{\Phi}(\bm{A}(\bm{\eta}(\bm{m})))
     \end{align}
 
@@ -379,7 +383,7 @@
       &g = \sin(\psi - \phi)\;\;\;\;\;\; h = \cos(\psi - \phi)\;\;\;\;\; p = cos(2(\psi - \phi))\\
       &q = \sin(2(\psi - \phi))
     \end{align*}
-    \begin{align} \label{eq:19}
+    \begin{align} \label{eq:18}
       \nonumber&\bm{J_p}(\bm{\eta}) = \\
       &\begin{bmatrix}
         0         &ab         &0.5cd\\
@@ -392,7 +396,7 @@
 
     ii) From $\bm{\eta}$ to $A$, we have a linear transformation whose Jacobian is the matrix
     of coefficients from equation \ref{eq:1}:
-    \begin{align} \label{eq:20}
+    \begin{align} \label{eq:19}
       \nonumber&\bm{J_\eta}(\bm{A}) = \\
       &\begin{bmatrix}
         \frac{3\cos^2(i)-1}{\alpha_h^3}    &\frac{-\sin(2i)}{\alpha_h^3}    &\frac{-sin^2(i)}{\alpha_h^3}   &0    &0\\
@@ -403,29 +407,35 @@
 
     iii) From $\bm{A}$ to $\Phi$, we have a scalar function whose Jacobian is the gradient
     transposed.
-    \begin{align} \label{eq:21}
+    \begin{align} \label{eq:20}
       \nonumber\nabla_{\bm{A}}\tilde{\Phi} &= \frac{\|\bm{A}\|\nabla_{\bm{A}}(-\hat{\bm{A}}_o^\top\bm{A}) - 
       (-\hat{\bm{A}}_o^\top \bm{A}) \nabla_{\bm{A}}(\|\bm{A}\|)}{\|\bm{A}\|^2}\\
             &= \frac{-1}{\|\bm{A}\|}(\hat{\bm{A}}_o + \Phi\hat{\bm{A}})
     \end{align}
 
-    Combining \ref{eq:19}, \ref{eq:20} and \ref{eq:21} gives the overall gradient:
-    \begin{align} \label{eq:22}
+    Combining \ref{eq:18}, \ref{eq:19} and \ref{eq:20} gives the overall gradient:
+    \begin{align} \label{eq:21}
       \nabla_{\bm{m}}\Phi = \bm{J_p}(\bm{\eta})^\top \bm{J_\eta}(\bm{A})^\top \nabla_{\bm{A}}\tilde{\Phi}
     \end{align}
 
   \subsection{Optimization algorithms}
+
+  Insert description here to be backed up by figure 2...
+
+  Why isn't this doing its thing?
+
+  I know you can do it
+
+  Just a few more paragraphs
+
     \begin{figure}[ht!]
       \includegraphics[width=8.6cm]{seed_2024} 
-      \caption{Results of steepest descent algorithm after a systematic sweep of starting points.}
+      \caption{Results of steepest descent algorithm for randomly sampled starting points.}
       \label{fig:2}
     \end{figure}
 
 
 \section{Uncertainty Quantification} \label{sec:uncertainty}
-
-    \subsection{Kagan angle distribution}
-      An alternative way of quantifying model deviations.
 
     \subsection{Error propagation}
       Say something here, composed Jacobian is important >> Earth 353, IEMS 401.

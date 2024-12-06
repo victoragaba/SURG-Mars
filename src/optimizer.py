@@ -146,6 +146,7 @@ def minimize(objective, config, start=None):
     if converged:
         objective.set_optimal_iterate(x_k)
         objective.set_optimal_amplitude()
+        objective.set_optimal_laplacian(x_k)
         
     objective.update_convergence(converged)
     

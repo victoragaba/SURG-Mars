@@ -61,6 +61,7 @@ class SeismicModel(Model):
         self.misfits = []
         self.iterates = []
         self.optimal_iterates = []
+        self.optimal_laplacians = []
         self.misfits = []
         self.tp_axes = []
         self.amplitudes = []
@@ -157,6 +158,26 @@ class SeismicModel(Model):
         return grad
     
     
+    def laplacian(self, params, h=1e-6):
+        ''' Approximate the laplacian of the misfit function at params. '''
+        grad_psi_plus = self.gradient(params + h*fn.i_hat, store=False)
+        grad_psi_minus = self.gradient(params - h*fn.i_hat, store=False)
+        grad_delta_plus = self.gradient(params + h*fn.j_hat, store=False)
+        grad_delta_minus = self.gradient(params - h*fn.j_hat, store=False)
+        grad_lamb_plus = self.gradient(params + h*fn.k_hat, store=False)
+        grad_lamb_minus = self.gradient(params - h*fn.k_hat, store=False)
+        
+        laplacian_psi = (grad_psi_plus - grad_psi_minus) / (2*h)
+        laplacian_psi = laplacian_psi @ fn.i_hat
+        laplacian_delta = (grad_delta_plus - grad_delta_minus) / (2*h)
+        laplacian_delta = laplacian_delta @ fn.j_hat
+        laplacian_lamb = (grad_lamb_plus - grad_lamb_minus) / (2*h)
+        laplacian_lamb = laplacian_lamb @ fn.k_hat
+        laplacian = laplacian_psi + laplacian_delta + laplacian_lamb
+        
+        return laplacian
+    
+    
     def starting_point(self):
         ''' Return a starting point for the optimization algorithm. '''
         return np.zeros(3)
@@ -203,6 +224,12 @@ class SeismicModel(Model):
         self.optimal_iterates.append(params)
     
     
+    def set_optimal_laplacian(self, params):
+        ''' Set the laplacian. '''
+        laplacian = self.laplacian(params)
+        self.optimal_laplacians.append(laplacian)
+    
+    
     def set_optimal_amplitude(self):
         ''' Set the amplitude vector. '''
         self.optimal_amplitudes.append(self.A)
@@ -236,6 +263,8 @@ class SeismicModel(Model):
                                  if z_scores[i] < threshold]
         self.optimal_amplitudes = [a for i, a in enumerate(self.optimal_amplitudes) 
                                    if z_scores[i] < threshold]
+        self.optimal_laplacians = [l for i, l in enumerate(self.optimal_laplacians)
+                                      if z_scores[i] < threshold]
     
     
     def reset(self):
@@ -243,6 +272,7 @@ class SeismicModel(Model):
         self.misfits = []
         self.iterates = []
         self.optimal_iterates = []
+        self.optimal_laplacians = []
         self.misfits = []
         self.tp_axes = []
         self.amplitudes = []
@@ -255,6 +285,8 @@ class SeismicModel(Model):
         '''
         Mirror the optimal parameters to show only one fault plane.
         '''
+        self.filter_outliers()
+        
         if len(what) == 1:
             what = what[0]
             if what == 'optimals':
@@ -344,130 +376,64 @@ class SeismicModel(Model):
                 self.mirror(['optimals'], 1)
                 optimal_iterates.extend(self.optimal_iterates)
         
+        opt_strikes = [np.rad2deg(m[0]) for m in optimal_iterates]
+        opt_dips = [np.rad2deg(m[1]) for m in optimal_iterates]
+        opt_rakes = [np.rad2deg(m[2]) for m in optimal_iterates]
+        
         # convert the angles to degrees
         if not optimal:
             strikes = [np.rad2deg(m[0]) for m in iterates]
             dips = [np.rad2deg(m[1]) for m in iterates]
             rakes = [np.rad2deg(m[2]) for m in iterates]
             weights = -np.array(self.misfits)
-            if index == 2: weights = np.concatenate([weights, weights])
+        else:
+            weights = np.array(self.optimal_laplacians)
+        if index == 2: weights = np.concatenate([weights, weights])
         
-            # create a ScalarMappable for consistent colorbar scaling
-            norm = plt.Normalize(vmin=weights.min(), vmax=weights.max())
-            sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
-            sm.set_array([])
-            
-        opt_strikes = [np.rad2deg(m[0]) for m in optimal_iterates]
-        opt_dips = [np.rad2deg(m[1]) for m in optimal_iterates]
-        opt_rakes = [np.rad2deg(m[2]) for m in optimal_iterates]
+        # create a ScalarMappable for consistent colorbar scaling
+        norm = plt.Normalize(vmin=weights.min(), vmax=weights.max())
+        sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
+        sm.set_array([])
         
         # make the plots
-        if not optimal: ax1.scatter(strikes, dips, c=weights, cmap=cmap, norm=norm, s=s)
-        ax1.scatter(opt_strikes, opt_dips, c='black', marker='*', s=s, label='Optimal')
+        if not optimal:
+            ax1.scatter(strikes, dips, c=weights, cmap=cmap, norm=norm, s=s)
+            ax1.scatter(opt_strikes, opt_dips, c='black', marker='*', s=s, label='Optimal')
+        else:
+            ax1.scatter(opt_strikes, opt_dips, c=weights, cmap=cmap, marker='*', s=s, label='Optimal')
         ax1.set_title('Strike against Dip')
         ax1.set_xlabel('Strike (deg)')
         ax1.set_ylabel('Dip (deg)')
         
-        if not optimal: ax2.scatter(strikes, rakes, c=weights, cmap=cmap, norm=norm, s=s)
-        ax2.scatter(opt_strikes, opt_rakes, c='black', marker='*', s=s, label='Optimal')
+        if not optimal:
+            ax2.scatter(strikes, rakes, c=weights, cmap=cmap, norm=norm, s=s)
+            ax2.scatter(opt_strikes, opt_rakes, c='black', marker='*', s=s, label='Optimal')
+        else:
+            ax2.scatter(opt_strikes, opt_rakes, c=weights, cmap=cmap, marker='*', s=s, label='Optimal')
         ax2.set_title('Strike against Rake')
         ax2.set_xlabel('Strike (deg)')
         ax2.set_ylabel('Rake (deg)')
         
-        if not optimal: ax3.scatter(dips, rakes, c=weights, cmap=cmap, norm=norm, s=s)
-        ax3.scatter(opt_dips, opt_rakes, c='black', marker='*', s=s, label='Optimal')
+        if not optimal:
+            ax3.scatter(dips, rakes, c=weights, cmap=cmap, norm=norm, s=s)
+            ax3.scatter(opt_dips, opt_rakes, c='black', marker='*', s=s, label='Optimal')
+        else:
+            ax3.scatter(opt_dips, opt_rakes, c=weights, cmap=cmap, marker='*', s=s, label='Optimal')
         ax3.set_title('Dip against Rake')
         ax3.set_xlabel('Dip (deg)')
         ax3.set_ylabel('Rake (deg)')
         
         # add a colorbar
+        fig.subplots_adjust(right=0.9)
+        cbar_ax = fig.add_axes([0.93, 0.15, 0.01, 0.7])
+        cbar = fig.colorbar(sm, cax=cbar_ax)
+        ax1.legend()
+        ax2.legend()
+        ax3.legend()
         if not optimal:
-            fig.subplots_adjust(right=0.9)
-            cbar_ax = fig.add_axes([0.93, 0.15, 0.01, 0.7])
-            cbar = fig.colorbar(sm, cax=cbar_ax)
             cbar.set_label('Cosine similarity')
-            ax1.legend()
-            ax2.legend()
-            ax3.legend()
-        
-        plt.show()
-    
-    
-    def plot_iterates_3D(self, elev=30, azim=45, cmap='rainbow', s=10, optimal=False, index=2):
-        '''
-        Make a 3D scatter plot of the iterates (psi, delta, lambda) and project
-        them onto the 2D planes: psi-delta, psi-lambda, delta-lambda.
-        Color the points by iteration number.
-        
-        Args:
-            optimal (bool): If True, plot only the optimal points.
-            warm (bool): If False, 
-        '''
-        if index == 0 or index == 1:
-            if not optimal:
-                self.mirror(['optimals', 'iterates'], index)
-                iterates = self.iterates
-                optimal_iterates = self.optimal_iterates
-            else:
-                self.mirror(['optimals'], index)
-                optimal_iterates = self.optimal_iterates
-        elif index == 2:
-            iterates, optimal_iterates = [], []
-            if not optimal:
-                self.mirror(['optimals', 'iterates'], 0)
-                iterates.extend(self.iterates)
-                optimal_iterates.extend(self.optimal_iterates)
-                self.mirror(['optimals', 'iterates'], 1)
-                iterates.extend(self.iterates)
-                optimal_iterates.extend(self.optimal_iterates)
-            else:
-                self.mirror(['optimals'], 0)
-                optimal_iterates.extend(self.optimal_iterates)
-                self.mirror(['optimals'], 1)
-                optimal_iterates.extend(self.optimal_iterates)
-        
-        # convert the angles to degrees
-        if not optimal:
-            strikes = [np.rad2deg(m[0]) for m in iterates]
-            dips = [np.rad2deg(m[1]) for m in iterates]
-            rakes = [np.rad2deg(m[2]) for m in iterates]
-            weights = -np.array(self.misfits)
-            if index == 2: weights = np.concatenate([weights, weights])
-            
-            # normalize weights for consistent coloring
-            norm = plt.Normalize(vmin=weights.min(), vmax=weights.max())
-            cmap_instance = plt.cm.get_cmap(cmap)
-            
-        opt_strikes = [np.rad2deg(m[0]) for m in optimal_iterates]
-        opt_dips = [np.rad2deg(m[1]) for m in optimal_iterates]
-        opt_rakes = [np.rad2deg(m[2]) for m in optimal_iterates]
-        
-        
-        # create a 3D scatter plot
-        fig = plt.figure(figsize=(15, 10))
-        ax = fig.add_subplot(111, projection='3d')
-        if not optimal:
-            scatter = ax.scatter(
-                strikes, dips, rakes,
-                c=weights, cmap=cmap_instance, norm=norm, s=s
-            )
-        ax.scatter(
-            opt_strikes, opt_dips, opt_rakes,
-            c='black', marker='*', s=s, label='Optimal'
-        )
-        ax.set_xlabel('Strike (deg)')
-        ax.set_ylabel('Dip (deg)')
-        ax.set_zlabel('Rake (deg)')
-        plt.title('3D visualization of the iterates', fontsize=15)
-        
-        # adjust the view angle
-        ax.view_init(elev=elev, azim=azim)
-        
-        # add a colorbar to the figure
-        if not optimal:
-            cbar = fig.colorbar(scatter, ax=ax, pad=0.1, shrink=0.6)
-            cbar.set_label('Cosine similarity')
-            ax.legend()
+        else:
+            cbar.set_label('Laplacian')
         
         plt.show()
         
@@ -503,6 +469,9 @@ class SeismicModel(Model):
             c='black', marker='*', s=s, label='Optimal'
         )
         
+        # add the origin
+        ax.scatter(0, 0, 0, c='blue', marker='o', s=s, label='Origin')
+        
         # add observed amplitudes
         ax.scatter(
             self.Ao[0], self.Ao[1], self.Ao[2],
@@ -531,11 +500,14 @@ class SeismicModel(Model):
         '''
         if len(self.tp_axes) == 0: self.mirror(['axes'])
         zero = np.zeros(3)
+        
+        # compute the central axis
         c, _ = fn.regression_axes(self.tp_axes)
         
         fig = plt.figure(figsize=(15, 10))
         ax = fig.add_subplot(111, projection='3d')
         
+        # plot first axis for label
         t, p = self.tp_axes[0]
         if half: t_prime, p_prime = zero, zero
         else: t_prime, p_prime = -t, -p
@@ -544,6 +516,7 @@ class SeismicModel(Model):
         ax.plot([p[0], p_prime[0]], [p[1], p_prime[1]], [p[2], p_prime[2]],
                 c='red', alpha=0.5, label="p axis")
         
+        # plot the rest of the axes
         for i in range(1, len(self.tp_axes)):
             t, p = self.tp_axes[i]
             if half: t_prime, p_prime = zero, zero
@@ -570,6 +543,26 @@ class SeismicModel(Model):
         plt.show()
         
     
+    def laplacian_flow(self):
+        ''' Return the direction opposing largest laplacian. '''
+        # index of max laplacian
+        max_index = np.argmax(self.optimal_laplacians)
+        
+        # get tp axes
+        if len(self.tp_axes) == 0: self.mirror(['axes'])
+        
+        # get central axis
+        central, axis = fn.regression_axes(self.tp_axes)
+        
+        # get the optimal axis
+        optimal = self.tp_axes[max_index][axis]
+        
+        # turn into spherical coordinates
+        flow = fn.rect2pol(optimal) - fn.rect2pol(central)
+        
+        return flow
+    
+    
     def optimal_parameterization(self):
         '''
         Compute optimal parameterization of fault planes.
@@ -585,10 +578,6 @@ class SeismicModel(Model):
             self.half_angles.append(half_angle)
         half_angle = np.mean(self.half_angles)
         error = np.std(self.half_angles)
-        
-        if position == 0: name = 'T'
-        elif position == 1: name = 'P'
-        else: raise ValueError('Invalid position')
         
         if central[2] < 0: central *= -1
         
@@ -667,7 +656,7 @@ class SeismicModel(Model):
         return self.sampled_amplitudes
     
     
-    def plot_sampled_amplitudes(self, cmap='rainbow', s=10, alpha=1):
+    def plot_sampled_amplitudes(self, cmap='rainbow', s=10, alpha=1, azimuth=45, elevation=30):
         '''
         Make a 3D scatter plot of the sampled amplitudes.
         Weight them by cosine similarity with Ao.
@@ -703,6 +692,9 @@ class SeismicModel(Model):
         
         cbar = fig.colorbar(scatter, ax=ax, pad=0.1, shrink=0.6)
         cbar.set_label('Cosine similarity')
+        
+        # adjust the view angle
+        ax.view_init(elev=elevation, azim=azimuth)
         
         plt.show()
     
@@ -820,7 +812,7 @@ class SeismicModel(Model):
         self.post_filter(orig=True)
     
     
-    def plot_uncertainty_2D(self, cmap='rainbow', s=10):
+    def plot_uncertainty_2D(self, cmap='rainbow', s=10, scale=0.5):
         '''
         Plot the uncertainty ellipsoid in the parameter space.
         '''
@@ -841,6 +833,14 @@ class SeismicModel(Model):
         ax1.scatter(thetas[max_index], phis[max_index], c='black', marker='*', s=10*s,
                     label='Max weight')
         ax1.set_title('Theta against Phi')
+        
+        # add laplacian flow to max index
+        if scale != 0:
+            theta_flow, phi_flow = scale*fn.unit_vec(self.laplacian_flow()[1:])
+            ax1.plot([thetas[max_index], thetas[max_index] + np.rad2deg(theta_flow)],
+                    [phis[max_index], phis[max_index] + np.rad2deg(phi_flow)],
+                    c='black', linestyle='--', label='Laplacian flow')
+        
         ax1.set_xlabel('Theta')
         ax1.set_ylabel('Phi')
         ax1.legend()

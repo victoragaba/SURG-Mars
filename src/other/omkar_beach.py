@@ -1,15 +1,16 @@
+'''
+Name: Victor Agaba
+
+Date: 28th November 2024
+
+The goal of this module is to provide all helper functions needed for
+beachball plotting.
+'''
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-
-from obspy.core.trace import Trace, Stats
-from obspy.core.stream import Stream
-from obspy import UTCDateTime
-from obspy.clients.fdsn import Client
-
-from obspy.imaging.beachball import beachball
 from obspy.imaging.beachball import beach
-from obspy.imaging.source import plot_radiation_pattern
 
 import argparse
 from constants import DATA_PATH, EXP_PATH
@@ -18,7 +19,6 @@ from datetime import datetime
 from pathlib import Path
 import utils 
 import warnings 
-import sys 
 import os 
 
 
@@ -38,7 +38,7 @@ def alphabeach(event, df, n, norm_const, c='b'):
     # Max-min normalization 
     # df['Normalized'] = (max_mis - df['Misfit'])/(max_mis-min_mis)
     
-    # Gaussian normalization 
+    # Gaussian normalization NOTE ??? probably for transparency, not relevant
     sigma = max_mis 
     # pref = 1/(sigma*np.sqrt(2*np.pi)) 
     df['Normalized'] = norm_const*np.exp(-(np.square(df['Misfit']))/(2*np.square(sigma)))
@@ -47,12 +47,20 @@ def alphabeach(event, df, n, norm_const, c='b'):
     counter = 1
     num_figs = 0
 
+    # NOTE: does not have to be a dataframe
     for index, rows in df.iterrows():
+        
+        # NOTE: i want all strikes, dips and rakes in degrees
+        # NOTE: f is a list of 3 floats: [strike, dip, rake], one per focal mechanism
         f = [rows.Strike, rows.Dip, rows.Rake]
+        
+        # NOTE: default beachball size is 200
+        # NOTE: i want 10 beachballs per row
         x = 210 * ((counter-1) % 10)
         y = 210 * ((counter-1) // 10)
 
         # Collection1 is for individual solutions 
+        # NOTE: collection1 is actually a single beachball, added one at a time
         collection1  = beach(f, xy=(x, y), facecolor=c, alpha=rows.Normalized)
         ax1.add_collection(collection1)
 
@@ -60,8 +68,8 @@ def alphabeach(event, df, n, norm_const, c='b'):
         collection2 = beach(f, xy=(0, 0), facecolor=c, alpha=rows.Normalized)
         ax2.add_collection(collection2)
 
-        # Plot set of n solutions per plot 
-        if counter % n == 0 and index not in (0, len(df)-1): 
+        # Plot set of n solutions per plot NOTE ???
+        if counter % n == 0 and index not in (0, len(df)-1):
             ax1.autoscale_view(tight=False, scalex=True, scaley=True)
             ax1.set_title(f"{event}: Complete Solution Set [{index-counter+1}-{index}]")
             fig1.savefig(SAVE_PATH / f'{args.model}_depth{args.depth}_{event}_CS{num_figs}.png', bbox_inches='tight')
@@ -103,8 +111,8 @@ if __name__ == '__main__':
     parser.add_argument("--depth", required=True, type=float, help="Source Depth (km) used for distance calculation")
     parser.add_argument("--exp_dir", required=True, type=str)
 
-    # Plotting params 
-    parser.add_argument("--n", default=50, type=int, 
+    # Plotting params NOTE: this is useful
+    parser.add_argument("--n", default=50, type=int,
                         help="Max number of beach balls per plot (param is only used in complete solution set)")
     parser.add_argument("--norm_const", default=0.6, type=float, 
                         help="Normalization constant used to control transparency of the beach balls")

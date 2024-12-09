@@ -87,7 +87,7 @@ def starting_direc(point: list, direc: list) -> list:
     
     proj = (np.dot(direc, point)/np.dot(point, point))
     rem = np.array(direc) - proj*np.array(point)
-    return rem/linalg.norm(rem) if linalg.norm(rem) > eps else j_hat
+    return unit_vec(rem) if linalg.norm(rem) > eps else j_hat
 
 
 def rect2pol(rect: list) -> list:

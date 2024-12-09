@@ -14,6 +14,7 @@ from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import functions as fn
 import optimizer as opt
+import beachplot as bp
 
 
 class Model:
@@ -68,6 +69,7 @@ class SeismicModel(Model):
         self.optimal_amplitudes = []
         self.half_angles = []
         self.runs, self.converged = 0, 0
+        self.filtered_outliers = False
         
         # initialize variables for hybrid search
         self.convergence_rates = []
@@ -247,12 +249,29 @@ class SeismicModel(Model):
     
     def get_tp_axes(self):
         ''' Return the tp axes. '''
+        if len(self.tp_axes) == 0: self.mirror(['axes'])
         return self.tp_axes
     
     
     def get_half_angles(self):
         ''' Return the half angles. '''
         return self.half_angles
+    
+    
+    def get_central_tps(self):
+        ''' Return the central tps for the optimal tp axes. '''
+        if len(self.tp_axes) == 0: self.mirror(['axes'])
+        central, pos = fn.regression_axes(self.tp_axes)
+        output = np.zeros_like(self.tp_axes)
+        
+        for i in range(len(self.tp_axes)):
+            tp = self.tp_axes[i]
+            to_project = tp[pos]
+            projected = fn.starting_direc(central, to_project)
+            to_insert = [central, projected] if pos == 0 else [projected, central]
+            output[i] = to_insert
+        
+        return output
     
     
     def filter_outliers(self, threshold=2):
@@ -265,6 +284,7 @@ class SeismicModel(Model):
                                    if z_scores[i] < threshold]
         self.optimal_laplacians = [l for i, l in enumerate(self.optimal_laplacians)
                                       if z_scores[i] < threshold]
+        self.filtered_outliers = True
     
     
     def reset(self):
@@ -279,13 +299,14 @@ class SeismicModel(Model):
         self.optimal_amplitudes = []
         self.half_angles = []
         self.runs, self.converged = 0, 0
+        self.filtered_outliers = False
         
     
     def mirror(self, what, index=0):
         '''
         Mirror the optimal parameters to show only one fault plane.
         '''
-        self.filter_outliers()
+        if not self.filtered_outliers: self.filter_outliers()
         
         if len(what) == 1:
             what = what[0]
@@ -307,6 +328,8 @@ class SeismicModel(Model):
                     t, p = fn.sdr2tp(m)
                     tp_axes.append([t, p])
                 self.tp_axes = fn.filter_axes(tp_axes)
+                assert len(self.tp_axes) == len(self.optimal_iterates), \
+                    'Not as many tp axes as optimal iterates'
             else:
                 raise ValueError('Invalid keyword for "what"')
         elif len(what) > 1:
@@ -438,7 +461,8 @@ class SeismicModel(Model):
         plt.show()
         
         
-    def plot_amplitudes(self, elev=30, azim=45, cmap='rainbow', s=10, alpha=0.5, iterates=False):
+    def plot_amplitudes(self, elev=30, azim=45, cmap='rainbow', s=10, alpha=0.5, iterates=False,
+                        observed=True):
         '''
         Make a 3D scatter plot of the optimal amplitudes.
         '''
@@ -473,10 +497,11 @@ class SeismicModel(Model):
         ax.scatter(0, 0, 0, c='blue', marker='o', s=s, label='Origin')
         
         # add observed amplitudes
-        ax.scatter(
-            self.Ao[0], self.Ao[1], self.Ao[2],
-            c='black', marker='o', s=5*s, label='Observed'
-        )
+        if observed:
+            ax.scatter(
+                self.Ao[0], self.Ao[1], self.Ao[2],
+                c='red', marker='o', s=s, label='Observed'
+            )
         
         ax.set_xlabel('AP')
         ax.set_ylabel('ASV')
@@ -494,11 +519,13 @@ class SeismicModel(Model):
         plt.show()    
     
     
-    def plot_tp_axes(self, elev=30, azim=45, half=False):
+    def plot_tp_axes(self, elev=30, azim=45, half=False, central=False):
         '''
         Make a 3D plot of the optimal tp axes.
         '''
         if len(self.tp_axes) == 0: self.mirror(['axes'])
+        if central: to_plot = self.get_central_tps()
+        else: to_plot = self.tp_axes
         zero = np.zeros(3)
         
         # compute the central axis
@@ -508,7 +535,7 @@ class SeismicModel(Model):
         ax = fig.add_subplot(111, projection='3d')
         
         # plot first axis for label
-        t, p = self.tp_axes[0]
+        t, p = to_plot[0]
         if half: t_prime, p_prime = zero, zero
         else: t_prime, p_prime = -t, -p
         ax.plot([t[0], t_prime[0]], [t[1], t_prime[1]], [t[2], t_prime[2]],
@@ -517,8 +544,8 @@ class SeismicModel(Model):
                 c='red', alpha=0.5, label="p axis")
         
         # plot the rest of the axes
-        for i in range(1, len(self.tp_axes)):
-            t, p = self.tp_axes[i]
+        for i in range(1, len(to_plot)):
+            t, p = to_plot[i]
             if half: t_prime, p_prime = zero, zero
             else: t_prime, p_prime = -t, -p
             ax.plot([t[0], t_prime[0]], [t[1], t_prime[1]], [t[2], t_prime[2]],
@@ -541,6 +568,31 @@ class SeismicModel(Model):
         ax.view_init(elev=elev, azim=azim)
         
         plt.show()
+        
+    
+    def plot_beachballs(self, central=False, order_by='strike',width=10, max_plot=50,
+                        facecolor='blue'):
+        '''
+        Plot beachballs for the optimal solutions.
+        '''
+        if not self.filtered_outliers: self.filter_outliers()
+        og_set = self.optimal_iterates
+        if central:
+            solution_set = [fn.tp2sdr(t, p)[0] for t, p in self.get_central_tps()]
+            facecolor = 'red'
+        else: solution_set = self.optimal_iterates
+        
+        assert len(solution_set) == len(og_set), f'Length mismatch: {len(solution_set)} vs {len(og_set)}'
+        # get sorting order from og_set
+        if order_by == 'strike': order = np.argsort([s[0] for s in og_set])
+        elif order_by == 'dip': order = np.argsort([s[1] for s in og_set])
+        elif order_by == 'rake': order = np.argsort([s[2] for s in og_set])
+        
+        # now sort solution_set
+        solution_set = [solution_set[i] for i in order]
+        
+        
+        bp.grid_beach(solution_set, width, max_plot, facecolor)
         
     
     def laplacian_flow(self):
@@ -568,7 +620,7 @@ class SeismicModel(Model):
         Compute optimal parameterization of fault planes.
         Returns axis direction, half-angle, error and name.
         '''
-        self.filter_outliers()
+        if not self.filtered_outliers: self.filter_outliers()
         
         if len(self.tp_axes) == 0: self.mirror(['axes'])
         central, position = fn.regression_axes(self.tp_axes)
@@ -920,7 +972,6 @@ class SeismicModel(Model):
         plt.show()
 
 
-# TODO: Make this accessible to other seismologists
 # TODO: Make SeismicModel a parent class to allow for other cost functions
 # TODO: Will need to make optimal configs in optimizer per cost function
 

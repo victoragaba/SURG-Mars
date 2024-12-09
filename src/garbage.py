@@ -82,3 +82,5 @@ class InversionModel:
             ax.legend()
         
         plt.show()
+        
+        

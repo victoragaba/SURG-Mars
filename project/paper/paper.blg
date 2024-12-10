@@ -1,11 +1,11 @@
-This is BibTeX, Version 0.99d (TeX Live 2024)
+This is BibTeX, Version 0.99d (TeX Live 2022/dev/Debian)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
-The top-level auxiliary file: main.aux
+The top-level auxiliary file: paper.aux
 The style file: abbrvnat_seismica_upcasetitle.bst
 Database file #1: references.bib
 You've used 2 entries,
             2736 wiz_defined-function locations,
-            602 strings with 4974 characters,
+            602 strings with 4976 characters,
 and the built_in function-call counts, 881 in all, are:
 = -- 78
 > -- 42

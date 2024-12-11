@@ -10,8 +10,8 @@ problem to which we will apply the optimization algorithms.
 
 import numpy as np
 from numpy import linalg
-import functions as fn
-import optimizer as opt
+from . import functions as fn
+from . import optimizer as opt
 
 
 class Model:
@@ -253,6 +253,11 @@ class SeismicModel(Model):
         return self.misfits
     
     
+    def get_amplitudes(self):
+        ''' Return the amplitudes per iterate from optimization. '''
+        return self.amplitudes
+    
+    
     def get_convergence_rate(self):
         ''' Return the convergence rate. '''
         return 100*self.converged/self.runs
@@ -277,6 +282,11 @@ class SeismicModel(Model):
     def get_half_angles(self):
         ''' Return the half angles. '''
         return self.half_angles
+    
+    
+    def get_optimal_laplacians(self):
+        ''' Return the optimal laplacians. '''
+        return self.optimal_laplacians
     
     
     def get_central_tps(self):
@@ -315,12 +325,12 @@ class SeismicModel(Model):
         return flow
     
     
-    def get_optimal_parameterization(self):
+    def get_optimal_parameterization(self, threshold=2):
         '''
         Compute optimal parameterization of fault planes.
         Returns axis direction, half-angle, error and name.
         '''
-        if not self.filtered_outliers: self.filter_outliers()
+        if not self.filtered_outliers: self.filter_outliers(threshold)
         
         if len(self.tp_axes) == 0: self.mirror(['axes'])
         central, position = fn.regression_axes(self.tp_axes)
@@ -345,6 +355,7 @@ class SeismicModel(Model):
     #
     def filter_outliers(self, threshold=2):
         ''' Filter out outliers based on Z-score of optimal amplitude norms. '''
+        if self.filtered_outliers: return
         norms = np.array([linalg.norm(a) for a in self.optimal_amplitudes])
         z_scores = np.abs((norms - np.mean(norms)) / np.std(norms))
         self.optimal_iterates = [m for i, m in enumerate(self.optimal_iterates) 
@@ -393,7 +404,7 @@ class SeismicModel(Model):
             raise ValueError('Invalid argument for "what"')
         
         
-    def hybrid_search(self, num_runs=30, print_every=0):
+    def hybrid_search(self, num_runs=30, print_every=0, threshold=2):
         '''
         Perform a random hybrid search to find the optimal parameterization.
         '''
@@ -407,7 +418,7 @@ class SeismicModel(Model):
             opt.minimize(self, config, start)
             
         self.convergence_rates.append(self.get_convergence_rate())
-        params, error, position = self.get_optimal_parameterization()
+        params, error, position = self.get_optimal_parameterization(threshold)
         self.optimal_parameterizations.append(params)
         self.optimal_errors.append(error)
         self.optimal_axes.append(position)
@@ -485,6 +496,11 @@ class SeismicModel(Model):
     def get_sampled_amplitudes(self):
         ''' Return the sampled amplitudes. '''
         return self.sampled_amplitudes
+    
+    
+    def get_sampled_weights(self):  
+        ''' Return the sampled weights. '''
+        return self.sampled_weights
     
      
     def get_convergence_rates(self):
@@ -564,7 +580,7 @@ class SeismicModel(Model):
         self.optimal_errors = [e for e in self.optimal_errors if e < threshold]
 
     
-    def monte_carlo(self, dd=15, num_samples=50, num_runs=30, print_every=0):
+    def monte_carlo(self, dd=15, num_samples=50, num_runs=30, print_every=0, threshold=2):
         '''
         Trace out shape of the uncertainty ellipsoid in the parameter space.
         '''
@@ -577,7 +593,7 @@ class SeismicModel(Model):
         for i, As in enumerate(self.sampled_amplitudes):
             print(f"Sample {i} of {num_samples}")
             self.set_Ao(As)
-            self.hybrid_search(num_runs, print_every)
+            self.hybrid_search(num_runs, print_every, threshold)
         
         self.set_Ao(Ao)
         self.post_filter(orig=True)

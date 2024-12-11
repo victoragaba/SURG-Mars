@@ -10,35 +10,36 @@ the data analysis.
 import numpy as np
 from matplotlib import pyplot as plt
 from obspy.imaging.beachball import beach
-import functions as fn
+from . import functions as fn
+from . import model as sm
 
 
-def misfit(model):
+def misfit(model: sm.SeismicModel):
     '''
     Plot the misfits in a subplot.
     '''
     fig, ax = plt.subplots(1, 1, figsize=(6, 5))
-    ax.plot(model.misfits)
+    ax.plot(model.get_misfits())
     ax.set_title('Misfit function')
     ax.set_xlabel('Iteration')
     ax.set_ylabel('Misfit')
     plt.show()
     
 
-def half_angles(model, bins=20):
+def half_angles(model: sm.SeismicModel, bins=20):
     '''
     Plot the half angles in a histogram.
     This is a diagnostic plot.
     '''
     fig, ax = plt.subplots(1, 1, figsize=(6, 5))
-    ax.hist(np.rad2deg(model.half_angles), bins=bins)
+    ax.hist(np.rad2deg(model.get_half_angles()), bins=bins)
     ax.set_title('Diagnostic histogram of half-angles')
     ax.set_xlabel('Half angle (deg)')
     ax.set_ylabel('Frequency')
     plt.show()
     
     
-def iterates_2D(model, cmap='rainbow', s=10, optimal=True, index=2):
+def iterates_2D(model: sm.SeismicModel, cmap='rainbow', s=10, optimal=True, index=2):
     '''
     Make 3 2D plots of the iterates: psi, delta, lambda.
     psi against delta, psi against lambda, delta against lambda.
@@ -53,25 +54,25 @@ def iterates_2D(model, cmap='rainbow', s=10, optimal=True, index=2):
     if index == 0 or index == 1:
         if not optimal:
             model.mirror(['optimals', 'iterates'], index)
-            iterates = model.iterates
-            optimal_iterates = model.optimal_iterates
+            iterates = model.get_iterates()
+            optimal_iterates = model.get_optimal_iterates()
         else:
             model.mirror(['optimals'], index)
-            optimal_iterates = model.optimal_iterates
+            optimal_iterates = model.get_optimal_iterates()
     elif index == 2:
         iterates, optimal_iterates = [], []
         if not optimal:
             model.mirror(['optimals', 'iterates'], 0)
-            iterates.extend(model.iterates)
-            optimal_iterates.extend(model.optimal_iterates)
+            iterates.extend(model.get_iterates())
+            optimal_iterates.extend(model.get_optimal_iterates())
             model.mirror(['optimals', 'iterates'], 1)
-            iterates.extend(model.iterates)
-            optimal_iterates.extend(model.optimal_iterates)
+            iterates.extend(model.get_iterates())
+            optimal_iterates.extend(model.get_optimal_iterates())
         else:
             model.mirror(['optimals'], 0)
-            optimal_iterates.extend(model.optimal_iterates)
+            optimal_iterates.extend(model.get_optimal_iterates())
             model.mirror(['optimals'], 1)
-            optimal_iterates.extend(model.optimal_iterates)
+            optimal_iterates.extend(model.get_optimal_iterates())
     
     opt_strikes = [np.rad2deg(m[0]) for m in optimal_iterates]
     opt_dips = [np.rad2deg(m[1]) for m in optimal_iterates]
@@ -84,7 +85,7 @@ def iterates_2D(model, cmap='rainbow', s=10, optimal=True, index=2):
         rakes = [np.rad2deg(m[2]) for m in iterates]
         weights = -np.array(model.misfits)
     else:
-        weights = np.array(model.optimal_laplacians)
+        weights = np.array(model.get_optimal_laplacians())
     if index == 2: weights = np.concatenate([weights, weights])
     
     # create a ScalarMappable for consistent colorbar scaling
@@ -135,22 +136,24 @@ def iterates_2D(model, cmap='rainbow', s=10, optimal=True, index=2):
     plt.show()
     
     
-def amplitudes(model, elev=30, azim=45, cmap='rainbow', s=10, alpha=0.5, iterates=False,
-                    observed=True):
+def amplitudes(model: sm.SeismicModel, elev=30, azim=45, cmap='rainbow', s=10, alpha=0.5,
+               iterates=False, observed=True):
     '''
     Make a 3D scatter plot of the optimal amplitudes.
     '''
     fig = plt.figure(figsize=(15, 10))
     ax = fig.add_subplot(111, projection='3d')
     
-    opt_AP = [a[0] for a in model.optimal_amplitudes]
-    opt_ASV = [a[1] for a in model.optimal_amplitudes]
-    opt_ASH = [a[2] for a in model.optimal_amplitudes]
+    optimal_amplitudes = model.get_optimal_amplitudes()
+    opt_AP = [a[0] for a in optimal_amplitudes]
+    opt_ASV = [a[1] for a in optimal_amplitudes]
+    opt_ASH = [a[2] for a in optimal_amplitudes]
     
     if iterates:
-        AP = [a[0] for a in model.amplitudes]
-        ASV = [a[1] for a in model.amplitudes]
-        ASH = [a[2] for a in model.amplitudes]
+        amplitudes = model.get_amplitudes()
+        AP = [a[0] for a in amplitudes]
+        ASV = [a[1] for a in amplitudes]
+        ASH = [a[2] for a in amplitudes]
         weights = -np.array(model.misfits)
         
         # normalize weights for consistent coloring
@@ -193,17 +196,16 @@ def amplitudes(model, elev=30, azim=45, cmap='rainbow', s=10, alpha=0.5, iterate
     plt.show()    
 
 
-def tp_axes(model, elev=30, azim=45, half=False, central=False):
+def tp_axes(model: sm.SeismicModel, elev=30, azim=45, half=False, central=False):
     '''
     Make a 3D plot of the optimal tp axes.
     '''
-    if len(model.tp_axes) == 0: model.mirror(['axes'])
     if central: to_plot = model.get_central_tps()
-    else: to_plot = model.tp_axes
+    else: to_plot = model.get_tp_axes()
     zero = np.zeros(3)
     
     # compute the central axis
-    c, _ = fn.regression_axes(model.tp_axes)
+    c, _ = fn.regression_axes(model.get_tp_axes())
     
     fig = plt.figure(figsize=(15, 10))
     ax = fig.add_subplot(111, projection='3d')
@@ -244,19 +246,19 @@ def tp_axes(model, elev=30, azim=45, half=False, central=False):
     plt.show()
     
 
-def beachballs(model, central=False, order_by='strike',width=10, max_plot=50,
-                    facecolor='blue'):
+def beachballs(model: sm.SeismicModel, central=False, order_by='strike',width=10,
+               max_plot=50, facecolor='blue'):
     '''
     Plot beachballs for the optimal solutions.
     '''
-    if not model.filtered_outliers: model.filter_outliers()
+    model.filter_outliers()
     og_set = model.optimal_iterates
     if central:
         solution_set = [fn.tp2sdr(t, p)[0] for t, p in model.get_central_tps()]
         facecolor = 'red'
-    else: solution_set = model.optimal_iterates
+    else: solution_set = model.get_optimal_iterates()
     
-    assert len(solution_set) == len(og_set), f'Length mismatch: {len(solution_set)} vs {len(og_set)}'
+    assert len(solution_set) == len(og_set), f'Length mismatch'
     # get sorting order from og_set
     if order_by == 'strike': order = np.argsort([s[0] for s in og_set])
     elif order_by == 'dip': order = np.argsort([s[1] for s in og_set])
@@ -274,7 +276,8 @@ def beachballs(model, central=False, order_by='strike',width=10, max_plot=50,
 ######################################################################
 
 
-def sampled_amplitudes(model, cmap='rainbow', s=10, alpha=1, azimuth=45, elevation=30):
+def sampled_amplitudes(model: sm.SeismicModel, cmap='rainbow', s=10, alpha=1, azimuth=45,
+                       elevation=30):
     '''
     Make a 3D scatter plot of the sampled amplitudes.
     Weight them by cosine similarity with Ao.
@@ -282,10 +285,11 @@ def sampled_amplitudes(model, cmap='rainbow', s=10, alpha=1, azimuth=45, elevati
     fig = plt.figure(figsize=(15, 10))
     ax = fig.add_subplot(111, projection='3d')
     
-    AP = [As[0] for As in model.sampled_amplitudes]
-    ASV = [As[1] for As in model.sampled_amplitudes]
-    ASH = [As[2] for As in model.sampled_amplitudes]
-    weights = np.array(model.sampled_weights)
+    sampled_amplitudes = model.get_sampled_amplitudes()
+    AP = [As[0] for As in sampled_amplitudes]
+    ASV = [As[1] for As in sampled_amplitudes]
+    ASH = [As[2] for As in sampled_amplitudes]
+    weights = np.array(model.get_sampled_weights())
     
     norm = plt.Normalize(vmin=weights.min(), vmax=weights.max())
     cmap_instance = plt.cm.get_cmap(cmap)
@@ -317,16 +321,17 @@ def sampled_amplitudes(model, cmap='rainbow', s=10, alpha=1, azimuth=45, elevati
     plt.show()
 
 
-def uncertainty_2D(model, cmap='rainbow', s=10, scale=0.5):
+def uncertainty_2D(model: sm.SeismicModel, cmap='rainbow', s=10, scale=0.5):
     '''
     Plot the uncertainty ellipsoid in the parameter space.
     '''
     fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(18, 5))
     
-    thetas = [np.rad2deg(p[0]) for p in model.optimal_parameterizations]
-    phis = [np.rad2deg(p[1]) for p in model.optimal_parameterizations]
-    half_angles = [np.rad2deg(p[2]) for p in model.optimal_parameterizations]
-    weights = np.array(model.sampled_weights)
+    optimal_parameterizations = model.get_optimal_parameterizations()
+    thetas = [np.rad2deg(p[0]) for p in optimal_parameterizations]
+    phis = [np.rad2deg(p[1]) for p in optimal_parameterizations]
+    half_angles = [np.rad2deg(p[2]) for p in optimal_parameterizations]
+    weights = np.array(model.get_sampled_weights())
     max_index = np.argmax(weights)
     
     # create a ScalarMappable for consistent colorbar scaling
@@ -375,7 +380,7 @@ def uncertainty_2D(model, cmap='rainbow', s=10, scale=0.5):
     plt.show()
 
 
-def uncertainty_3D(model, elev=30, azim=45, cmap='rainbow', s=10, alpha=1):
+def uncertainty_3D(model: sm.SeismicModel, elev=30, azim=45, cmap='rainbow', s=10, alpha=1):
     '''
     Plot the uncertainty ellipsoid in the parameter space.
     '''
@@ -411,7 +416,7 @@ def uncertainty_3D(model, elev=30, azim=45, cmap='rainbow', s=10, alpha=1):
     plt.show()
     
     
-def optimal_errors(model, bins=10):
+def optimal_errors(model: sm.SeismicModel, bins=10):
     '''
     Plot the optimal errors in a histogram.
     This is a diagnostic plot.

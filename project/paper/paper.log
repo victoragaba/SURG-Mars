@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.10.21)  10 DEC 2024 12:23
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.10.21)  13 JAN 2025 10:20
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**/home/vay3059/desktop/SURG-Mars/paper/paper.tex
-(/home/vay3059/desktop/SURG-Mars/paper/paper.tex
+**/home/vay3059/desktop/SURG-Mars/project/paper/paper.tex
+(/home/vay3059/desktop/SURG-Mars/project/paper/paper.tex
 LaTeX2e <2021-11-15> patch level 1
 L3 programming layer <2022-01-21> (./seismica.cls
 Document Class: seismica 2022 LaTeX2e document class
@@ -905,30 +905,30 @@ Package: subfigure 2002/03/15 v2.1.5 subfigure package
 ) (./paper.aux)
 \openout1 = `paper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 96.
-LaTeX Font Info:    ... okay on input line 96.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 96.
-LaTeX Font Info:    ... okay on input line 96.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 96.
-LaTeX Font Info:    ... okay on input line 96.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 96.
-LaTeX Font Info:    ... okay on input line 96.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 96.
-LaTeX Font Info:    ... okay on input line 96.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 96.
-LaTeX Font Info:    ... okay on input line 96.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 96.
-LaTeX Font Info:    ... okay on input line 96.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 96.
-LaTeX Font Info:    ... okay on input line 96.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 96.
-LaTeX Font Info:    ... okay on input line 96.
-LaTeX Font Info:    Checking defaults for LY1/ptm/m/n on input line 96.
-LaTeX Font Info:    Trying to load font information for LY1+ptm on input line 96.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 97.
+LaTeX Font Info:    ... okay on input line 97.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 97.
+LaTeX Font Info:    ... okay on input line 97.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 97.
+LaTeX Font Info:    ... okay on input line 97.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 97.
+LaTeX Font Info:    ... okay on input line 97.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 97.
+LaTeX Font Info:    ... okay on input line 97.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 97.
+LaTeX Font Info:    ... okay on input line 97.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 97.
+LaTeX Font Info:    ... okay on input line 97.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 97.
+LaTeX Font Info:    ... okay on input line 97.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 97.
+LaTeX Font Info:    ... okay on input line 97.
+LaTeX Font Info:    Checking defaults for LY1/ptm/m/n on input line 97.
+LaTeX Font Info:    Trying to load font information for LY1+ptm on input line 97.
  (/usr/share/texlive/texmf-dist/tex/latex/ly1/ly1ptm.fd
 File: ly1ptm.fd 2001/02/01 font definitions for LY1/ptm using Berry names.
 )
-LaTeX Font Info:    ... okay on input line 96.
+LaTeX Font Info:    ... okay on input line 97.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -983,7 +983,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-Package hyperref Info: Link coloring ON on input line 96.
+Package hyperref Info: Link coloring ON on input line 97.
  (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
  (/usr/share/texlive/texmf-dist/tex/latex/refcount/refcount.sty
@@ -993,9 +993,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count385
 )
-LaTeX Info: Redefining \ref on input line 96.
-LaTeX Info: Redefining \pageref on input line 96.
-LaTeX Info: Redefining \nameref on input line 96.
+LaTeX Info: Redefining \ref on input line 97.
+LaTeX Info: Redefining \pageref on input line 97.
+LaTeX Info: Redefining \nameref on input line 97.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: changepage package is loaded.
 \caption@adjustwidth@hsize=\dimen299
@@ -1007,122 +1007,122 @@ Package caption Info: End \AtBeginDocument code.
 <banner.png, id=8, 2670.48793pt x 241.96123pt>
 File: banner.png Graphic file (type png)
 <use banner.png>
-Package pdftex.def Info: banner.png  used on input line 104.
+Package pdftex.def Info: banner.png  used on input line 105.
 (pdftex.def)             Requested size: 512.14963pt x 46.40138pt.
-LaTeX Font Info:    Trying to load font information for T1+SourceSansPro-TLF on input line 104.
+LaTeX Font Info:    Trying to load font information for T1+SourceSansPro-TLF on input line 105.
  (/usr/share/texlive/texmf-dist/tex/latex/sourcesanspro/T1SourceSansPro-TLF.fd
 File: T1SourceSansPro-TLF.fd 2020/01/19 (autoinst) Font definitions for T1/SourceSansPro-TLF.
 )
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/m/n' aliased to
-(Font)              `T1/SourceSansPro-TLF/regular/n' on input line 104.
+(Font)              `T1/SourceSansPro-TLF/regular/n' on input line 105.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/regular/n' will be
-(Font)              scaled to size 10.0pt on input line 104.
+(Font)              scaled to size 10.0pt on input line 105.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/m/n' aliased to
-(Font)              `T1/SourceSansPro-TLF/regular/n' on input line 104.
+(Font)              `T1/SourceSansPro-TLF/regular/n' on input line 105.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/regular/n' will be
-(Font)              scaled to size 9.0pt on input line 104.
+(Font)              scaled to size 9.0pt on input line 105.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/b/n' aliased to
-(Font)              `T1/SourceSansPro-TLF/bold/n' on input line 104.
+(Font)              `T1/SourceSansPro-TLF/bold/n' on input line 105.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/bold/n' will be
-(Font)              scaled to size 9.0pt on input line 104.
+(Font)              scaled to size 9.0pt on input line 105.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/m/n' aliased to
-(Font)              `T1/SourceSansPro-TLF/regular/n' on input line 104.
+(Font)              `T1/SourceSansPro-TLF/regular/n' on input line 105.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/regular/n' will be
-(Font)              scaled to size 21.0pt on input line 104.
+(Font)              scaled to size 21.0pt on input line 105.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/b/n' aliased to
-(Font)              `T1/SourceSansPro-TLF/bold/n' on input line 104.
+(Font)              `T1/SourceSansPro-TLF/bold/n' on input line 105.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/bold/n' will be
-(Font)              scaled to size 21.0pt on input line 104.
+(Font)              scaled to size 21.0pt on input line 105.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/b/n' aliased to
-(Font)              `T1/SourceSansPro-TLF/bold/n' on input line 104.
+(Font)              `T1/SourceSansPro-TLF/bold/n' on input line 105.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/bold/n' will be
-(Font)              scaled to size 10.0pt on input line 104.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 104.
+(Font)              scaled to size 10.0pt on input line 105.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 105.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 104.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 105.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Font shape `T1/SourceSerifPro-LF/m/n' will be
-(Font)              scaled to size 7.0pt on input line 104.
+(Font)              scaled to size 7.0pt on input line 105.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/b/n' aliased to
-(Font)              `T1/SourceSansPro-TLF/bold/n' on input line 104.
+(Font)              `T1/SourceSansPro-TLF/bold/n' on input line 105.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/bold/n' will be
-(Font)              scaled to size 7.0pt on input line 104.
+(Font)              scaled to size 7.0pt on input line 105.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/m/n' aliased to
-(Font)              `T1/SourceSansPro-TLF/regular/n' on input line 104.
+(Font)              `T1/SourceSansPro-TLF/regular/n' on input line 105.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/regular/n' will be
-(Font)              scaled to size 6.0pt on input line 104.
+(Font)              scaled to size 6.0pt on input line 105.
 LaTeX Font Info:    Font shape `T1/SourceSerifPro-LF/m/n' will be
-(Font)              scaled to size 6.0pt on input line 104.
+(Font)              scaled to size 6.0pt on input line 105.
 LaTeX Font Info:    Font shape `T1/SourceSerifPro-LF/m/n' will be
-(Font)              scaled to size 9.0pt on input line 104.
+(Font)              scaled to size 9.0pt on input line 105.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/m/n' aliased to
-(Font)              `T1/SourceSansPro-TLF/regular/n' on input line 104.
+(Font)              `T1/SourceSansPro-TLF/regular/n' on input line 105.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/regular/n' will be
-(Font)              scaled to size 8.0pt on input line 104.
+(Font)              scaled to size 8.0pt on input line 105.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/m/it' aliased to
-(Font)              `T1/SourceSansPro-TLF/regular/it' on input line 104.
+(Font)              `T1/SourceSansPro-TLF/regular/it' on input line 105.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/regular/it' will be
-(Font)              scaled to size 8.0pt on input line 104.
+(Font)              scaled to size 8.0pt on input line 105.
 LaTeX Font Info:    Font shape `T1/SourceSerifPro-LF/m/n' will be
-(Font)              scaled to size 8.0pt on input line 104.
+(Font)              scaled to size 8.0pt on input line 105.
 
-Underfull \hbox (badness 10000) in paragraph at lines 104--104
+Underfull \hbox (badness 10000) in paragraph at lines 105--105
 [][] [][]\T1/SourceSansPro-TLF/regular/n/9 Corresponding au-thor: vic-tor-
  []
 
 LaTeX Font Info:    Font shape `T1/SourceSerifPro-LF/b/n' will be
-(Font)              scaled to size 9.0pt on input line 104.
+(Font)              scaled to size 9.0pt on input line 105.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/m/n' aliased to
-(Font)              `T1/SourceSansPro-TLF/regular/n' on input line 104.
+(Font)              `T1/SourceSansPro-TLF/regular/n' on input line 105.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/regular/n' will be
-(Font)              scaled to size 12.0pt on input line 104.
+(Font)              scaled to size 12.0pt on input line 105.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/b/n' aliased to
-(Font)              `T1/SourceSansPro-TLF/bold/n' on input line 104.
+(Font)              `T1/SourceSansPro-TLF/bold/n' on input line 105.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/bold/n' will be
-(Font)              scaled to size 12.0pt on input line 104.
+(Font)              scaled to size 12.0pt on input line 105.
 LaTeX Font Info:    Font shape `T1/SourceSerifPro-LF/b/n' will be
-(Font)              scaled to size 14.0pt on input line 118.
+(Font)              scaled to size 14.0pt on input line 119.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/b/n' aliased to
-(Font)              `T1/SourceSansPro-TLF/bold/n' on input line 118.
+(Font)              `T1/SourceSansPro-TLF/bold/n' on input line 119.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/bold/n' will be
-(Font)              scaled to size 14.0pt on input line 118.
+(Font)              scaled to size 14.0pt on input line 119.
 LaTeX Font Info:    Font shape `T1/SourceSerifPro-LF/b/n' will be
-(Font)              scaled to size 12.0pt on input line 125.
+(Font)              scaled to size 12.0pt on input line 126.
 LaTeX Font Info:    Font shape `T1/SourceSerifPro-LF/m/it' will be
-(Font)              scaled to size 10.0pt on input line 155.
+(Font)              scaled to size 10.0pt on input line 156.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/b/n' aliased to
-(Font)              `T1/SourceSansPro-TLF/bold/n' on input line 192.
+(Font)              `T1/SourceSansPro-TLF/bold/n' on input line 193.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/bold/n' will be
-(Font)              scaled to size 8.0pt on input line 192.
+(Font)              scaled to size 8.0pt on input line 193.
 [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
  <./banner.png>]
 LaTeX Font Info:    Font shape `T1/SourceSerifPro-LF/m/n' will be
-(Font)              scaled to size 5.0pt on input line 220.
-LaTeX Font Info:    Trying to load font information for TS1+SourceSerifPro-LF on input line 283.
+(Font)              scaled to size 5.0pt on input line 221.
+LaTeX Font Info:    Trying to load font information for TS1+SourceSerifPro-LF on input line 284.
  (/usr/share/texlive/texmf-dist/tex/latex/sourceserifpro/TS1SourceSerifPro-LF.fd
 File: TS1SourceSerifPro-LF.fd 2018/09/05 (autoinst) Font definitions for TS1/SourceSerifPro-LF.
 )
 LaTeX Font Info:    Font shape `TS1/SourceSerifPro-LF/m/n' will be
-(Font)              scaled to size 10.0pt on input line 283.
+(Font)              scaled to size 10.0pt on input line 284.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/m/sc' aliased to
-(Font)              `T1/SourceSansPro-TLF/regular/sc' on input line 385.
+(Font)              `T1/SourceSansPro-TLF/regular/sc' on input line 386.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/regular/sc' will be
-(Font)              scaled to size 8.0pt on input line 385.
+(Font)              scaled to size 8.0pt on input line 386.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/b/sc' aliased to
-(Font)              `T1/SourceSansPro-TLF/bold/sc' on input line 385.
+(Font)              `T1/SourceSansPro-TLF/bold/sc' on input line 386.
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/bold/sc' will be
-(Font)              scaled to size 8.0pt on input line 385.
+(Font)              scaled to size 8.0pt on input line 386.
  [2]
 <seed_2024.png, id=116, 1467.4825pt x 469.755pt>
 File: seed_2024.png Graphic file (type png)
 <use seed_2024.png>
-Package pdftex.def Info: seed_2024.png  used on input line 432.
+Package pdftex.def Info: seed_2024.png  used on input line 433.
 (pdftex.def)             Requested size: 244.69386pt x 78.32336pt.
  (./paper.bbl [3 <./seed_2024.png>]
 LaTeX Font Info:    Font shape `T1/SourceSansPro-TLF/m/it' aliased to
@@ -1139,14 +1139,14 @@ Underfull \hbox (badness 6078) in paragraph at lines 14--20
 ] (./paper.aux) ) 
 Here is how much of TeX's memory you used:
  30522 strings out of 478287
- 550929 string characters out of 5849288
- 880408 words of memory out of 5000000
+ 550953 string characters out of 5849288
+ 880446 words of memory out of 5000000
  48050 multiletter control sequences out of 15000+600000
  879457 words of font info for 118 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 106i,17n,105p,515b,848s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 106i,17n,105p,523b,848s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/sourceserifpro/a_nqu667.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/sourcesanspro/a_4jropk.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/sourceserifpro/a_5mjl2d.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/sourcesanspro/a_emkxm5.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/sourceserifpro/a_rlbtkr.enc}</usr/share/texlive/texmf-dist/fonts/type1/adobe/sourcesanspro/SourceSansPro-Bold.pfb></usr/share/texlive/texmf-dist/fonts/type1/adobe/sourcesanspro/SourceSansPro-It.pfb></usr/share/texlive/texmf-dist/fonts/type1/adobe/sourcesanspro/SourceSansPro-Regular.pfb></usr/share/texlive/texmf-dist/fonts/type1/adobe/sourceserifpro/SourceSerifPro-It.pfb></usr/share/texlive/texmf-dist/fonts/type1/adobe/sourceserifpro/SourceSerifPro-Regular.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on paper.pdf (4 pages, 530252 bytes).
+Output written on paper.pdf (4 pages, 530153 bytes).
 PDF statistics:
  311 PDF objects out of 1000 (max. 8388607)
  255 compressed objects within 3 object streams

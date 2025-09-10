@@ -33,7 +33,7 @@ class Model:
         raise Exception('Method "starting_point" not implemented')
 
 
-class SeismicModel(Model):
+class RadiationModel(Model):
     '''
     This class computes the misfit function and its gradient
     for a given model.

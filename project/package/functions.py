@@ -174,6 +174,7 @@ def rotate_vec(vec: list, axis: list, theta: float) -> list:
     
     return rotated_vec
 
+###################################################################
 
 def tp2sdr(t: list, p: list, deg: bool = False) -> tuple:
     '''
@@ -285,6 +286,7 @@ def sdr2tp(sdr: list, deg: bool = False) -> tuple:
     
     return t, p
 
+#####################################################################
 
 def bound(params: list) -> list:
     '''
@@ -294,29 +296,14 @@ def bound(params: list) -> list:
     Args:
         params (list): [strike, dip, rake] in RADIANS
     '''
+    t, p = sdr2tp(params, deg=False)
+    sdr1, sdr2 = tp2sdr(t, p)
     
-    turns = [halfpi, np.pi, twopi]
+    for idx, param in enumerate(params):
+        if param == sdr1[idx]: return sdr1
+        elif param == sdr2[idx]: return sdr2
     
-    # leave input unchanged
-    out = params.copy()
-    
-    # driven by dip: case for every quadrant
-    overturned = out[1] % turns[2] > turns[1]
-    out[1] = out[1] % turns[1]
-    
-    # strike-dip relationship
-    if out[1] > turns[0]:
-        out[1] = turns[1] - out[1]
-        out[0] += turns[1]
-    out[0] = out[0] % turns[2]
-    
-    # bound the rake
-    if overturned: out[2] += turns[1]
-    out[2] = out[2] % turns[2]
-    if out[2] > turns[1]:
-        out[2] -= turns[2]
-    
-    return out
+    return sdr1
 
 
 def systematic_hemisphere_samples(step_size: float) -> list:
@@ -341,7 +328,8 @@ def systematic_hemisphere_samples(step_size: float) -> list:
     return samples
 
 
-def systematic_params(dd: float) -> list:
+def systematic_params(dd: float, hidden: bool = False, az: float = 0,
+                      in_deg: bool = True) -> list:
     '''
     Returns n systematically sampled parameters for the inversion.
     Sampled from tp space for better coverage.
@@ -357,9 +345,12 @@ def systematic_params(dd: float) -> list:
         P_start = starting_direc(T, i_hat + j_hat + k_hat)
         for theta in P_rotations:
             P = rotate_vec(P_start, T, theta)
-            param = tp2sdr(T, P)[0]
+            if hidden:
+                param = mt2hidden(tp2mt(T, P), az=az, in_deg=in_deg)
+            else:
+                param = tp2sdr(T, P)[0]
             params.append(param)
-    
+
     return np.array(params)
 
 
@@ -406,7 +397,8 @@ def random_hemisphere_samples(n: int) -> list:
     return samples
 
 
-def random_params(n:int) -> list:
+def random_params(n: int, hidden: bool = False, az: float = 0,
+                  in_deg: bool = True) -> list:
     '''
     Returns n random parameters for the inversion.
     Sampled uniformly from TP space.
@@ -422,8 +414,15 @@ def random_params(n:int) -> list:
             raw_P = random_hemisphere_samples(1)[0]
             Ptry = orthogonalize(raw_P, Ts[i])
         Ps.append(Ptry)
-    params = [tp2sdr(Ts[i], Ps[i])[0] for i in range(n)]
-    
+
+    if hidden:
+        print("Using hidden parameters via moment tensor.")
+        params = [mt2hidden(tp2mt(Ts[i], Ps[i]), az=az, in_deg=in_deg)
+                  for i in range(n)]
+    else:
+        print("Using sdr parameters.")
+        params = [tp2sdr(Ts[i], Ps[i])[0] for i in range(n)]
+
     return np.array(params)
 
 
@@ -497,6 +496,9 @@ def regression_axes(tp_axes: list) -> tuple:
     
     Args:
         tp_axes (list): list of tp axes
+        
+    Output:
+        Normal for closest-aligned centroid plus P=1 T=0 indicator
     '''
     Ts = np.array([tp[0] for tp in tp_axes])
     Ps = np.array([tp[1] for tp in tp_axes])
@@ -557,4 +559,200 @@ def systematic_ellipse(normal: list, Ao: list, Uo: list, chi2: float,
             amps.append(Ab_low + step*along)
     
     return amps
+
+
+
+#####################################################################
+# NEW CODE NEEDS TO BE TESTED. COORDINATE SYSTEMS AND AZIMUTH PROBLEM
+#####################################################################
+
+
+def sdr2hidden(params: list, az: float = 0, in_deg: bool = True) -> list:
+    '''
+    Converts from SDR parameters to hidden parameters.
+    Inputs must match degrees or radians units.
+
+    Args:
+        params (list): SDR parameters
+    '''
+    psi, delta, lamb = params
+    
+    if in_deg:
+        az = np.deg2rad(az)
+        psi, delta, lamb = np.deg2rad(psi), np.deg2rad(delta), np.deg2rad(lamb)
+    
+    sR = .5*np.sin(lamb) * np.sin(2*delta)
+    qR = np.sin(lamb) * np.cos(2*delta) * np.sin(psi-az) + \
+        np.cos(lamb) * np.cos(delta) * np.cos(psi-az)
+    pR = np.cos(lamb) * np.sin(delta) * np.sin(2*(psi-az)) - \
+        .5*np.sin(lamb) * np.sin(2*delta) * np.cos(2*(psi-az))
+    qL = -np.cos(lamb) * np.cos(delta) * np.sin(psi-az) + \
+        np.sin(lamb) * np.cos(2*delta) * np.cos(psi-az)
+    pL = .5*np.sin(lamb) * np.sin(2*delta) * np.sin(2*(psi-az)) + \
+        np.cos(lamb) * np.sin(delta) * np.cos(2*(psi-az))
+    
+    return np.array([sR, qR, pR, qL, pL])
+
+
+def tp2mt(t: list, p: list, M0: float = 1) -> np.array:
+    '''
+    Converts from T and P axes to moment tensor.
+
+    Args:
+        t (list): T axis
+        p (list): P axis
+        M0 (float, optional): scalar moment. Defaults to 1.
+    '''
+    n1, n2 = unit_vec(t + p), unit_vec(t - p)
+    M = M0*(np.outer(n1, n2) + np.outer(n2, n1))
+    return M
+
+
+def mt2tp(M: np.array) -> tuple:
+    '''
+    Converts from moment tensor to T and P axes.
+
+    Args:
+        M (np.array): moment tensor in ENU coordinate system
+        Coordinate system doesn't matter though, until orientation is needed.
+    '''
+    evals, evecs = linalg.eig(M)
+    idx = evals.argsort()[::-1]
+    evecs = evecs[:,idx]
+    t, p = unit_vec(evecs[:,0]), unit_vec(evecs[:,2])
+    if t[2] < 0: t *= -1
+    if p[2] < 0: p *= -1
+    return t, p
+
+
+def hidden2mt(params: list, az: float = 0, M0: float = 1, in_deg: bool = True) -> np.array:
+    '''
+    Converts from hidden parameters to moment tensor.
+    Returns moment tensor in ENU coordinate system.
+
+    Args:
+        params (list): hidden parameters
+        M0 (float, optional): scalar moment. Defaults to 1.
+        in_deg (bool, optional): input in degrees if True. Defaults to True.
+    
+    '''
+    if in_deg: az = np.deg2rad(az)
+    
+    sR, qR, pR, qL, pL = params
+    M = M0 * np.array([[-pR-sR, pL, -qR],
+                       [pL, pR-sR, qL],
+                       [ -qR, qL, 2*sR]])
+    
+    # RTZ to NED to ENU conversion
+    orient = np.array([[np.sin(az), np.cos(az), 0],
+                       [np.cos(az), -np.sin(az), 0],
+                       [0, 0, -1]])
+
+    M = orient @ M @ orient.T
+    return M
+
+
+def mt2hidden(M: np.array, az: float = 0, in_deg: bool = True) -> list:
+    '''
+    Converts from moment tensor to hidden parameters.
+
+    Args:
+        M (np.array): moment tensor
+    '''
+    if in_deg: az = np.deg2rad(az)
+    
+    # ENU to NED to RTZ conversion
+    orient = np.array([[np.sin(az), np.cos(az), 0],
+                       [np.cos(az), -np.sin(az), 0],
+                       [0, 0, -1]])
+    
+    M_prime = orient.T @ M @ orient
+    
+    Mxx, Mxy, Mxz = M_prime[0,:]
+    Myy, Myz = M_prime[1,1:]
+    Mzz = M_prime[2,2]
+
+    sR = .5*Mzz
+    qR = -Mxz
+    pR = .5*(Myy - Mxx)
+    qL = Myz
+    pL = Mxy
+    
+    return np.array([sR, qR, pR, qL, pL])
+
+
+def hidden2tp(params: list, az: float = 0, in_deg: bool = True) -> tuple:
+    '''
+    Converts from hidden parameters to T and P axes.
+
+    Args:
+        params (list): hidden parameters
+    '''
+    M = hidden2mt(params, az=az, in_deg=in_deg)
+    return mt2tp(M)
+
+
+def tp2hidden(t: list, p: list, az: float = 0, in_deg: bool = True) -> list:
+    '''
+    Converts from T and P axes to hidden parameters.
+
+    Args:
+        t (list): T axis
+        p (list): P axis
+    '''
+    M = tp2mt(t, p)
+    return mt2hidden(M, az=az, in_deg=in_deg)
+
+
+def enu2use(M: np.array) -> np.array:
+    '''
+    Convert moment tensor from ENU to USE system
+    '''
+    enu_use_P = np.array([[0, 0, 1],
+                          [0, -1, 0],
+                          [1, 0, 0]])
+    
+    return enu_use_P @ M @ enu_use_P.T
+
+
+def use2enu(M: np.array) -> np.array:
+    '''
+    Convert moment tensor from USE to ENU system
+    '''
+    enu_use_P = np.array([[0, 0, 1],
+                          [0, -1, 0],
+                          [1, 0, 0]])
+    
+    return enu_use_P.T @ M @ enu_use_P
+
+
+def get_evals(M: np.array) -> np.array:
+    '''
+    Returns the eigenvalues of a moment tensor.
+
+    Args:
+        M (np.array): moment tensor
+    '''
+    evals, _ = linalg.eig(M)
+    idx = np.argsort(evals)[::-1]  # descending order
+    evals = evals[idx]
+    return evals
+
+
+def covariance_transform(cov: np.array) -> tuple:
+    '''
+    Transforms covariance matrix from SDR to SD, SR, and DR forms.
+
+    Args:
+        cov (np.array): covariance matrix in SDR form
+    '''
+    
+    # sd is 1st and 2nd rows/cols
+    sd = cov[:2, :2]
+    # sr is 1st and 3rd rows/cols
+    sr = cov[[0,2], :][:, [0,2]]
+    # dr is 2nd and 3rd rows/cols
+    dr = cov[1:, 1:]
+    
+    return sd, sr, dr
 

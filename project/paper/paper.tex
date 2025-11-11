@@ -23,7 +23,7 @@
 
 
 % \title{Single-seismometer Focal Mechanism and Uncertainty Estimation from Body Waves}
-\title{An Asymmetry-Aware Method for Focal Mechanism and Uncertainty Estimation in Data-Sparse Settings}
+\title{An Asymmetry-Aware Method for Focal Mechanism and Uncertainty Estimation in Single-seismometer Settings}
 \shorttitle{Single-seismometer Focal Mechanism and Uncertainty Estimation} % used for header, not mandatory
 
 %% If this is a REPORT, select a report type within: 
@@ -146,7 +146,8 @@
       \nonumber q_R &= \sin(\lambda) \cos(2\delta) \sin(\psi_r) + \cos(\lambda) \cos(\delta) \cos(\psi_r)\\
       \nonumber p_R &= \cos(\lambda) \sin(\delta) \sin(2\psi_r) - 0.5\sin(\lambda) \sin(2\delta) \cos(2\psi_r)\\
       \nonumber p_L &= 0.5\sin(\lambda) \sin(2\delta) \sin(2\psi_r) + \cos(\lambda) \sin(\delta) \cos(2\psi_r)\\
-      q_L &= -\cos(\lambda) \cos(\delta) \sin(\psi_r) + \sin(\lambda) \cos(2\delta) \cos(\psi_r)
+      \nonumber q_L &= -\cos(\lambda) \cos(\delta) \sin(\psi_r) + \sin(\lambda) \cos(2\delta) \cos(\psi_r)\\
+      \psi_r &= \psi - \phi
     \end{align}
 
     Our goal is two-fold:
@@ -338,32 +339,31 @@
         
         \foreach \p in {2,3}
           \foreach \h in {1,2,3,4,5}
-            \draw (P\p) -- (H\h);
+            \draw[->] (P\p) -- (H\h);
         
         % \foreach \h in {1,2,3,4,5}
         %   \foreach \a in {1,2,3}
         %     \draw[dashed] (H\h) -- (A\a);
         
         \foreach \a in {1,2,3}
-          \draw (A\a) -- (M);
+          \draw[->] (A\a) -- (M);
   
         % \draw[dashed] (P1) -- (H1);
-        \draw (P1) -- (H2);
-        \draw (P1) -- (H3);
-        \draw (P1) -- (H4);
-        \draw (P1) -- (H5);
+        \draw[->] (P1) -- (H2);
+        \draw[->] (P1) -- (H3);
+        \draw[->] (P1) -- (H4);
+        \draw[->] (P1) -- (H5);
   
-        \draw (H1) -- (A3);
-        \draw (H1) -- (A1);
-        \draw (H1) -- (A2);
-        \draw (H2) -- (A1);
-        \draw (H2) -- (A2);
-        \draw (H3) -- (A1);
-        \draw (H3) -- (A2);
-        \draw (H4) -- (A3);
-        \draw (H5) -- (A3);
+        \draw[->] (H1) -- (A1);
+        \draw[->] (H1) -- (A2);
+        \draw[->] (H2) -- (A1);
+        \draw[->] (H2) -- (A2);
+        \draw[->] (H3) -- (A1);
+        \draw[->] (H3) -- (A2);
+        \draw[->] (H4) -- (A3);
+        \draw[->] (H5) -- (A3);
       \end{tikzpicture}
-      \caption{Computational graph of forward model (edges are non-zero partial derivatives).}
+      \caption{Computation graph of forward model (edges are non-zero partial derivatives).}
       \label{fig:1}
     \end{figure}
 
@@ -381,11 +381,11 @@
     \begin{align*}
       &a = \sin(\lambda)\;\;\;\;\;\;\;\;\;\;\;\;\; b = \cos(2\delta)\;\;\;\;\;\;\;\;\;\;\; c = \cos(\lambda)\\
       &d = \sin(2\delta)\;\;\;\;\;\;\;\;\;\;\;\; e = \sin(\delta)\;\;\;\;\;\;\;\;\;\;\;\; f = \cos(\delta)\\
-      &g = \sin(\psi - \phi)\;\;\;\;\;\; h = \cos(\psi - \phi)\;\;\;\;\; p = cos(2(\psi - \phi))\\
-      &q = \sin(2(\psi - \phi))
+      &g = \sin(\psi_r)\;\;\;\;\;\;\;\;\;\;\; h = \cos(\psi_r)\;\;\;\;\;\;\;\;\;\; p = cos(2(\psi_r)\\
+      &q = \sin(2\psi_r)
     \end{align*}
     \begin{align} \label{eq:18}
-      \nonumber&\bm{J_p}(\bm{\eta}) = \\
+      \nonumber&\bm{J_m}(\bm{\eta}) = \\
       &\begin{bmatrix}
         0         &ab         &0.5cd\\
         abh-cfg   &-2adg-ceh  &cbg-afh\\
@@ -416,7 +416,7 @@
 
     Combining \ref{eq:18}, \ref{eq:19} and \ref{eq:20} gives the overall gradient:
     \begin{align} \label{eq:21}
-      \nabla_{\bm{m}}\Phi = \bm{J_p}(\bm{\eta})^\top \bm{J_\eta}(\bm{A})^\top \nabla_{\bm{A}}\tilde{\Phi}
+      \nabla_{\bm{m}}\Phi = \bm{J_m}(\bm{\eta})^\top \bm{J_\eta}(\bm{A})^\top \nabla_{\bm{A}}\tilde{\Phi}
     \end{align}
 
   \subsection{Optimization algorithms}

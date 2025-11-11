@@ -27,6 +27,7 @@ def get_config():
         rho (float): Backtracking line search parameter.
         tolerance (float): Stopping criterion.
         print_every (int): Print output every n iterations.
+        misfit_tolerance (float): Tolerance for goodness of fit.
     '''
     config = {
         'method': 'SD',
@@ -35,12 +36,14 @@ def get_config():
         'alpha': 5e-2,
         'rho': 0.5,
         'tolerance': 1e-5,
-        'print_every': 0
+        'print_every': 0,
+        'misfit_tolerance': 1e-5,
+        'global_min': -1.0
     }
     return config
 
 
-def minimize(objective, config, start=None):
+def minimize(objective, config, start=None, laplacian=True, converge_globally=False):
     '''
     Minimize an objective function starting from a given point.
     
@@ -48,6 +51,8 @@ def minimize(objective, config, start=None):
         function (callable): The objective function to minimize.
         config (dict): Hyperparameters for the optimization.
         start (list): Starting point for the optimization.
+        laplacian (bool): Whether to compute and store the Laplacian at the optimal point.
+        global_min (bool): Whether to assume the global minimum is found.
     
     Output:
         x_k (list): The optimal point found by the optimization.
@@ -61,7 +66,9 @@ def minimize(objective, config, start=None):
     rho = config['rho']
     tolerance = config['tolerance']
     print_every = config['print_every']
-    
+    misfit_tolerance = config['misfit_tolerance']
+    global_min = config['global_min']
+
     # get initial guess
     if start is None:
         start = function.get_start()
@@ -145,9 +152,13 @@ def minimize(objective, config, start=None):
             break
     
     if converged:
-        objective.set_optimal_iterate(x_k)
-        objective.set_optimal_amplitude()
-        objective.set_optimal_laplacian(x_k)
+        if (converge_globally and abs(f_k - global_min) < misfit_tolerance) or (not converge_globally):
+            objective.set_optimal_iterate(x_k)
+            objective.set_optimal_amplitude()
+            if laplacian: objective.set_optimal_laplacian(x_k)
+        else:
+            if print_every > 0:
+                print('Warning: Converged to a local minimum!') 
         
     objective.update_convergence(converged)
     

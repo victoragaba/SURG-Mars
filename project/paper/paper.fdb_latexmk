@@ -1,14 +1,14 @@
 # Fdb version 3
-["bibtex paper"] 1736785248 "paper.aux" "paper.bbl" "paper" 1736785249
+["bibtex paper"] 1762215392 "paper.aux" "paper.bbl" "paper" 1762215684
   "./abbrvnat_seismica_upcasetitle.bst" 1729100731 26655 c6352442426273aacf5cc58cc9e6f2ba ""
-  "paper.aux" 1736785249 10378 d69038a44f7518207e9571d482e112cc "pdflatex"
+  "paper.aux" 1762215684 10374 b5545eaea5ff633ed7ededa278563b99 "pdflatex"
   "references.bib" 1729106014 2394 758a75cd5679d5c21a351f078315ef9d ""
   (generated)
   "paper.bbl"
   "paper.blg"
-["pdflatex"] 1736785248 "/home/vay3059/desktop/SURG-Mars/project/paper/paper.tex" "paper.pdf" "paper" 1736785249
+["pdflatex"] 1762215683 "/home/vay3059/desktop/SURG-Mars/project/paper/paper.tex" "paper.pdf" "paper" 1762215684
   "/etc/texmf/web2c/texmf.cnf" 1729518115 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/vay3059/desktop/SURG-Mars/project/paper/paper.tex" 1736785247 22020 3981b858a0108f149270aef1ffd03304 ""
+  "/home/vay3059/desktop/SURG-Mars/project/paper/paper.tex" 1762215683 22090 44d10978ee9fe937fe9f05b81d8af5d9 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/sourcesanspro/a_4jropk.enc" 1587936753 3267 177411e539fcc6ace86309ff03b22da6 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/sourcesanspro/a_emkxm5.enc" 1587936753 3021 665788e9679767ade2a71155215d25e0 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/sourceserifpro/a_5mjl2d.enc" 1536266730 2996 4eac4f75d003875749efc5dde4ee7502 ""
@@ -289,9 +289,9 @@
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1729520018 2797840 27216a138e23bbbfa063783e7cef986a ""
   "abbrvnat_seismica_upcasetitle.bst" 1729100731 26655 c6352442426273aacf5cc58cc9e6f2ba ""
   "banner.png" 1729100731 76827 830502f369a56ef30c0a2045f6561aac ""
-  "paper.aux" 1736785249 10378 d69038a44f7518207e9571d482e112cc "pdflatex"
-  "paper.bbl" 1736785248 848 8e98071490084d095497b1ca99fb3fa7 "bibtex paper"
-  "paper.tex" 1736785247 22020 3981b858a0108f149270aef1ffd03304 ""
+  "paper.aux" 1762215684 10374 b5545eaea5ff633ed7ededa278563b99 "pdflatex"
+  "paper.bbl" 1762215392 848 8e98071490084d095497b1ca99fb3fa7 "bibtex paper"
+  "paper.tex" 1762215683 22090 44d10978ee9fe937fe9f05b81d8af5d9 ""
   "seed_2024.png" 1733354510 54762 c2ae40ae1a0060b139ae71ac879253a6 ""
   "seismica.cls" 1732504964 14517 d3a0423df1205df196a4f9c2ba37702c ""
   (generated)

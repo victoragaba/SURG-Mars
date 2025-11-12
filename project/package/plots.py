@@ -188,6 +188,11 @@ def iterates_2D(model: sm.RadiationModel, cmap='rainbow', s=10, optimal=True,
     ax1.set_xlabel('Strike (deg)')
     ax1.set_ylabel('Dip (deg)')
     
+    if uncertainty:
+        plt.suptitle(f'Optimal fault parameters with {conf*100:.0f}% confidence ellipses', fontsize=16)
+    else:
+        plt.suptitle('Optimal fault parameters', fontsize=16)
+    
     if not optimal:
         ax2.scatter(strikes, rakes, c=weights, cmap=cmap, norm=norm, s=s)
         ax2.scatter(opt_strikes, opt_rakes, c='black', marker='.', s=s, label='Optimal')
@@ -366,7 +371,10 @@ def amplitudes(model: sm.RadiationModel, elev=30, azim=45, cmap='rainbow', s=50,
     ax.set_ylabel('ASV')
     ax.set_zlabel('ASH')
     ax.legend()
-    plt.title('Optimal amplitudes', fontsize=15)
+    if uncertainty:
+        plt.title(f'Optimal amplitudes with {conf*100:.0f}% confidence ellipsoid', fontsize=15)
+    else:
+        plt.title('Optimal amplitudes', fontsize=15)
     
     if iterates:
         cbar = fig.colorbar(it_scatter, ax=ax, pad=0.1, shrink=0.6)
@@ -625,7 +633,7 @@ def beachballs(model: sm.RadiationModel, order_by='strike',width=10, max_plot=50
         if original: solution_set = [Ao_comp_mt] + solution_set
     else:
         og_set = model.get_optimal_iterates()
-        solution_set = model.get_optimal_iterates()
+        solution_set = model.get_optimal_iterates() # optimal_covariances
         
         assert len(solution_set) == len(og_set), f'Length mismatch'
         # get sorting order from og_set
@@ -641,6 +649,7 @@ def beachballs(model: sm.RadiationModel, order_by='strike',width=10, max_plot=50
     if overlap:
         fig, ax = plt.subplots(subplot_kw={'aspect': 'equal'}, figsize=figsize)
         ax.axison = False
+        solution_set = [np.rad2deg(s) for s in solution_set] if order_by != 'tensor' else solution_set
         collections = overlap_beach(solution_set)
         for collection in collections:
             ax.add_collection(collection)
@@ -651,8 +660,9 @@ def beachballs(model: sm.RadiationModel, order_by='strike',width=10, max_plot=50
         covariances = []
         if uncertainty:
             assert order_by != 'tensor', "Uncertainty not supported for tensor beachballs"
-            covariances = model.get_optimal_covariances()
+            covariances = model.get_optimal_covariances() # NOTE
             # sort covariances in the same order as solution_set
+            # BUG here
             covariances = [covariances[i] for i in order]
             # add original covariance:
             if original:
@@ -686,39 +696,45 @@ def grid_beach(solution_set, width, max_plot, facecolor, figsize, original, cova
     tensor = False
     if len(solution_set) > 0 and len(solution_set[0]) == 6: tensor = True
     
+    if len(covariances) > 0: colors = fn.condition_colors(covariances)
+    
     # plot all solutions
     for counter, solution in enumerate(solution_set):
         # x and y are coordinates of the beachball to align
         x = 210 * (counter % width)
         y = 210 * (counter // width)
         
-        if not tensor:
-            solution = np.rad2deg(fn.bound(solution))
+        # if not tensor:
+        #     solution = np.rad2deg(fn.bound(solution))
             
         if original and counter == 0:
             if len(covariances) == 0:
+                if not tensor: solution = np.rad2deg(fn.bound(solution))
                 collection = beach(solution, xy=(x, y), facecolor='red')
                 ax.add_collection(collection)
             else:
                 # sample 20 beachballs from a multivariate normal distribution
-                samples = np.random.multivariate_normal(mean=np.deg2rad(solution),
+                samples = np.random.multivariate_normal(mean=solution,
                                                         cov=covariances[counter],
-                                                        size=20)
-                samples = [np.rad2deg(s) for s in samples]
-                collections = overlap_beach(samples, facecolor='red', xy=(x, y))
+                                                        size=25)
+                samples = [np.rad2deg(fn.bound(s)) for s in samples]
+                collections = overlap_beach(samples, facecolor='red', xy=(x, y),
+                                            alpha=0.1)
                 for collection in collections:
                     ax.add_collection(collection)
         else:
             if len(covariances) == 0:
+                if not tensor: solution = np.rad2deg(fn.bound(solution))
                 collection = beach(solution, xy=(x, y), facecolor=facecolor)
                 ax.add_collection(collection)
             else:
                 # sample 20 beachballs from a multivariate normal distribution
-                samples = np.random.multivariate_normal(mean=np.deg2rad(solution),
+                samples = np.random.multivariate_normal(mean=solution,
                                                         cov=covariances[counter],
-                                                        size=20)
-                samples = [np.rad2deg(s) for s in samples]
-                collections = overlap_beach(samples, facecolor=facecolor, xy=(x, y))
+                                                        size=25)
+                samples = [np.rad2deg(fn.bound(s)) for s in samples]
+                collections = overlap_beach(samples, facecolor=colors[counter], xy=(x, y),
+                                            alpha=0.1)
                 for collection in collections:
                     ax.add_collection(collection)
         
@@ -726,7 +742,7 @@ def grid_beach(solution_set, width, max_plot, facecolor, figsize, original, cova
     
     # scale and plot
     ax.autoscale_view()
-    if facecolor == 'red': ax.set_title("Central mechanism solutions")
+    if len(covariances) > 0: ax.set_title("Best fitting beachball solutions with uncertainty")
     else: ax.set_title("Best fitting beachball solutions")
     
     plt.show()
@@ -753,19 +769,13 @@ def overlap_beach(solution_set, facecolor='b', xy=(0, 0), alpha=0.05, max_plot=N
         Maximum number of solutions to plot.
     """
     collections = []
-    # detect if using moment tensor input
-    tensor = len(solution_set[0]) == 6 if len(solution_set) > 0 else False
     
     # plot all solutions overlapping
     for counter, solution in enumerate(solution_set):
         if max_plot is not None and counter >= max_plot:
             break
-            
-        if not tensor:
-            # optional: bound or normalize solution if needed
-            solution = np.rad2deg(fn.bound(solution))
         
-        # Draw beachball at the same (x, y)
+        # draw beachball at the same (x, y)
         collection = beach(solution, xy=xy, facecolor=facecolor, bgcolor='w',
                            edgecolor=None, alpha=alpha, nofill=False,
                            zorder=100, axes=None)

@@ -1,0 +1,811 @@
+'''
+Name: Victor Agaba
+
+Date: 4th November 2024
+
+The goal of this module is to provide all helper functions needed for the
+seismic inversion project.
+
+'''
+
+
+import numpy as np
+from numpy import linalg
+import pandas as pd
+from matplotlib import pyplot as plt
+from obspy.imaging.beachball import beachball
+from obspy.imaging.beachball import beach
+
+
+eps = 1e-10; halfpi = np.pi/2; twopi = 2*np.pi
+i_hat = np.array([1,0,0]); j_hat = np.array([0,1,0]); k_hat = np.array([0,0,1])
+
+
+def unit_vec(vector: list) -> list:
+    ''' Returns the unit vector of a vector. '''
+    return vector / linalg.norm(vector)
+
+
+def boundary_points(Ao: list, Uo: list, As: list, chi2: float) -> tuple:
+    '''
+    Returns the boundary points of the model.
+
+    Args:
+        Ao (list): Vector of observed amplitudes.
+        Uo (list): Vector of measured uncertainties.
+        As (list, optional): Vector of simulated amplitudes. Defaults to [].
+        chi2 (float, optional): _description_. Defaults to 1.
+    '''
+    
+    # adjusted covariance matrix
+    assert all(Uo > 0), "All uncertainties must be positive."
+    Sigma_tilde = np.diag(Uo)/chi2
+    Sigma_tilde_inv = linalg.inv(Sigma_tilde)
+    
+    # constants
+    c1 = Ao @ Sigma_tilde_inv @ Ao
+    c2 = Ao @ Sigma_tilde_inv @ As
+    c3 = As @ Sigma_tilde_inv @ As
+    
+    # conditions
+    assert c1 >= 1, f"Confidence ellipsoid is too big: c1 = {c1}"
+    assert c1*c3 > c2**2, "Cauchy-Schwarz inequality is not satisfied."
+    
+    # boundary points
+    left = (1 - 1/c1)*Ao
+    right = (1/c1)*np.sqrt((c1-1)/(c1*c3 - c2**2))*(c1*As - c2*Ao)
+    Ab_low, Ab_high = left - right, left + right
+    
+    return Ab_low, Ab_high
+    
+
+def get_epsilon(Ao: list, bounds: tuple) -> float:
+    '''
+    Returns the max angle between the observed and simulated amplitudes.
+    Output is in RADIANS.
+
+    Args:
+        Ao (list): Vector of observed amplitudes.
+        bounds (tuple): Tuple of boundary points.
+    '''
+    Ab_low, Ab_high = bounds
+    angle_low = np.arccos(unit_vec(Ao) @ unit_vec(Ab_low))
+    angle_high = np.arccos(unit_vec(Ao) @ unit_vec(Ab_high))
+    
+    return max(angle_low, angle_high)
+
+
+def starting_direc(point: list, direc: list) -> list:
+    '''
+    Find what unit vector is perpendicular to point vector and lies in the
+    plane that contains point and direc.
+
+    Args:
+        point (list): [x,y,z] on a unit sphere
+        direc (list): direction to match, unit length
+    '''
+    
+    proj = (np.dot(direc, point)/np.dot(point, point))
+    rem = np.array(direc) - proj*np.array(point)
+    return unit_vec(rem) if linalg.norm(rem) > eps else j_hat
+
+
+def rect2pol(rect: list) -> list:
+    '''
+    Converts from rectangular to polar/spherical coordinates.
+
+    Args:
+        rect (list): rectangular coordinates
+    '''
+    
+    if len(rect) == 2:
+        x, y = rect
+        r = linalg.norm(rect)
+        theta = np.arctan2(y, x) % twopi
+        return np.array([r, theta])
+    
+    x, y, z = rect
+    rho = linalg.norm(rect)
+    theta = np.arctan2(y, x) % twopi
+    phi = np.arctan2(np.sqrt(x**2 + y**2), z)
+    
+    return np.array([rho, theta, phi])
+
+
+def pol2rect(pol: list) -> list:
+    '''
+    Converts from polar/spherical to rectangular coordinates.
+
+    Args:
+        pol (list[int]): polar/spherical coordinates
+    '''
+    r = pol[0]
+    theta = pol[1]
+    
+    if len(pol) == 2:
+        x = r*np.cos(theta)
+        y = r*np.sin(theta)
+        return np.array([x,y])
+    
+    phi = pol[2]
+    
+    x = r*np.cos(theta)*np.sin(phi)
+    y = r*np.sin(theta)*np.sin(phi)
+    z = r*np.cos(phi)
+    
+    return np.array([x,y,z])
+
+
+def angle2bearing(angle: float) -> float:
+    '''
+    Converts angle (unit circle) to bearing.
+    Angles in RADIANS.
+
+    Args:
+        angle (float): angle mod 2*pi in RADIANS
+    '''
+    angle = twopi - angle
+    bearing = (angle + halfpi) % twopi
+    
+    return bearing
+
+
+def bearing2angle(bearing: float) -> float:
+    '''
+    Converts bearing to angle (unit circle).
+    Angles in RADIANS.
+
+    Args:
+        bearing (float): bearing in RADIANS, N = y axis
+    '''
+    bearing = twopi - bearing
+    angle = (bearing + halfpi) % twopi
+    
+    return angle
+
+
+def rotate_vec(vec: list, axis: list, theta: float) -> list:
+    """
+    Rotate vec around axis by theta RADIANS, counterclockwise.
+    Axis must be a unit vector.
+    """
+    rotated_vec = vec*np.cos(theta) + (np.cross(axis,vec))*np.sin(theta) + \
+        axis*(axis @ vec)*(1-np.cos(theta))
+    
+    return rotated_vec
+
+###################################################################
+
+def tp2sdr(t: list, p: list, deg: bool = False) -> tuple:
+    '''
+    Converts from T and P axes to strike, dip, and rake of both fault planes
+    Inputs are numpy arrays, assumes unit vectors
+    Uses right-hand rule for coordinate system
+
+    Args:
+        t (list): T axis
+        p (list): P axis
+        deg (bool, optional): output in degrees if True
+    '''
+    # get the normals
+    n1 = t + p
+    n2 = t - p
+    
+    # restrict to upper hemisphere
+    if n1[2] < 0: n1 *= -1
+    if n2[2] < 0: n2 *= -1
+    
+    # get spherical coordinates, dip is restricted phi
+    _, theta1, dip1 = rect2pol(n1)
+    _, theta2, dip2 = rect2pol(n2)
+    
+    # strike is theta measured in reverse
+    strike1 = (twopi - theta1) % twopi
+    strike2 = (twopi - theta2) % twopi
+    
+    # base directions for rakes, null for exceptions
+    base1 = pol2rect(np.array([1, bearing2angle(strike1), halfpi]))
+    base2 = pol2rect(np.array([1, bearing2angle(strike2), halfpi]))
+    null = np.cross(t,p)
+    if null[2] < 0: null *= -1
+    done1, done2 = False, False
+    
+    # account for edge cases on perfectly vertical dips
+    if n1[2] < eps and n2[2] < eps: # double vertical dip
+        check1 = rotate_vec(base1, null, np.pi/4)
+        if abs(np.dot(check1, t)) < eps: rake1 = 0.
+        else: rake1 = np.pi
+        check2 = rotate_vec(base2, null, np.pi/4)
+        if abs(check2 @ t) < eps: rake2 = 0.
+        else: rake2 = np.pi
+        done1, done2 = True, True
+    elif n1[2] < eps: # single vertical dip
+        check2 = rotate_vec(base2, null, np.pi/4)
+        if abs(check2 @ t) < eps: rake2 = 0.
+        else: rake2 = np.pi
+        done2 = True
+    elif n2[2] < eps: # single vertical dip
+        check1 = rotate_vec(base1, null, np.pi/4)
+        if abs(check1 @ t) < eps: rake1 = 0.
+        else: rake1 = np.pi
+        done1 = True
+    
+    # check if the restricted normals house a t or p axis
+    if abs(np.dot(n1 + n2, t)) < eps: # houses a p axis, negative slip
+        slip1, slip2 = -n2, -n1
+    else: # houses a t axis, positive slip
+        slip1, slip2 = n2, n1
+
+    # get rakes from  base and slip vectors
+    if not done1:
+        rake1 = np.arccos(np.dot(slip1, base1)/linalg.norm(slip1))
+        rake1 *= np.sign(slip1[2])
+    if not done2:
+        rake2 = np.arccos(np.dot(slip2, base2)/linalg.norm(slip2))
+        rake2 *= np.sign(slip2[2])
+    
+    if deg:
+        strike1, strike2 = np.rad2deg(strike1), np.rad2deg(strike2)
+        dip1, dip2 = np.rad2deg(dip1), np.rad2deg(dip2)
+        rake1, rake2 = np.rad2deg(rake1), np.rad2deg(rake2)
+    
+    return (np.array([strike1, dip1, rake1]), np.array([strike2, dip2, rake2]))
+
+
+def sdr2tp(sdr: list, deg: bool = False) -> tuple:
+    """
+    Converts from strike, dip, and rake to T and P axes.
+
+    Args:
+        sdr (list): strike, dip, and rake
+        deg (bool, optional): input in degrees if True
+
+    Returns:
+        tuple: (t, p) as unit vectors in x, y, z
+    """
+    if deg: sdr = np.deg2rad(sdr)
+    
+    # first normal from strike and dip
+    strike, dip, rake = sdr
+    
+    n1_theta = bearing2angle(strike + halfpi)
+    n1_phi = dip
+    n1 = pol2rect(np.array([1, n1_theta, n1_phi]))
+
+    n2_theta = bearing2angle(strike)
+    n2_init = pol2rect(np.array([1, n2_theta, halfpi]))
+    n2 = rotate_vec(n2_init, n1, rake)
+    
+    # get T and P axes
+    t = (n1 + n2)/linalg.norm(n1 + n2)
+    p = (n1 - n2)/linalg.norm(n1 - n2)
+    
+    # restrict to upper hemisphere
+    if t[2] < 0: t *= -1
+    if p[2] < 0: p *= -1
+    
+    return t, p
+
+#####################################################################
+
+def bound(params: list) -> list:
+    '''
+    Put params in the range [0, 2pi], [0, pi/2], [-pi, pi].
+    Intended to correct optimal solution from steepest descent algorithm.
+    
+    Args:
+        params (list): [strike, dip, rake] in RADIANS
+    '''
+    t, p = sdr2tp(params, deg=False)
+    sdr1, sdr2 = tp2sdr(t, p)
+    
+    for idx, param in enumerate(params):
+        if param == sdr1[idx]: return sdr1
+        elif param == sdr2[idx]: return sdr2
+    
+    return sdr1
+
+
+def systematic_hemisphere_samples(step_size: float) -> list:
+    """
+    Systematically samples n samples evenly spaced on an upper hemisphere surface.
+
+    Args:
+        step_size (float): angular distance between samples in DEGREES
+
+    Returns:
+        list: array of [x,y,z] coordinates
+    """
+    samples = [k_hat]
+    d_phi = np.deg2rad(step_size)
+    phis = np.arange(0, halfpi, d_phi)
+    
+    for phi in phis[1:]:
+        c_phi = twopi*np.sin(phi)
+        thetas = np.linspace(0, twopi, int(c_phi/d_phi)+1)[:-1]
+        samples.extend([pol2rect(np.array([1, theta, phi])) for theta in thetas])
+        
+    return samples
+
+
+def systematic_params(dd: float, hidden: bool = False, az: float = 0,
+                      in_deg: bool = True) -> list:
+    '''
+    Returns n systematically sampled parameters for the inversion.
+    Sampled from tp space for better coverage.
+    Output is in RADIANS.
+    
+    Args:
+        dd (float): angular distance between samples in DEGREES
+    '''
+    params = []
+    Ts = systematic_hemisphere_samples(dd)
+    P_rotations = np.arange(0, np.pi, np.deg2rad(dd))
+    for T in Ts:
+        P_start = starting_direc(T, i_hat + j_hat + k_hat)
+        for theta in P_rotations:
+            P = rotate_vec(P_start, T, theta)
+            if hidden:
+                param = mt2hidden(tp2mt(T, P), az=az, in_deg=in_deg)
+            else:
+                param = tp2sdr(T, P)[0]
+            params.append(param)
+
+    return np.array(params)
+
+
+def orthogonalize(v: list, u: list) -> list:
+    '''
+    Orthogonalize vector v to u.
+    
+    Args:
+        v (list): vector to orthogonalize
+        u (list): vector to orthogonalize to
+    '''
+    assert linalg.norm(u) > eps, "u must be a non-zero vector."
+    assert linalg.norm(v) > eps, "v must be a non-zero vector."
+    if np.abs(1 - np.abs(unit_vec(v) @ unit_vec(u))) < eps:
+        return np.zeros(3)
+    return unit_vec(v - (v @ u)/(u @ u)*u)
+
+
+def random_hemisphere_samples(n: int) -> list:
+    '''
+    Select n random samples uniformly distributed on the surface of an
+    upper hemisphere of unit radius
+
+    Args:
+        n (int): # samples
+
+    Returns:
+        list: array of [x,y,z] coordinates
+    '''
+    samples = []
+
+    for i in range(n):
+        # generate from normal distribution
+        p = np.random.normal(size=3)
+        while linalg.norm(p) < eps or all(p[:2]) == 0:
+            p = np.random.normal(size=3)
+        p = unit_vec(p)
+        
+        # restrict to upper hemisphere
+        p[2] = np.abs(p[2])
+        
+        samples.append(p)
+    
+    return samples
+
+
+def random_params(n: int, hidden: bool = False, az: float = 0,
+                  in_deg: bool = True) -> list:
+    '''
+    Returns n random parameters for the inversion.
+    Sampled uniformly from TP space.
+    Output is in RADIANS.
+    '''
+    Ts = random_hemisphere_samples(n)
+    raw_Ps = random_hemisphere_samples(n)
+    Ps = []
+    for i in range(n):
+        Ptry = orthogonalize(raw_Ps[i], Ts[i])
+        while linalg.norm(Ptry) < eps:
+            print(f"Ptry: {Ptry}")
+            raw_P = random_hemisphere_samples(1)[0]
+            Ptry = orthogonalize(raw_P, Ts[i])
+        Ps.append(Ptry)
+
+    if hidden:
+        print("Using hidden parameters via moment tensor.")
+        params = [mt2hidden(tp2mt(Ts[i], Ps[i]), az=az, in_deg=in_deg)
+                  for i in range(n)]
+    else:
+        print("Using sdr parameters.")
+        params = [tp2sdr(Ts[i], Ps[i])[0] for i in range(n)]
+
+    return np.array(params)
+
+
+def plot_beachball_set(params: list) -> None:
+    '''
+    Returns a plot of beachballs for a set of focal mechanisms.
+    
+    Args:
+        params (list): list of SDR parameters
+    '''
+    pass # Omkar
+
+
+def kagan_angle(sdr1: list, sdr2: list) -> float:
+    '''
+    Returns the Kagan angle between two focal mechanisms given their SDR parameters.
+    Output is in RADIANS.
+    
+    Args:
+        sdr1 (list): first mechanism's SDR parameters in RADIANS
+        sdr2 (list): second mechanism's SDR parameters in RADIANS
+    '''
+    pass # Nseko
+
+
+def filter_axes(tp_axes: list) -> list:
+    '''
+    Filters out the T and P axes to get one side of the cone.
+    
+    Args:
+        tps (list): list of tp axes
+    '''
+    # pick a random tp pair
+    t_ref, p_ref = tp_axes[0]
+    
+    # output list
+    tp_filtered = np.zeros((len(tp_axes), 2, 3))
+    
+    # use sign of dot product to determine side
+    for i, (t, p) in enumerate(tp_axes):
+        if np.dot(t, t_ref) < 0: t *= -1
+        if np.dot(p, p_ref) < 0: p *= -1
+        tp_filtered[i] = np.array([t, p])
+    
+    return tp_filtered
+
+
+def regression_plane(data: list) -> tuple:
+    '''
+    Returns the best fit plane for a set of data points.
+    
+    Args:
+        data (list): list of data points
+    '''
+    centroid = np.mean(data, axis=0)
+    A = np.c_[data[:,:-1], np.ones(data.shape[0])]
+    b = data[:,-1]
+    x = linalg.solve(A.T @ A, A.T @ b)
+    normal = unit_vec(np.array([x[0], x[1], -1]))
+    if np.dot(normal, centroid) < 0: normal *= -1
+    normal = unit_vec(normal)
+    
+    return centroid, normal
+
+
+def regression_axes(tp_axes: list) -> tuple:
+    '''
+    Returns the best fit plane for a set of TP axis endpoints.
+    Assumes they are alreaady filtered.
+    Uses the narrower cone to determine the plane.
+    
+    Args:
+        tp_axes (list): list of tp axes
+        
+    Output:
+        Normal for closest-aligned centroid plus P=1 T=0 indicator
+    '''
+    Ts = np.array([tp[0] for tp in tp_axes])
+    Ps = np.array([tp[1] for tp in tp_axes])
+    
+    T_centroid, T_normal = regression_plane(Ts)
+    P_centroid, P_normal = regression_plane(Ps)
+    
+    # normalize all vecs
+    T_try, T_normal = unit_vec(T_centroid), unit_vec(T_normal)
+    P_try, P_normal = unit_vec(P_centroid), unit_vec(P_normal)
+    
+    # return closest-aligned centroid + normal
+    if T_try @ T_normal > P_try @ P_normal:
+        return T_normal, 0
+    else:
+        return P_normal, 1
+
+
+def systematic_ellipse(normal: list, Ao: list, Uo: list, chi2: float,
+                               dd: float, n: int) -> list:
+    '''
+    Returns n systematically sampled parameters for the inversion.
+    Sampled from TP space for better coverage.
+    Output is in RADIANS.
+    
+    Args:
+        normal (list): normal to the plane of tangents
+        Ao (list): observed amplitudes
+        dd (float): angular distance between samples in DEGREES
+        n (int): number of samples
+    '''
+    assert np.abs(1 - linalg.norm(normal)) < eps, "Normal must be a unit vector."
+    bounds = []
+    
+    direc = Ao
+    if np.abs(1 - np.abs(unit_vec(Ao) @ normal)) < eps: direc = k_hat
+    
+    start = starting_direc(normal, direc)
+    rotations = np.arange(0, np.pi, np.deg2rad(dd))
+    Sigma_tilde = np.diag(Uo)/chi2
+    Sigma_tilde_inv = linalg.inv(Sigma_tilde)
+    c1 = Ao @ Sigma_tilde_inv @ Ao
+    for theta in rotations:
+        vec = rotate_vec(start, normal, theta)
+        As = (1 - 1/c1)*Ao + vec
+        bounds.append(list(boundary_points(Ao, Uo, As, chi2)))
+    
+    norms = [linalg.norm(bound[1] - bound[0]) for bound in bounds]
+    total_norm = np.sum(norms)
+    
+    amps = []
+    for i, bound in enumerate(bounds):
+        Ab_low, Ab_high = bound
+        along = unit_vec(Ab_high - Ab_low)
+        num_steps = int(np.ceil(n*norms[i]/total_norm))
+        steps = np.linspace(0, norms[i], num_steps)
+        for step in steps:
+            amps.append(Ab_low + step*along)
+    
+    return amps
+
+
+
+#####################################################################
+# NEW CODE NEEDS TO BE TESTED. COORDINATE SYSTEMS AND AZIMUTH PROBLEM
+#####################################################################
+
+
+def sdr2hidden(params: list, az: float = 0, in_deg: bool = True) -> list:
+    '''
+    Converts from SDR parameters to hidden parameters.
+    Inputs must match degrees or radians units.
+
+    Args:
+        params (list): SDR parameters
+    '''
+    psi, delta, lamb = params
+    
+    if in_deg:
+        az = np.deg2rad(az)
+        psi, delta, lamb = np.deg2rad(psi), np.deg2rad(delta), np.deg2rad(lamb)
+    
+    sR = .5*np.sin(lamb) * np.sin(2*delta)
+    qR = np.sin(lamb) * np.cos(2*delta) * np.sin(psi-az) + \
+        np.cos(lamb) * np.cos(delta) * np.cos(psi-az)
+    pR = np.cos(lamb) * np.sin(delta) * np.sin(2*(psi-az)) - \
+        .5*np.sin(lamb) * np.sin(2*delta) * np.cos(2*(psi-az))
+    qL = -np.cos(lamb) * np.cos(delta) * np.sin(psi-az) + \
+        np.sin(lamb) * np.cos(2*delta) * np.cos(psi-az)
+    pL = .5*np.sin(lamb) * np.sin(2*delta) * np.sin(2*(psi-az)) + \
+        np.cos(lamb) * np.sin(delta) * np.cos(2*(psi-az))
+    
+    return np.array([sR, qR, pR, qL, pL])
+
+
+def tp2mt(t: list, p: list, M0: float = 1) -> np.array:
+    '''
+    Converts from T and P axes to moment tensor.
+
+    Args:
+        t (list): T axis
+        p (list): P axis
+        M0 (float, optional): scalar moment. Defaults to 1.
+    '''
+    n1, n2 = unit_vec(t + p), unit_vec(t - p)
+    M = M0*(np.outer(n1, n2) + np.outer(n2, n1))
+    return M
+
+
+def mt2tp(M: np.array) -> tuple:
+    '''
+    Converts from moment tensor to T and P axes.
+
+    Args:
+        M (np.array): moment tensor in ENU coordinate system
+        Coordinate system doesn't matter though, until orientation is needed.
+    '''
+    evals, evecs = linalg.eig(M)
+    idx = evals.argsort()[::-1]
+    evecs = evecs[:,idx]
+    t, p = unit_vec(evecs[:,0]), unit_vec(evecs[:,2])
+    if t[2] < 0: t *= -1
+    if p[2] < 0: p *= -1
+    return t, p
+
+
+def hidden2mt(params: list, az: float = 0, M0: float = 1, in_deg: bool = True) -> np.array:
+    '''
+    Converts from hidden parameters to moment tensor.
+    Returns moment tensor in ENU coordinate system.
+
+    Args:
+        params (list): hidden parameters
+        M0 (float, optional): scalar moment. Defaults to 1.
+        in_deg (bool, optional): input in degrees if True. Defaults to True.
+    
+    '''
+    if in_deg: az = np.deg2rad(az)
+    
+    sR, qR, pR, qL, pL = params
+    M = M0 * np.array([[-pR-sR, pL, -qR],
+                       [pL, pR-sR, qL],
+                       [ -qR, qL, 2*sR]])
+    
+    # RTZ to NED to ENU conversion
+    orient = np.array([[np.sin(az), np.cos(az), 0],
+                       [np.cos(az), -np.sin(az), 0],
+                       [0, 0, -1]])
+
+    M = orient @ M @ orient.T
+    return M
+
+
+def mt2hidden(M: np.array, az: float = 0, in_deg: bool = True) -> list:
+    '''
+    Converts from moment tensor to hidden parameters.
+
+    Args:
+        M (np.array): moment tensor
+    '''
+    if in_deg: az = np.deg2rad(az)
+    
+    # ENU to NED to RTZ conversion
+    orient = np.array([[np.sin(az), np.cos(az), 0],
+                       [np.cos(az), -np.sin(az), 0],
+                       [0, 0, -1]])
+    
+    M_prime = orient.T @ M @ orient
+    
+    Mxx, Mxy, Mxz = M_prime[0,:]
+    Myy, Myz = M_prime[1,1:]
+    Mzz = M_prime[2,2]
+
+    sR = .5*Mzz
+    qR = -Mxz
+    pR = .5*(Myy - Mxx)
+    qL = Myz
+    pL = Mxy
+    
+    return np.array([sR, qR, pR, qL, pL])
+
+
+def hidden2tp(params: list, az: float = 0, in_deg: bool = True) -> tuple:
+    '''
+    Converts from hidden parameters to T and P axes.
+
+    Args:
+        params (list): hidden parameters
+    '''
+    M = hidden2mt(params, az=az, in_deg=in_deg)
+    return mt2tp(M)
+
+
+def tp2hidden(t: list, p: list, az: float = 0, in_deg: bool = True) -> list:
+    '''
+    Converts from T and P axes to hidden parameters.
+
+    Args:
+        t (list): T axis
+        p (list): P axis
+    '''
+    M = tp2mt(t, p)
+    return mt2hidden(M, az=az, in_deg=in_deg)
+
+
+def enu2use(M: np.array) -> np.array:
+    '''
+    Convert moment tensor from ENU to USE system
+    '''
+    enu_use_P = np.array([[0, 0, 1],
+                          [0, -1, 0],
+                          [1, 0, 0]])
+    
+    return enu_use_P @ M @ enu_use_P.T
+
+
+def use2enu(M: np.array) -> np.array:
+    '''
+    Convert moment tensor from USE to ENU system
+    '''
+    enu_use_P = np.array([[0, 0, 1],
+                          [0, -1, 0],
+                          [1, 0, 0]])
+    
+    return enu_use_P.T @ M @ enu_use_P
+
+
+def get_evals(M: np.array) -> np.array:
+    '''
+    Returns the eigenvalues of a moment tensor.
+
+    Args:
+        M (np.array): moment tensor
+    '''
+    evals, _ = linalg.eig(M)
+    idx = np.argsort(evals)[::-1]  # descending order
+    evals = evals[idx]
+    return evals
+
+
+def covariance_transform(cov: np.array) -> tuple:
+    '''
+    Transforms covariance matrix from SDR to SD, SR, and DR forms.
+
+    Args:
+        cov (np.array): covariance matrix in SDR form
+    '''
+    
+    # sd is 1st and 2nd rows/cols
+    sd = cov[:2, :2]
+    # sr is 1st and 3rd rows/cols
+    sr = cov[[0,2], :][:, [0,2]]
+    # dr is 2nd and 3rd rows/cols
+    dr = cov[1:, 1:]
+    
+    return sd, sr, dr
+
+
+def condition_colors(matrices: list, threshold: float = 0.2) -> list:
+    """
+    Given a list of square or full-rank matrices, return a list of RGBA colors
+    transitioning from blue (low log(cond)) to green (high log(cond)).
+    
+    Args:
+        matrices (list of np.ndarray): List of matrices.
+        
+    Returns:
+        colors (list of tuple): RGBA colors for each matrix.
+    """
+    # compute condition numbers
+    Ks = np.array([np.linalg.cond(A) for A in matrices])
+    
+    # take ln to handle large range
+    logK = np.log(Ks)
+    
+    # normalize logK to 0-1
+    logK_norm = (logK - logK.min()) / (logK.max() - logK.min())
+    
+    # map to colors: linear interpolation between blue (0,0,1) and green (0,1,0)
+    # RGBA tuples: (R,G,B,A)
+    def val_map(val): return max(0, val-threshold)
+    colors = [(val_map(norm), val_map(norm), 1, 1) for norm in logK_norm]
+    
+    return colors
+
+
+def extract_velocities(lookup_table, depth):
+    '''
+    Return p and s wave velocities at a given depth
+    '''
+    depths = lookup_table.iloc[:,0].values
+    vp_values = lookup_table.iloc[:,1].values
+    vs_values = lookup_table.iloc[:,2].values
+
+    if depth <= depths.min():
+        return vp_values[0], vs_values[0]
+    elif depth >= depths.max():
+        return vp_values[-1], vs_values[-1]
+    else:
+        idx = np.searchsorted(depths, depth)
+        d0, d1 = depths[idx-1], depths[idx]
+        vp0, vp1 = vp_values[idx-1], vp_values[idx]
+        vs0, vs1 = vs_values[idx-1], vs_values[idx]
+        
+        # interpolate
+        vp = vp0 + (vp1 - vp0) * (depth - d0) / (d1 - d0)
+        vs = vs0 + (vs1 - vs0) * (depth - d0) / (d1 - d0)
+
+        return np.array([vp, vs])
+    

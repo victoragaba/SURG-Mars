@@ -756,3 +756,56 @@ def covariance_transform(cov: np.array) -> tuple:
     
     return sd, sr, dr
 
+
+def condition_colors(matrices: list, threshold: float = 0.2) -> list:
+    """
+    Given a list of square or full-rank matrices, return a list of RGBA colors
+    transitioning from blue (low log(cond)) to green (high log(cond)).
+    
+    Args:
+        matrices (list of np.ndarray): List of matrices.
+        
+    Returns:
+        colors (list of tuple): RGBA colors for each matrix.
+    """
+    # compute condition numbers
+    Ks = np.array([np.linalg.cond(A) for A in matrices])
+    
+    # take ln to handle large range
+    logK = np.log(Ks)
+    
+    # normalize logK to 0-1
+    logK_norm = (logK - logK.min()) / (logK.max() - logK.min())
+    
+    # map to colors: linear interpolation between blue (0,0,1) and green (0,1,0)
+    # RGBA tuples: (R,G,B,A)
+    def val_map(val): return max(0, val-threshold)
+    colors = [(val_map(norm), val_map(norm), 1, 1) for norm in logK_norm]
+    
+    return colors
+
+
+def extract_velocities(lookup_table, depth):
+    '''
+    Return p and s wave velocities at a given depth
+    '''
+    depths = lookup_table.iloc[:,0].values
+    vp_values = lookup_table.iloc[:,1].values
+    vs_values = lookup_table.iloc[:,2].values
+
+    if depth <= depths.min():
+        return vp_values[0], vs_values[0]
+    elif depth >= depths.max():
+        return vp_values[-1], vs_values[-1]
+    else:
+        idx = np.searchsorted(depths, depth)
+        d0, d1 = depths[idx-1], depths[idx]
+        vp0, vp1 = vp_values[idx-1], vp_values[idx]
+        vs0, vs1 = vs_values[idx-1], vs_values[idx]
+        
+        # interpolate
+        vp = vp0 + (vp1 - vp0) * (depth - d0) / (d1 - d0)
+        vs = vs0 + (vs1 - vs0) * (depth - d0) / (d1 - d0)
+
+        return np.array([vp, vs])
+    

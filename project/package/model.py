@@ -753,7 +753,7 @@ class RadiationModel(Model):
         self.sampled_weights = []
 
 
-    def set_Uo(self, Uo = [], scale=5e-3, sphere=False):
+    def set_Uo(self, Uo = [], scale=1e-1, sphere=False):
         ''' Set the observed uncertainties. '''
         if len(Uo) == 0:
             if sphere:

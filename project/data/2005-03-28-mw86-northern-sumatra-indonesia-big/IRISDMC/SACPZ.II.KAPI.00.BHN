@@ -1,0 +1,40 @@
+* **********************************
+* NETWORK   (KNETWK): II
+* STATION    (KSTNM): KAPI
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHN
+* CREATED           : 2026-04-24T19:25:16
+* START             : 2002-01-17T00:00:00
+* END               : 2005-08-08T23:59:59
+* DESCRIPTION       : Kappang, Sulawesi, Indonesia
+* LATITUDE          : -5.014200
+* LONGITUDE         : 119.751700
+* ELEVATION         : 300.0
+* DEPTH             : 100.0
+* DIP               : 90.0
+* AZIMUTH           : 1.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Geotech KS-54000 Borehole Seismometer
+* INSTGAIN          : 2.354400e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 3.530070e+09 (M/S)
+* A0                : 2.884946e+06
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	6
+	-4.799989e-03	+0.000000e+00	
+	-7.388398e-02	+0.000000e+00	
+	-1.847256e+01	+1.884579e+01	
+	-1.847256e+01	-1.884579e+01	
+	-3.392455e+01	+0.000000e+00	
+	-1.188515e+02	+0.000000e+00	
+CONSTANT	1.018406e+16
+
+
+
+

@@ -1,0 +1,39 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): TRQA
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHZ
+* CREATED           : 2026-04-24T16:39:00
+* START             : 2009-05-19T20:00:00
+* END               : 2013-08-21T00:00:00
+* DESCRIPTION       : Tornquist, Argentina
+* LATITUDE          : -38.056800
+* LONGITUDE         : -61.978700
+* ELEVATION         : 439.0
+* DEPTH             : 101.0
+* DIP               : 0.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Velocity Sensor
+* INSTGAIN          : 1.955000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 3.279980e+09 (M/S)
+* A0                : 9.363720e+04
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	5
+	-4.800400e-03	+0.000000e+00	
+	-7.662170e-02	+0.000000e+00	
+	-2.800140e+01	-2.945130e+01	
+	-2.800140e+01	+2.945130e+01	
+	-4.837500e+01	+0.000000e+00	
+CONSTANT	3.071281e+14
+
+
+
+

@@ -1,0 +1,39 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): KBL
+* LOCATION   (KHOLE): 
+* CHANNEL   (KCMPNM): BHZ
+* CREATED           : 2026-04-17T19:26:24
+* START             : 2006-11-09T00:00:00
+* END               : 2024-01-09T00:00:00
+* DESCRIPTION       : Kabul, Afghanistan
+* LATITUDE          : 34.540800
+* LONGITUDE         : 69.043200
+* ELEVATION         : 1913.0
+* DEPTH             : 7.0
+* DIP               : 0.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 40.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-2/VBB Seismometer
+* INSTGAIN          : 1.500000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 2.516590e+09 (M/S)
+* A0                : 5.968070e+07
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	5
+	-3.564700e-02	-3.687900e-02	
+	-3.564700e-02	+3.687900e-02	
+	-2.513300e+02	+0.000000e+00	
+	-1.310400e+02	-4.672900e+02	
+	-1.310400e+02	+4.672900e+02	
+CONSTANT	1.501919e+17
+
+
+
+

@@ -1,0 +1,38 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): KBS
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BH1
+* CREATED           : 2026-04-17T19:26:24
+* START             : 2014-12-23T13:40:00
+* END               : 2022-10-25T14:26:00
+* DESCRIPTION       : Ny-Alesund, Spitzbergen, Norway
+* LATITUDE          : 78.915400
+* LONGITUDE         : 11.938500
+* ELEVATION         : 87.0
+* DEPTH             : 3.0
+* DIP               : 90.0
+* AZIMUTH           : 359.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1VBB w/E300
+* INSTGAIN          : 2.022000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 3.392380e+09 (M/S)
+* A0                : 1.078020e+04
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	4
+	-1.293480e-02	-1.111390e-02	
+	-1.293480e-02	+1.111390e-02	
+	-3.783850e+01	-9.652410e+01	
+	-3.783850e+01	+9.652410e+01	
+CONSTANT	3.657053e+13
+
+
+
+

@@ -1,0 +1,42 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): LSZ
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHZ
+* CREATED           : 2026-04-24T17:26:47
+* START             : 2015-09-13T00:00:00
+* END               : 2024-10-07T13:45:00
+* DESCRIPTION       : Lusaka, Zambia
+* LATITUDE          : -15.277900
+* LONGITUDE         : 28.188200
+* ELEVATION         : 1200.0
+* DEPTH             : 0.0
+* DIP               : 0.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1VBB w/E300
+* INSTGAIN          : 3.142000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 5.271450e+09 (M/S)
+* A0                : 5.255260e+03
+* **********************************
+ZEROS	5
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-2.427180e-02	+0.000000e+00	
+	-2.427180e-02	+0.000000e+00	
+POLES	6
+	-1.102370e-02	-1.132770e-02	
+	-1.102370e-02	+1.132770e-02	
+	-2.371830e-02	+0.000000e+00	
+	-3.112330e-02	+0.000000e+00	
+	-3.504170e+01	-6.303420e+01	
+	-3.504170e+01	+6.303420e+01	
+CONSTANT	2.770284e+13
+
+
+
+

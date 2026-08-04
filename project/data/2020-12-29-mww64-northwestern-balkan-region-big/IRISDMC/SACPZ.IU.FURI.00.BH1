@@ -1,0 +1,42 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): FURI
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BH1
+* CREATED           : 2026-04-24T17:26:41
+* START             : 2013-09-18T08:40:00
+* END               : 
+* DESCRIPTION       : Mt. Furi, Ethiopia
+* LATITUDE          : 8.895200
+* LONGITUDE         : 38.679800
+* ELEVATION         : 2565.0
+* DEPTH             : 5.0
+* DIP               : 90.0
+* AZIMUTH           : 180.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1VBB w/E300
+* INSTGAIN          : 2.016000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 3.382320e+09 (M/S)
+* A0                : 6.860230e+03
+* **********************************
+ZEROS	5
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-2.427180e-02	+0.000000e+00	
+	-2.427180e-02	+0.000000e+00	
+POLES	6
+	-1.291990e-02	-1.057360e-02	
+	-1.291990e-02	+1.057360e-02	
+	-1.836130e-02	+0.000000e+00	
+	-3.361590e-02	+0.000000e+00	
+	-3.592310e+01	-7.407490e+01	
+	-3.592310e+01	+7.407490e+01	
+CONSTANT	2.320349e+13
+
+
+
+

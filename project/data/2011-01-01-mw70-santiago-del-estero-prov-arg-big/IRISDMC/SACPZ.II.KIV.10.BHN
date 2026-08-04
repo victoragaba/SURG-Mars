@@ -1,0 +1,45 @@
+* **********************************
+* NETWORK   (KNETWK): II
+* STATION    (KSTNM): KIV
+* LOCATION   (KHOLE): 10
+* CHANNEL   (KCMPNM): BHN
+* CREATED           : 2026-04-24T16:38:25
+* START             : 2007-07-06T05:50:00
+* END               : 2013-03-11T23:59:59
+* DESCRIPTION       : Kislovodsk, Russia
+* LATITUDE          : 43.955300
+* LONGITUDE         : 42.686300
+* ELEVATION         : 1054.0
+* DEPTH             : 20.0
+* DIP               : 90.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 40.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Guralp CMG-3T Seismometer
+* INSTGAIN          : 1.516950e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 1.334630e+09 (M/S)
+* A0                : 2.984061e+17
+* **********************************
+ZEROS	4
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-9.456194e+02	+0.000000e+00	
+POLES	10
+	-4.442212e-02	+4.443557e-02	
+	-4.442212e-02	-4.443557e-02	
+	-5.057964e+02	+1.935221e+02	
+	-5.057964e+02	-1.935221e+02	
+	-3.034779e+02	+8.122336e+01	
+	-3.034779e+02	-8.122336e+01	
+	-2.221445e+02	+2.221439e+02	
+	-2.221445e+02	-2.221439e+02	
+	-8.130442e+01	+3.034559e+02	
+	-8.130442e+01	-3.034559e+02	
+CONSTANT	3.982618e+26
+
+
+
+

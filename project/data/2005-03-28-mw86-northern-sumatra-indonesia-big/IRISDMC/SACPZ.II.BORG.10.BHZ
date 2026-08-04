@@ -1,0 +1,46 @@
+* **********************************
+* NETWORK   (KNETWK): II
+* STATION    (KSTNM): BORG
+* LOCATION   (KHOLE): 10
+* CHANNEL   (KCMPNM): BHZ
+* CREATED           : 2026-04-24T19:25:13
+* START             : 2003-08-29T00:00:00
+* END               : 2011-10-03T23:59:59
+* DESCRIPTION       : Borgarfjordur, Asbjarnarstadir, Iceland
+* LATITUDE          : 64.747400
+* LONGITUDE         : -21.326800
+* ELEVATION         : 110.0
+* DEPTH             : 5.0
+* DIP               : 0.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 40.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-2 Seismometer
+* INSTGAIN          : 1.567560e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 8.061070e+08 (M/S)
+* A0                : 5.748711e+12
+* **********************************
+ZEROS	6
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-1.515002e+01	+0.000000e+00	
+	-3.186002e+02	+4.012002e+02	
+	-3.186002e+02	-4.012002e+02	
+POLES	9
+	-3.700168e-02	-3.700168e-02	
+	-3.700168e-02	+3.700168e-02	
+	-1.599002e+01	+0.000000e+00	
+	-4.170998e+02	+0.000000e+00	
+	-1.008998e+02	+4.019002e+02	
+	-1.008998e+02	-4.019002e+02	
+	-7.453994e+03	-7.141971e+03	
+	-7.453994e+03	+7.141971e+03	
+	-1.872389e+02	+0.000000e+00	
+CONSTANT	4.634076e+21
+
+
+
+

@@ -1,0 +1,38 @@
+* **************************************************
+* NETWORK     : NM
+* STATION     : PVMO
+* LOCATION    : 00
+* CHANNEL     : HHN
+* CREATED     : 2026-07-18T00:02:55.398903Z
+* START       : 2020-11-30T17:13:00.000000Z
+* END         : None
+* DESCRIPTION : UM Delta Research Portageville, MO
+* LATITUDE    : 36.4137
+* LONGITUDE   : -89.6997
+* ELEVATION   : 98.3
+* DEPTH       : 0.0
+* DIP (SEED)  : 0.0
+* AZIMUTH     : 0.0
+* SAMPLE RATE : 100.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : GURALP
+* INSTGAIN    : 1988.0 (m/s)
+* SENSITIVITY : 834789446.9939986 (m/s)
+* A0          : 0.08892048831962274
+* **************************************************
+ZEROS 5
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +8.670800e+02 +9.047790e+02
+ +8.670800e+02 -9.047790e+02
+ +0.000000e+00 +0.000000e+00
+POLES 4
+ -1.480320e-01 +1.480320e-01
+ -1.480320e-01 -1.480320e-01
+ -3.141590e+02 +2.023190e+02
+ -3.141590e+02 -2.023190e+02
+CONSTANT 7.422989e+07
+
+
+

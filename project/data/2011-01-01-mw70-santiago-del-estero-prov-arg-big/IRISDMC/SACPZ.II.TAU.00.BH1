@@ -1,0 +1,43 @@
+* **********************************
+* NETWORK   (KNETWK): II
+* STATION    (KSTNM): TAU
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BH1
+* CREATED           : 2026-04-24T16:38:32
+* START             : 2010-08-23T19:40:00
+* END               : 2011-01-19T23:59:59
+* DESCRIPTION       : Hobart, Tasmania, Australia
+* LATITUDE          : -42.909900
+* LONGITUDE         : 147.320400
+* ELEVATION         : 132.0
+* DEPTH             : 0.0
+* DIP               : 90.0
+* AZIMUTH           : 358.8
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1H/VBB Seismometer
+* INSTGAIN          : 2.336580e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 3.699580e+09 (M/S)
+* A0                : 3.124741e+01
+* **********************************
+ZEROS	6
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-7.853982e+01	+0.000000e+00	
+	-1.525042e-01	+0.000000e+00	
+	-1.525042e-01	+0.000000e+00	
+POLES	6
+	-1.213283e-02	+1.262191e-02	
+	-1.213283e-02	-1.262191e-02	
+	-1.529089e-01	+0.000000e+00	
+	-1.529089e-01	+0.000000e+00	
+	-3.156880e+01	+3.814999e+01	
+	-3.156880e+01	-3.814999e+01	
+CONSTANT	1.156023e+11
+
+
+
+

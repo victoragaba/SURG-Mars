@@ -1,0 +1,38 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): KIEV
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHZ
+* CREATED           : 2026-04-24T17:26:45
+* START             : 2017-11-07T00:00:00
+* END               : 
+* DESCRIPTION       : Kiev, Ukraine
+* LATITUDE          : 50.701200
+* LONGITUDE         : 29.224200
+* ELEVATION         : 180.0
+* DEPTH             : 0.0
+* DIP               : 0.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1VBB w/E300
+* INSTGAIN          : 2.546000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 4.271520e+09 (M/S)
+* A0                : 8.685330e+03
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	4
+	-1.204440e-02	-1.204350e-02	
+	-1.204440e-02	+1.204350e-02	
+	-3.731180e+01	-8.539140e+01	
+	-3.731180e+01	+8.539140e+01	
+CONSTANT	3.709956e+13
+
+
+
+

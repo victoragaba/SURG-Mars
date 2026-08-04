@@ -1,0 +1,38 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): CCM
+* LOCATION   (KHOLE): 
+* CHANNEL   (KCMPNM): BHZ
+* CREATED           : 2026-01-26T17:45:38
+* START             : 1990-02-28T00:00:00
+* END               : 1994-07-12T00:00:00
+* DESCRIPTION       : Cathedral Cave, Missouri, USA
+* LATITUDE          : 38.055700
+* LONGITUDE         : -91.244600
+* ELEVATION         : 171.5
+* DEPTH             : 51.0
+* DIP               : 0.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1V/VBB Seismometer
+* INSTGAIN          : 2.322000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 9.738800e+08 (M/S)
+* A0                : 9.871420e+02
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	4
+	-1.234000e-02	-1.234000e-02	
+	-1.234000e-02	+1.234000e-02	
+	-1.959000e+01	-2.456000e+01	
+	-1.959000e+01	+2.456000e+01	
+CONSTANT	9.613579e+11
+
+
+
+

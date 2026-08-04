@@ -1,0 +1,39 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): WAKE
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BH1
+* CREATED           : 2026-04-24T19:25:44
+* START             : 1999-02-10T22:30:00
+* END               : 2005-05-31T09:00:00
+* DESCRIPTION       : Wake Island
+* LATITUDE          : 19.283400
+* LONGITUDE         : 166.652000
+* ELEVATION         : -73.7
+* DEPTH             : 81.7
+* DIP               : 90.0
+* AZIMUTH           : 163.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Geotech KS-54000 Borehole Seismometer
+* INSTGAIN          : 2.094000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 8.782340e+08 (M/S)
+* A0                : 8.607770e+04
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	5
+	-4.800400e-03	+0.000000e+00	
+	-7.319900e-02	+0.000000e+00	
+	-2.271210e+01	-2.710650e+01	
+	-2.271210e+01	+2.710650e+01	
+	-5.943130e+01	+0.000000e+00	
+CONSTANT	7.559636e+13
+
+
+
+

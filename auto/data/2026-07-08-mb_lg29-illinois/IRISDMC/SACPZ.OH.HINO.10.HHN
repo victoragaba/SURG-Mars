@@ -1,0 +1,38 @@
+* **************************************************
+* NETWORK     : OH
+* STATION     : HINO
+* LOCATION    : 10
+* CHANNEL     : HHN
+* CREATED     : 2026-07-18T00:02:56.952989Z
+* START       : 2021-06-09T00:00:00.000000Z
+* END         : None
+* DESCRIPTION : Hinckley Reservation
+* LATITUDE    : 41.222347
+* LONGITUDE   : -81.698906
+* ELEVATION   : 375.0
+* DEPTH       : 0.0
+* DIP (SEED)  : 0.0
+* AZIMUTH     : 0.0
+* SAMPLE RATE : 200.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : count
+* INSTTYPE    : Seismometer
+* INSTGAIN    : 0.000501 (m/s)
+* SENSITIVITY : 205.293499 (m/s)
+* A0          : 909161956493.8542
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 6
+ -7.401592e-02 +7.401592e-02
+ -7.401592e-02 -7.401592e-02
+ -3.982383e-01 +8.506930e+02
+ -3.982383e-01 -8.506930e+02
+ -2.199115e+03 +0.000000e+00
+ -4.712389e+02 +0.000000e+00
+CONSTANT 1.866450e+14
+
+
+

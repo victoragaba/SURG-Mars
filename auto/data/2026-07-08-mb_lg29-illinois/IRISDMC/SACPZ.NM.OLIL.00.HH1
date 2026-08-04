@@ -1,0 +1,38 @@
+* **************************************************
+* NETWORK     : NM
+* STATION     : OLIL
+* LOCATION    : 00
+* CHANNEL     : HH1
+* CREATED     : 2026-07-18T00:02:55.186822Z
+* START       : 2024-09-19T19:00:00.000000Z
+* END         : None
+* DESCRIPTION : Olney Central College  Olney, IL
+* LATITUDE    : 38.7338
+* LONGITUDE   : -88.0991
+* ELEVATION   : 150.0
+* DEPTH       : 0.0
+* DIP (SEED)  : 0.0
+* AZIMUTH     : 0.0
+* SAMPLE RATE : 100.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : GURALP
+* INSTGAIN    : 2000.0 (m/s)
+* SENSITIVITY : 839382410.3302848 (m/s)
+* A0          : 0.08892048831962274
+* **************************************************
+ZEROS 5
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +8.670800e+02 +9.047790e+02
+ +8.670800e+02 -9.047790e+02
+ +0.000000e+00 +0.000000e+00
+POLES 4
+ -1.480320e-01 +1.480320e-01
+ -1.480320e-01 -1.480320e-01
+ -3.141590e+02 +2.023190e+02
+ -3.141590e+02 -2.023190e+02
+CONSTANT 7.463829e+07
+
+
+

@@ -1,0 +1,39 @@
+* **********************************
+* NETWORK   (KNETWK): II
+* STATION    (KSTNM): CMLA
+* LOCATION   (KHOLE): 10
+* CHANNEL   (KCMPNM): BHZ
+* CREATED           : 2026-04-24T16:38:21
+* START             : 2010-03-28T00:00:00
+* END               : 2011-11-10T23:59:59
+* DESCRIPTION       : Cha de Macela, Sao Miguel Island, Azores
+* LATITUDE          : 37.763700
+* LONGITUDE         : -25.524300
+* ELEVATION         : 429.0
+* DEPTH             : 7.0
+* DIP               : 0.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 40.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Guralp CMG-3T Seismometer
+* INSTGAIN          : 1.500000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 2.507810e+09 (M/S)
+* A0                : 5.719641e+08
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	5
+	-4.442212e-02	+4.442212e-02	
+	-4.442212e-02	-4.442212e-02	
+	-1.130973e+03	+0.000000e+00	
+	-1.005310e+03	+0.000000e+00	
+	-5.026548e+02	+0.000000e+00	
+CONSTANT	1.434377e+18
+
+
+
+

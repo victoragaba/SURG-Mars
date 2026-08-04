@@ -1,0 +1,42 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): LSZ
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BH2
+* CREATED           : 2026-03-17T22:26:14
+* START             : 2009-12-09T17:00:00
+* END               : 2015-09-13T00:00:00
+* DESCRIPTION       : Lusaka, Zambia
+* LATITUDE          : -15.277900
+* LONGITUDE         : 28.188200
+* ELEVATION         : 1200.0
+* DEPTH             : 0.0
+* DIP               : 90.0
+* AZIMUTH           : 90.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1H/VBB Seismometer
+* INSTGAIN          : 2.281000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 3.826920e+09 (M/S)
+* A0                : 3.954390e+03
+* **********************************
+ZEROS	5
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-1.344430e-02	+0.000000e+00	
+	-1.344430e-02	+0.000000e+00	
+POLES	6
+	-9.456280e-03	+0.000000e+00	
+	-1.667480e-02	+0.000000e+00	
+	-1.313270e-02	-1.234000e-02	
+	-1.313270e-02	+1.234000e-02	
+	-3.918000e+01	-4.912000e+01	
+	-3.918000e+01	+4.912000e+01	
+CONSTANT	1.513313e+13
+
+
+
+

@@ -1,0 +1,45 @@
+* **********************************
+* NETWORK   (KNETWK): II
+* STATION    (KSTNM): MBAR
+* LOCATION   (KHOLE): 10
+* CHANNEL   (KCMPNM): BH2
+* CREATED           : 2026-01-26T18:29:31
+* START             : 2001-10-31T02:00:00
+* END               : 2007-03-08T23:59:59
+* DESCRIPTION       : Mbarara, Uganda
+* LATITUDE          : -.601900
+* LONGITUDE         : 30.738200
+* ELEVATION         : 1390.0
+* DEPTH             : 7.0
+* DIP               : 90.0
+* AZIMUTH           : 95.1
+* SAMPLE RATE       : 40.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Guralp CMG-3T Seismometer
+* INSTGAIN          : 1.483950e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 1.297830e+09 (M/S)
+* A0                : 5.498793e+23
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	11
+	-4.442212e-02	+4.442212e-02	
+	-4.442212e-02	-4.442212e-02	
+	-1.130973e+03	+0.000000e+00	
+	-1.005310e+03	+0.000000e+00	
+	-5.026548e+02	+0.000000e+00	
+	-3.034779e+02	+8.122336e+01	
+	-3.034779e+02	-8.122336e+01	
+	-2.221445e+02	+2.221439e+02	
+	-2.221445e+02	-2.221439e+02	
+	-8.130442e+01	+3.034559e+02	
+	-8.130442e+01	-3.034559e+02	
+CONSTANT	7.136499e+32
+
+
+
+

@@ -1,0 +1,38 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): SPA
+* LOCATION   (KHOLE): 
+* CHANNEL   (KCMPNM): BHN
+* CREATED           : 2026-01-26T17:45:39
+* START             : 1991-12-18T00:00:00
+* END               : 1996-12-09T00:00:00
+* DESCRIPTION       : South Pole, Antarctica
+* LATITUDE          : -89.995400
+* LONGITUDE         : 115.000000
+* ELEVATION         : 2927.0
+* DEPTH             : 0.0
+* DIP               : 90.0
+* AZIMUTH           : 245.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1H/VBB Seismometer
+* INSTGAIN          : 2.364000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 9.914940e+08 (M/S)
+* A0                : 3.948580e+03
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	4
+	-1.234000e-02	-1.234000e-02	
+	-1.234000e-02	+1.234000e-02	
+	-3.918000e+01	-4.912000e+01	
+	-3.918000e+01	+4.912000e+01	
+CONSTANT	3.914993e+12
+
+
+
+

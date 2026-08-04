@@ -1,0 +1,43 @@
+* **********************************
+* NETWORK   (KNETWK): II
+* STATION    (KSTNM): RPN
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHZ
+* CREATED           : 2026-04-17T19:26:10
+* START             : 2019-04-24T00:00:00
+* END               : 2022-06-22T17:44:59
+* DESCRIPTION       : Rapanui, Easter Island, Chile
+* LATITUDE          : -27.126700
+* LONGITUDE         : -109.334400
+* ELEVATION         : 110.0
+* DEPTH             : 0.0
+* DIP               : 0.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1 Seismometer with Metrozet E300
+* INSTGAIN          : 3.340020e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 5.288700e+09 (M/S)
+* A0                : 3.335303e+01
+* **********************************
+ZEROS	6
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-1.178097e+02	+0.000000e+00	
+	-2.262022e-01	+0.000000e+00	
+	-2.262022e-01	+0.000000e+00	
+POLES	6
+	-1.199196e-02	+1.186077e-02	
+	-1.199196e-02	-1.186077e-02	
+	-2.258258e-01	+1.024612e-02	
+	-2.258258e-01	-1.024612e-02	
+	-3.440779e+01	+5.244682e+01	
+	-3.440779e+01	-5.244682e+01	
+CONSTANT	1.763942e+11
+
+
+
+

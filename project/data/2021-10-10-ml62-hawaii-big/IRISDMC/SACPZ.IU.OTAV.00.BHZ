@@ -1,0 +1,38 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): OTAV
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHZ
+* CREATED           : 2026-04-17T19:26:29
+* START             : 2015-12-10T20:00:00
+* END               : 
+* DESCRIPTION       : Otavalo, Ecuador
+* LATITUDE          : .237600
+* LONGITUDE         : -78.450760
+* ELEVATION         : 3476.0
+* DEPTH             : 15.0
+* DIP               : 0.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Velocity Sensor
+* INSTGAIN          : 2.435000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 4.085300e+09 (M/S)
+* A0                : 9.148820e+03
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	4
+	-1.219360e-02	-1.174690e-02	
+	-1.219360e-02	+1.174690e-02	
+	-3.977500e+01	-8.694300e+01	
+	-3.977500e+01	+8.694300e+01	
+CONSTANT	3.737567e+13
+
+
+
+

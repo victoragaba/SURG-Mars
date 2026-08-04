@@ -1,0 +1,30 @@
+* **************************************************
+* NETWORK     : WU
+* STATION     : BMRO
+* LOCATION    : 
+* CHANNEL     : HHZ
+* CREATED     : 2026-07-18T00:03:00.748089Z
+* START       : 2017-09-21T12:00:00.000000Z
+* END         : 2029-12-31T23:59:59.999900Z
+* DESCRIPTION : Z
+* LATITUDE    : 44.59515
+* LONGITUDE   : -81.21748
+* ELEVATION   : 217.0
+* DEPTH       : 0.0
+* DIP (SEED)  : -90.0
+* AZIMUTH     : 0.0
+* SAMPLE RATE : 100.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : count
+* INSTTYPE    : None
+* INSTGAIN    : 5021689376.44094 (m/s)
+* SENSITIVITY : 5021689376.44094 (m/s)
+* A0          : 1.0
+* **************************************************
+ZEROS 1
+ +0.000000e+00 +0.000000e+00
+POLES 0
+CONSTANT 5.021689e+09
+
+
+

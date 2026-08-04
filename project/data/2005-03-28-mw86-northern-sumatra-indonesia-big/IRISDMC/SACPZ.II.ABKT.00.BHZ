@@ -1,0 +1,45 @@
+* **********************************
+* NETWORK   (KNETWK): II
+* STATION    (KSTNM): ABKT
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHZ
+* CREATED           : 2026-04-24T19:25:12
+* START             : 2002-09-24T06:20:00
+* END               : 2006-09-14T13:27:59
+* DESCRIPTION       : Alibek, Turkmenistan
+* LATITUDE          : 37.930400
+* LONGITUDE         : 58.118900
+* ELEVATION         : 678.0
+* DEPTH             : 7.0
+* DIP               : 0.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1V/VBB Seismometer
+* INSTGAIN          : 2.469980e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 1.715910e+09 (M/S)
+* A0                : 2.072891e+05
+* **********************************
+ZEROS	6
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-7.853982e+01	+0.000000e+00	
+	-1.525042e-01	+0.000000e+00	
+	-1.525042e-01	+0.000000e+00	
+POLES	8
+	-5.385318e-02	+0.000000e+00	
+	-4.900885e-03	+0.000000e+00	
+	-1.558802e-01	+1.104314e-02	
+	-1.558802e-01	-1.104314e-02	
+	-4.005688e+01	+4.840754e+01	
+	-4.005688e+01	-4.840754e+01	
+	-3.392455e+01	+0.000000e+00	
+	-1.188515e+02	+0.000000e+00	
+CONSTANT	3.556895e+14
+
+
+
+

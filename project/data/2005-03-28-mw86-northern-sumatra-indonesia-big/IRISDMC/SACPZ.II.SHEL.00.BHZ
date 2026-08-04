@@ -1,0 +1,40 @@
+* **********************************
+* NETWORK   (KNETWK): II
+* STATION    (KSTNM): SHEL
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHZ
+* CREATED           : 2026-04-24T19:25:22
+* START             : 2002-10-05T16:00:00
+* END               : 2010-08-21T10:49:59
+* DESCRIPTION       : Horse Pasture, St. Helena Island
+* LATITUDE          : -15.959400
+* LONGITUDE         : -5.745500
+* ELEVATION         : 537.0
+* DEPTH             : 60.0
+* DIP               : 0.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Geotech KS-54000 Borehole Seismometer
+* INSTGAIN          : 2.288460e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 1.592710e+09 (M/S)
+* A0                : 2.882888e+06
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	6
+	-4.799989e-03	+0.000000e+00	
+	-7.287615e-02	+0.000000e+00	
+	-1.847256e+01	+1.884579e+01	
+	-1.847256e+01	-1.884579e+01	
+	-3.392455e+01	+0.000000e+00	
+	-1.188515e+02	+0.000000e+00	
+CONSTANT	4.591605e+15
+
+
+
+

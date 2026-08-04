@@ -1,0 +1,43 @@
+* **********************************
+* NETWORK   (KNETWK): II
+* STATION    (KSTNM): LVZ
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BH2
+* CREATED           : 2026-04-24T17:26:27
+* START             : 2020-05-14T00:00:00
+* END               : 2022-12-21T13:09:59
+* DESCRIPTION       : Lovozero, Russia
+* LATITUDE          : 67.897900
+* LONGITUDE         : 34.651400
+* ELEVATION         : 630.0
+* DEPTH             : 200.0
+* DIP               : 90.0
+* AZIMUTH           : 90.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1 Seismometer with Metrozet E300
+* INSTGAIN          : 2.232480e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 3.534990e+09 (M/S)
+* A0                : 3.436525e+01
+* **********************************
+ZEROS	6
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-1.767146e+02	+0.000000e+00	
+	-1.494939e-01	+0.000000e+00	
+	-1.494939e-01	+0.000000e+00	
+POLES	6
+	-1.267406e-02	+1.056976e-02	
+	-1.267406e-02	-1.056976e-02	
+	-1.401087e-01	+6.242162e-02	
+	-1.401087e-01	-6.242162e-02	
+	-4.231575e+01	+6.750089e+01	
+	-4.231575e+01	-6.750089e+01	
+CONSTANT	1.214808e+11
+
+
+
+

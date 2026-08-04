@@ -1,0 +1,39 @@
+* **********************************
+* NETWORK   (KNETWK): II
+* STATION    (KSTNM): ASCN
+* LOCATION   (KHOLE): 10
+* CHANNEL   (KCMPNM): BH2
+* CREATED           : 2026-04-24T16:38:20
+* START             : 2009-05-22T00:00:00
+* END               : 2013-09-07T11:59:59
+* DESCRIPTION       : Butt Crater, Ascension Island
+* LATITUDE          : -7.932700
+* LONGITUDE         : -14.360100
+* ELEVATION         : 173.0
+* DEPTH             : 6.0
+* DIP               : 90.0
+* AZIMUTH           : 100.3
+* SAMPLE RATE       : 40.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Guralp CMG-3T Seismometer
+* INSTGAIN          : 1.522280e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 2.545050e+09 (M/S)
+* A0                : 5.718748e+08
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	5
+	-3.636155e-02	+3.596225e-02	
+	-3.636155e-02	-3.596225e-02	
+	-1.130973e+03	+0.000000e+00	
+	-1.005310e+03	+0.000000e+00	
+	-5.026548e+02	+0.000000e+00	
+CONSTANT	1.455450e+18
+
+
+
+

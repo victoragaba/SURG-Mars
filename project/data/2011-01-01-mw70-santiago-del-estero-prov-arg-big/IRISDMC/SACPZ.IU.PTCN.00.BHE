@@ -1,0 +1,39 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): PTCN
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHE
+* CREATED           : 2026-04-24T16:38:52
+* START             : 2002-02-12T05:10:00
+* END               : 2014-11-30T00:00:00
+* DESCRIPTION       : Pitcairn Island, South Pacific
+* LATITUDE          : -25.071300
+* LONGITUDE         : -130.095300
+* ELEVATION         : 218.0
+* DEPTH             : 2.0
+* DIP               : 90.0
+* AZIMUTH           : 90.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-2/VBB Seismometer
+* INSTGAIN          : 1.500000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 6.291080e+08 (M/S)
+* A0                : 5.968070e+07
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	5
+	-3.564700e-02	-3.687900e-02	
+	-3.564700e-02	+3.687900e-02	
+	-2.513300e+02	+0.000000e+00	
+	-1.310400e+02	-4.672900e+02	
+	-1.310400e+02	+4.672900e+02	
+CONSTANT	3.754561e+16
+
+
+
+

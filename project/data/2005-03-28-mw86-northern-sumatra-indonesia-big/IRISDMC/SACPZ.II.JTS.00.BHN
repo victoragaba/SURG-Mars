@@ -1,0 +1,45 @@
+* **********************************
+* NETWORK   (KNETWK): II
+* STATION    (KSTNM): JTS
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHN
+* CREATED           : 2026-04-24T19:25:16
+* START             : 2004-05-04T00:00:00
+* END               : 2007-08-07T23:59:59
+* DESCRIPTION       : Las Juntas de Abangares, Costa Rica
+* LATITUDE          : 10.290800
+* LONGITUDE         : -84.952500
+* ELEVATION         : 340.0
+* DEPTH             : 0.0
+* DIP               : 90.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1H/VBB Seismometer
+* INSTGAIN          : 1.993380e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 1.354490e+09 (M/S)
+* A0                : 2.144268e+05
+* **********************************
+ZEROS	6
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-7.853982e+01	+0.000000e+00	
+	-1.525042e-01	+0.000000e+00	
+	-1.525042e-01	+0.000000e+00	
+POLES	8
+	-7.150265e-02	+0.000000e+00	
+	-3.141593e-03	+0.000000e+00	
+	-1.659716e-01	+2.806793e-02	
+	-1.659716e-01	-2.806793e-02	
+	-4.005688e+01	+4.840754e+01	
+	-4.005688e+01	-4.840754e+01	
+	-3.392455e+01	+0.000000e+00	
+	-1.188515e+02	+0.000000e+00	
+CONSTANT	2.904389e+14
+
+
+
+

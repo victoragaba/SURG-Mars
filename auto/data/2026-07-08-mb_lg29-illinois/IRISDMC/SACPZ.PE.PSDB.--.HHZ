@@ -1,0 +1,37 @@
+* **************************************************
+* NETWORK     : PE
+* STATION     : PSDB
+* LOCATION    : 
+* CHANNEL     : HHZ
+* CREATED     : 2026-07-18T00:02:59.712769Z
+* START       : 2016-01-21T17:35:44.000000Z
+* END         : None
+* DESCRIPTION : PSU Dubois Campus, Dubois, PA
+* LATITUDE    : 41.12748
+* LONGITUDE   : -78.75312
+* ELEVATION   : 437.0
+* DEPTH       : 0.0
+* DIP (SEED)  : -90.0
+* AZIMUTH     : 0.0
+* SAMPLE RATE : 100.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : count
+* INSTTYPE    : None
+* INSTGAIN    : 1504.19 (m/s)
+* SENSITIVITY : 1184400000.0 (m/s)
+* A0          : 571401984.0
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 5
+ -3.701000e-02 +3.701000e-02
+ -3.701000e-02 -3.701000e-02
+ -1.131000e+03 +0.000000e+00
+ -1.005000e+03 +0.000000e+00
+ -5.027000e+02 +0.000000e+00
+CONSTANT 6.767685e+17
+
+
+

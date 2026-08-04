@@ -1,0 +1,41 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): TEIG
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BH1
+* CREATED           : 2026-04-24T16:38:59
+* START             : 2009-09-18T00:00:00
+* END               : 2014-10-30T00:00:00
+* DESCRIPTION       : Tepich, Yucatan, Mexico
+* LATITUDE          : 20.226240
+* LONGITUDE         : -88.276330
+* ELEVATION         : -79.0
+* DEPTH             : 111.0
+* DIP               : 90.0
+* AZIMUTH           : 43.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Geotech KS-36000-I Borehole Seismometer
+* INSTGAIN          : 2.355000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 9.876990e+08 (M/S)
+* A0                : 6.269520e+04
+* **********************************
+ZEROS	4
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	6
+	-4.219000e-03	+0.000000e+00	
+	-1.234000e-02	-1.234000e-02	
+	-1.234000e-02	+1.234000e-02	
+	-1.843000e+01	-1.891000e+01	
+	-1.843000e+01	+1.891000e+01	
+	-8.985000e+01	+0.000000e+00	
+CONSTANT	6.192399e+13
+
+
+
+

@@ -1,0 +1,37 @@
+* **************************************************
+* NETWORK     : PE
+* STATION     : WRPS
+* LOCATION    : 
+* CHANNEL     : HHZ
+* CREATED     : 2026-07-18T00:03:00.108343Z
+* START       : 2016-01-11T21:54:59.000000Z
+* END         : None
+* DESCRIPTION : PSU, University Park, PA, USA
+* LATITUDE    : 40.79418
+* LONGITUDE   : -77.86532
+* ELEVATION   : 320.0
+* DEPTH       : 0.0
+* DIP (SEED)  : -90.0
+* AZIMUTH     : 0.0
+* SAMPLE RATE : 100.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : count
+* INSTTYPE    : None
+* INSTGAIN    : 1504.19 (m/s)
+* SENSITIVITY : 1184400000.0 (m/s)
+* A0          : 571401984.0
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 5
+ -3.701000e-02 +3.701000e-02
+ -3.701000e-02 -3.701000e-02
+ -1.131000e+03 +0.000000e+00
+ -1.005000e+03 +0.000000e+00
+ -5.027000e+02 +0.000000e+00
+CONSTANT 6.767685e+17
+
+
+

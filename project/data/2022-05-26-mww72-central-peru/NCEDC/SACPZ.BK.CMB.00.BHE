@@ -1,0 +1,43 @@
+* **********************************
+* NETWORK   (KNETWK): BK
+* STATION    (KSTNM): CMB
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHE
+* CREATED           : 2026,078,13:15:01
+* START             : 2022,034,21:00:00
+* END               : 2024,305,21:10:00
+* DESCRIPTION       : Columbia College, Columbia, CA, USA
+* LATITUDE          : 38.03455
+* LONGITUDE         : -120.386513
+* ELEVATION         : 697
+* DEPTH             : 2
+* DIP               : 90
+* AZIMUTH           : 90
+* SAMPLE RATE       : 40
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : STS-7,Velocity Sensor,STRECKEISEN
+* INSTGAIN          : 1.503100E+03 (M/S)
+* COMMENT           : N/A
+* SENSITIVITY       : 2.521780E+09 (M/S)
+* A0                : 1.916700E-04
+* **********************************
+ZEROS   9
+        +0.00000E+00    +0.00000E+00
+        +0.00000E+00    +0.00000E+00
+        +0.00000E+00    +0.00000E+00
+        -1.57000E+01    +0.00000E+00
+        -1.57000E+01    +0.00000E+00
+        -6.05000E+02    +0.00000E+00
+        -5.22000E+02    -9.61000E+02
+        -5.22000E+02    +9.61000E+02
+        -8.78000E+02    +0.00000E+00
+POLES   7
+        -1.23395E-02    -1.23432E-02
+        -1.23395E-02    +1.23432E-02
+        -1.60033E+01    +0.00000E+00
+        -1.60033E+01    +0.00000E+00
+        -3.53667E+02    -9.16667E+01
+        -3.53667E+02    +9.16667E+01
+        -8.78000E+02    +0.00000E+00
+CONSTANT        +4.833496E+05

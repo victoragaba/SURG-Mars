@@ -1,0 +1,42 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): TSUM
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BH1
+* CREATED           : 2026-03-17T22:26:15
+* START             : 2009-12-09T18:40:00
+* END               : 2011-08-08T20:00:00
+* DESCRIPTION       : Tsumeb, Namibia
+* LATITUDE          : -19.202270
+* LONGITUDE         : 17.583760
+* ELEVATION         : 1229.0
+* DEPTH             : 0.0
+* DIP               : 90.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1H/VBB Seismometer
+* INSTGAIN          : 2.205600e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 3.700630e+09 (M/S)
+* A0                : 3.953500e+03
+* **********************************
+ZEROS	5
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-2.429000e-02	+0.000000e+00	
+	-2.429000e-02	+0.000000e+00	
+POLES	6
+	-9.291290e-03	+0.000000e+00	
+	-1.341460e-02	-1.543200e-02	
+	-1.341460e-02	+1.543200e-02	
+	-3.872770e-02	+0.000000e+00	
+	-3.918000e+01	-4.912000e+01	
+	-3.918000e+01	+4.912000e+01	
+CONSTANT	1.463044e+13
+
+
+
+

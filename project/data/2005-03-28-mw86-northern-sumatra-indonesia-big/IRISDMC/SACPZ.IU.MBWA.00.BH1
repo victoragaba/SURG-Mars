@@ -1,0 +1,39 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): MBWA
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BH1
+* CREATED           : 2026-04-24T19:25:34
+* START             : 2001-08-25T05:00:00
+* END               : 2005-09-10T00:00:00
+* DESCRIPTION       : Marble Bar, Western Australia
+* LATITUDE          : -21.159000
+* LONGITUDE         : 119.731300
+* ELEVATION         : 88.0
+* DEPTH             : 102.0
+* DIP               : 90.0
+* AZIMUTH           : 81.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Geotech KS-54000 Borehole Seismometer
+* INSTGAIN          : 2.087000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 8.752980e+08 (M/S)
+* A0                : 8.607770e+04
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	5
+	-4.800400e-03	+0.000000e+00	
+	-7.319900e-02	+0.000000e+00	
+	-2.271210e+01	-2.710650e+01	
+	-2.271210e+01	+2.710650e+01	
+	-5.943130e+01	+0.000000e+00	
+CONSTANT	7.534364e+13
+
+
+
+

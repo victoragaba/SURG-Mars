@@ -1,0 +1,39 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): RCBR
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BH1
+* CREATED           : 2026-03-17T22:23:54
+* START             : 2009-07-29T00:00:00
+* END               : 2011-03-09T20:20:59
+* DESCRIPTION       : Riachuelo, Brazil
+* LATITUDE          : -5.827400
+* LONGITUDE         : -35.901400
+* ELEVATION         : 291.0
+* DEPTH             : 109.0
+* DIP               : 90.0
+* AZIMUTH           : 54.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Geotech KS-54000 Borehole Seismometer
+* INSTGAIN          : 1.954000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 3.278300e+09 (M/S)
+* A0                : 8.752550e+04
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	5
+	-4.800400e-03	+0.000000e+00	
+	-7.794550e-02	+0.000000e+00	
+	-2.271210e+01	-2.710650e+01	
+	-2.271210e+01	+2.710650e+01	
+	-5.943130e+01	+0.000000e+00	
+CONSTANT	2.869348e+14
+
+
+
+

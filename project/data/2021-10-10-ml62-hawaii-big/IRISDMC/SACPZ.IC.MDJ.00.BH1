@@ -1,0 +1,38 @@
+* **********************************
+* NETWORK   (KNETWK): IC
+* STATION    (KSTNM): MDJ
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BH1
+* CREATED           : 2026-04-17T19:25:58
+* START             : 2016-04-20T03:00:00
+* END               : 
+* DESCRIPTION       : Mudanjiang, Heilongjiang Province, China
+* LATITUDE          : 44.617630
+* LONGITUDE         : 129.593410
+* ELEVATION         : 240.0
+* DEPTH             : 50.0
+* DIP               : 90.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : 
+* INSTGAIN          : 2.630000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 4.412460e+09 (M/S)
+* A0                : 6.783250e+03
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	4
+	-1.219360e-02	-1.174690e-02	
+	-1.219360e-02	+1.174690e-02	
+	-3.592310e+01	-7.407490e+01	
+	-3.592310e+01	+7.407490e+01	
+CONSTANT	2.993082e+13
+
+
+
+

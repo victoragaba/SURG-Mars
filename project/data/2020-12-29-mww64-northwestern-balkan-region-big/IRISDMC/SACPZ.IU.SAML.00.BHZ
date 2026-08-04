@@ -1,0 +1,39 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): SAML
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHZ
+* CREATED           : 2026-04-24T17:26:55
+* START             : 2017-02-14T15:30:00
+* END               : 2023-06-05T14:30:00
+* DESCRIPTION       : Samuel, Brazil
+* LATITUDE          : -8.948900
+* LONGITUDE         : -63.183100
+* ELEVATION         : 9.0
+* DEPTH             : 111.0
+* DIP               : 0.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Geotech KS-54000 Borehole Seismometer
+* INSTGAIN          : 1.941000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 3.256490e+09 (M/S)
+* A0                : 8.651440e+04
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	5
+	-4.800400e-03	+0.000000e+00	
+	-7.465390e-02	+0.000000e+00	
+	-2.271210e+01	-2.710650e+01	
+	-2.271210e+01	+2.710650e+01	
+	-5.943130e+01	+0.000000e+00	
+CONSTANT	2.817333e+14
+
+
+
+

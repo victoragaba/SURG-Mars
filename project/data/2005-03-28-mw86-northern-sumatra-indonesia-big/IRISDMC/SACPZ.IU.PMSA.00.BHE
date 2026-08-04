@@ -1,0 +1,42 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): PMSA
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHE
+* CREATED           : 2026-04-24T19:25:37
+* START             : 1999-03-02T19:15:00
+* END               : 2009-10-01T00:00:00
+* DESCRIPTION       : Palmer Station, Antarctica
+* LATITUDE          : -64.774400
+* LONGITUDE         : -64.048900
+* ELEVATION         : 10.0
+* DEPTH             : 0.0
+* DIP               : 90.0
+* AZIMUTH           : 90.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1H/VBB Seismometer
+* INSTGAIN          : 2.296000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 9.626520e+08 (M/S)
+* A0                : 3.947490e+03
+* **********************************
+ZEROS	5
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-2.432320e-02	+0.000000e+00	
+	-2.432320e-02	+0.000000e+00	
+POLES	6
+	-1.280620e-02	-1.234000e-02	
+	-1.280620e-02	+1.234000e-02	
+	-2.276390e-02	+0.000000e+00	
+	-2.497700e-02	+0.000000e+00	
+	-3.918000e+01	-4.912000e+01	
+	-3.918000e+01	+4.912000e+01	
+CONSTANT	3.800059e+12
+
+
+
+

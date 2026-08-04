@@ -1,0 +1,46 @@
+* **********************************
+* NETWORK   (KNETWK): II
+* STATION    (KSTNM): DGAR
+* LOCATION   (KHOLE): 10
+* CHANNEL   (KCMPNM): BHN
+* CREATED           : 2026-04-24T16:38:22
+* START             : 2004-01-22T00:00:00
+* END               : 2012-03-16T23:59:59
+* DESCRIPTION       : Diego Garcia, Chagos Islands, Indian Ocean
+* LATITUDE          : -7.412100
+* LONGITUDE         : 72.452500
+* ELEVATION         : 1.0
+* DEPTH             : 2.0
+* DIP               : 90.0
+* AZIMUTH           : 359.1
+* SAMPLE RATE       : 40.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-2 Seismometer
+* INSTGAIN          : 1.588910e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 8.181180e+08 (M/S)
+* A0                : 5.748711e+12
+* **********************************
+ZEROS	6
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-1.515002e+01	+0.000000e+00	
+	-3.186002e+02	+4.012002e+02	
+	-3.186002e+02	-4.012002e+02	
+POLES	9
+	-3.700168e-02	-3.700168e-02	
+	-3.700168e-02	+3.700168e-02	
+	-1.599002e+01	+0.000000e+00	
+	-4.170998e+02	+0.000000e+00	
+	-1.008998e+02	+4.019002e+02	
+	-1.008998e+02	-4.019002e+02	
+	-7.453994e+03	-7.141971e+03	
+	-7.453994e+03	+7.141971e+03	
+	-1.872389e+02	+0.000000e+00	
+CONSTANT	4.703124e+21
+
+
+
+

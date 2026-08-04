@@ -1,0 +1,47 @@
+* **********************************
+* NETWORK   (KNETWK): II
+* STATION    (KSTNM): CMLA
+* LOCATION   (KHOLE): 10
+* CHANNEL   (KCMPNM): BHZ
+* CREATED           : 2026-03-19T20:14:45
+* START             : 2019-03-27T00:00:00
+* END               : 2024-04-04T11:59:59
+* DESCRIPTION       : Cha de Macela, Sao Miguel Island, Azores
+* LATITUDE          : 37.763700
+* LONGITUDE         : -25.524300
+* ELEVATION         : 429.0
+* DEPTH             : 7.0
+* DIP               : 0.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 40.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-5A Seismometer
+* INSTGAIN          : 1.485600e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 2.458930e+09 (M/S)
+* A0                : 1.369896e-04
+* **********************************
+ZEROS	9
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-1.570796e+01	+0.000000e+00	
+	-1.570796e+01	+0.000000e+00	
+	-9.613274e+02	+0.000000e+00	
+	-6.050707e+02	+0.000000e+00	
+	-5.215044e+02	-9.613274e+02	
+	-5.215044e+02	+9.613274e+02	
+POLES	7
+	-3.702405e-02	+3.702398e-02	
+	-3.702405e-02	-3.702398e-02	
+	-1.604726e+01	+0.000000e+00	
+	-1.604726e+01	+0.000000e+00	
+	-2.715511e+02	-1.456744e+02	
+	-2.715511e+02	+1.456744e+02	
+	-9.613274e+02	+0.000000e+00	
+CONSTANT	3.368478e+05
+
+
+
+

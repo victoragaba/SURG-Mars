@@ -1,0 +1,42 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): ADK
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHN
+* CREATED           : 2026-04-24T19:25:25
+* START             : 2003-05-23T08:40:00
+* END               : 2009-02-14T00:00:00
+* DESCRIPTION       : Adak, Aleutian Islands, Alaska
+* LATITUDE          : 51.882300
+* LONGITUDE         : -176.684200
+* ELEVATION         : 130.0
+* DEPTH             : 0.0
+* DIP               : 90.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1H/VBB Seismometer
+* INSTGAIN          : 2.058130e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 8.629200e+08 (M/S)
+* A0                : 3.948090e+03
+* **********************************
+ZEROS	5
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-2.385880e-02	+0.000000e+00	
+	-2.385880e-02	+0.000000e+00	
+POLES	6
+	-1.752850e-02	+0.000000e+00	
+	-1.449940e-02	-1.234000e-02	
+	-1.449940e-02	+1.234000e-02	
+	-2.696920e-02	+0.000000e+00	
+	-3.918000e+01	-4.912000e+01	
+	-3.918000e+01	+4.912000e+01	
+CONSTANT	3.406886e+12
+
+
+
+

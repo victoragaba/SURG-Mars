@@ -1,0 +1,38 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): LCO
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BH1
+* CREATED           : 2026-04-17T19:26:26
+* START             : 2014-08-04T00:00:00
+* END               : 
+* DESCRIPTION       : Las Campanas Astronomical Observatory, Chile
+* LATITUDE          : -29.011000
+* LONGITUDE         : -70.700500
+* ELEVATION         : 2274.0
+* DEPTH             : 0.0
+* DIP               : 90.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1VBB w/E300
+* INSTGAIN          : 2.609000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 4.377220e+09 (M/S)
+* A0                : 5.935800e+03
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	4
+	-1.248470e-02	-1.164230e-02	
+	-1.248470e-02	+1.164230e-02	
+	-3.890120e+01	-6.643700e+01	
+	-3.890120e+01	+6.643700e+01	
+CONSTANT	2.598230e+13
+
+
+
+

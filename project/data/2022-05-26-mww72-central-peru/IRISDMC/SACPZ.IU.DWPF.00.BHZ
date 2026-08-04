@@ -1,0 +1,47 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): DWPF
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHZ
+* CREATED           : 2026-03-19T20:14:51
+* START             : 2022-02-28T00:00:00
+* END               : 
+* DESCRIPTION       : Disney Wilderness Preserve, Florida, USA
+* LATITUDE          : 28.110300
+* LONGITUDE         : -81.432700
+* ELEVATION         : -132.0
+* DEPTH             : 162.0
+* DIP               : 0.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 40.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-6A VBB Seismometer
+* INSTGAIN          : 1.183000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 1.984750e+09 (M/S)
+* A0                : 5.531350e-20
+* **********************************
+ZEROS	9
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-4.186510e+00	+0.000000e+00	
+	-4.186510e+00	+0.000000e+00	
+	-4.967370e+06	+0.000000e+00	
+	-6.488510e-01	-7.716220e+06	
+	-6.488510e-01	+7.716220e+06	
+	-1.053130e+07	+0.000000e+00	
+POLES	7
+	-1.237020e-02	-1.228020e-02	
+	-1.237020e-02	+1.228020e-02	
+	-4.336510e+00	+0.000000e+00	
+	-4.336510e+00	+0.000000e+00	
+	-3.506340e+02	+0.000000e+00	
+	-4.933850e+02	-4.630340e+02	
+	-4.933850e+02	+4.630340e+02	
+CONSTANT	1.097835e-10
+
+
+
+

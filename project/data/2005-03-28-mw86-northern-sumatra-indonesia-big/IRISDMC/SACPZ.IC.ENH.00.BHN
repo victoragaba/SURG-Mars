@@ -1,0 +1,38 @@
+* **********************************
+* NETWORK   (KNETWK): IC
+* STATION    (KSTNM): ENH
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHN
+* CREATED           : 2026-04-24T19:25:09
+* START             : 2000-04-16T09:25:00
+* END               : 2010-10-19T00:00:00
+* DESCRIPTION       : Enshi, Hubei Province, China
+* LATITUDE          : 30.276200
+* LONGITUDE         : 109.494740
+* ELEVATION         : 454.0
+* DEPTH             : 9.0
+* DIP               : 90.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1/VBB Seismometer
+* INSTGAIN          : 2.052000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 8.606200e+08 (M/S)
+* A0                : 3.948580e+03
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	4
+	-1.234000e-02	-1.234000e-02	
+	-1.234000e-02	+1.234000e-02	
+	-3.918000e+01	-4.912000e+01	
+	-3.918000e+01	+4.912000e+01	
+CONSTANT	3.398227e+12
+
+
+
+

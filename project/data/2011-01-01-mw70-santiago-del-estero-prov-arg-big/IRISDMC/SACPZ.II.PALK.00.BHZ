@@ -1,0 +1,38 @@
+* **********************************
+* NETWORK   (KNETWK): II
+* STATION    (KSTNM): PALK
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHZ
+* CREATED           : 2026-04-24T16:38:29
+* START             : 2010-12-08T19:33:00
+* END               : 2011-11-18T23:59:59
+* DESCRIPTION       : Pallekele, Sri Lanka
+* LATITUDE          : 7.272800
+* LONGITUDE         : 80.702200
+* ELEVATION         : 460.0
+* DEPTH             : 90.0
+* DIP               : 0.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Geotech KS-54000 Borehole Seismometer
+* INSTGAIN          : 2.310200e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 3.840170e+09 (M/S)
+* A0                : 1.057958e+03
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	4
+	-4.799989e-03	+0.000000e+00	
+	-7.569667e-02	+0.000000e+00	
+	-1.696473e+01	+2.721480e+01	
+	-1.696473e+01	-2.721480e+01	
+CONSTANT	4.062740e+12
+
+
+
+

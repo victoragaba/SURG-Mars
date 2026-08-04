@@ -1,0 +1,49 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): QSPA
+* LOCATION   (KHOLE): 10
+* CHANNEL   (KCMPNM): BHZ
+* CREATED           : 2026-04-17T19:26:33
+* START             : 2011-01-18T00:00:00
+* END               : 
+* DESCRIPTION       : South Pole Remote Earth Science Observatory (Quiet Zone)
+* LATITUDE          : -89.928900
+* LONGITUDE         : 144.438200
+* ELEVATION         : 2596.0
+* DEPTH             : 254.0
+* DIP               : 0.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 40.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Velocity Sensor
+* INSTGAIN          : 1.967200e+04 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 3.300430e+10 (M/S)
+* A0                : 3.716360e+14
+* **********************************
+ZEROS	7
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-1.090350e+01	+0.000000e+00	
+	-8.596000e+01	+0.000000e+00	
+	-1.985720e+02	-1.473610e+03	
+	-1.985720e+02	+1.473610e+03	
+POLES	11
+	-3.707870e-02	-3.653650e-02	
+	-3.707870e-02	+3.653650e-02	
+	-1.130070e+01	+0.000000e+00	
+	-1.208290e+02	+0.000000e+00	
+	-2.781370e+02	+0.000000e+00	
+	-3.863260e+02	+0.000000e+00	
+	-3.483210e+02	-2.518460e+02	
+	-3.483210e+02	+2.518460e+02	
+	-8.813560e+02	-1.150400e+03	
+	-8.813560e+02	+1.150400e+03	
+	-1.330000e+04	+0.000000e+00	
+CONSTANT	1.226559e+25
+
+
+
+

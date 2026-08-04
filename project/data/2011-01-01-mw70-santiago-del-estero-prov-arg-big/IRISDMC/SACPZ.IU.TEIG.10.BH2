@@ -1,0 +1,40 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): TEIG
+* LOCATION   (KHOLE): 10
+* CHANNEL   (KCMPNM): BH2
+* CREATED           : 2026-04-24T16:38:59
+* START             : 2009-09-18T00:00:00
+* END               : 2013-04-04T00:00:00
+* DESCRIPTION       : Tepich, Yucatan, Mexico
+* LATITUDE          : 20.226240
+* LONGITUDE         : -88.276330
+* ELEVATION         : 7.0
+* DEPTH             : 25.0
+* DIP               : 90.0
+* AZIMUTH           : 359.0
+* SAMPLE RATE       : 40.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Guralp CMG3-T Seismometer (borehole)
+* INSTGAIN          : 9.940000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 4.169090e+09 (M/S)
+* A0                : 4.387810e+10
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	6
+	-3.700000e-02	-3.700000e-02	
+	-3.700000e-02	+3.700000e-02	
+	-1.888280e+02	-1.955400e+02	
+	-1.888280e+02	+1.955400e+02	
+	-2.592220e+02	-7.196450e+02	
+	-2.592220e+02	+7.196450e+02	
+CONSTANT	1.829317e+20
+
+
+
+

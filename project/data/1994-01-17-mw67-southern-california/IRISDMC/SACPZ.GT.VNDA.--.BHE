@@ -1,0 +1,41 @@
+* **********************************
+* NETWORK   (KNETWK): GT
+* STATION    (KSTNM): VNDA
+* LOCATION   (KHOLE): 
+* CHANNEL   (KCMPNM): BHE
+* CREATED           : 2026-05-06T21:47:05
+* START             : 1993-12-28T00:00:00
+* END               : 1998-11-03T00:00:00
+* DESCRIPTION       : Dry Valley, Vanda, Antarctica
+* LATITUDE          : -77.517242
+* LONGITUDE         : 161.852814
+* ELEVATION         : 51.0
+* DEPTH             : 100.0
+* DIP               : 90.0
+* AZIMUTH           : 90.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Geotech KS-54000 Borehole Seismometer
+* INSTGAIN          : 2.949650e+04 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 1.237170e+10 (M/S)
+* A0                : 6.281530e+04
+* **********************************
+ZEROS	4
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	6
+	-4.219000e-03	+0.000000e+00	
+	-8.313000e-03	+0.000000e+00	
+	-7.785000e-02	+0.000000e+00	
+	-1.843000e+01	-1.891000e+01	
+	-1.843000e+01	+1.891000e+01	
+	-8.985000e+01	+0.000000e+00	
+CONSTANT	7.771320e+14
+
+
+
+

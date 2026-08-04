@@ -1,0 +1,39 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): MSKU
+* LOCATION   (KHOLE): 10
+* CHANNEL   (KCMPNM): BHN
+* CREATED           : 2026-04-24T19:25:35
+* START             : 1999-02-27T00:00:00
+* END               : 2008-06-14T00:00:00
+* DESCRIPTION       : Masuku, Gabon
+* LATITUDE          : -1.655700
+* LONGITUDE         : 13.611600
+* ELEVATION         : 287.0
+* DEPTH             : 25.0
+* DIP               : 90.0
+* AZIMUTH           : 21.0
+* SAMPLE RATE       : 40.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Guralp CMG3-T Seismometer
+* INSTGAIN          : 2.032300e+04 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 8.521770e+09 (M/S)
+* A0                : 7.136710e+07
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	5
+	-3.701000e-02	-3.701000e-02	
+	-3.701000e-02	+3.701000e-02	
+	-1.979000e+02	-1.979000e+02	
+	-1.979000e+02	+1.979000e+02	
+	-9.111000e+02	+0.000000e+00	
+CONSTANT	6.081740e+17
+
+
+
+

@@ -1,0 +1,47 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): COR
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BH1
+* CREATED           : 2026-04-24T17:26:38
+* START             : 2020-10-27T18:30:00
+* END               : 
+* DESCRIPTION       : Corvallis, Oregon, USA
+* LATITUDE          : 44.585500
+* LONGITUDE         : -123.304600
+* ELEVATION         : -40.0
+* DEPTH             : 150.0
+* DIP               : 90.0
+* AZIMUTH           : 130.0
+* SAMPLE RATE       : 40.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-6A VBB Seismometer
+* INSTGAIN          : 1.183000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 1.984750e+09 (M/S)
+* A0                : 5.569760e-20
+* **********************************
+ZEROS	9
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-4.160280e+00	+0.000000e+00	
+	-4.160280e+00	+0.000000e+00	
+	-4.967370e+06	+0.000000e+00	
+	-6.488510e-01	-7.716220e+06	
+	-6.488510e-01	+7.716220e+06	
+	-1.053130e+07	+0.000000e+00	
+POLES	7
+	-1.241310e-02	-1.230310e-02	
+	-1.241310e-02	+1.230310e-02	
+	-4.289720e+00	+0.000000e+00	
+	-4.289720e+00	+0.000000e+00	
+	-3.542030e+02	+0.000000e+00	
+	-4.835540e+02	-4.761350e+02	
+	-4.835540e+02	+4.761350e+02	
+CONSTANT	1.105458e-10
+
+
+
+

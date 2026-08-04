@@ -1,0 +1,45 @@
+* **********************************
+* NETWORK   (KNETWK): II
+* STATION    (KSTNM): ABPO
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BH2
+* CREATED           : 2026-04-17T19:25:59
+* START             : 2021-08-18T07:46:00
+* END               : 
+* DESCRIPTION       : Ambohimpanompo, Madagascar
+* LATITUDE          : -19.018000
+* LONGITUDE         : 47.229000
+* ELEVATION         : 1528.0
+* DEPTH             : 5.3
+* DIP               : 90.0
+* AZIMUTH           : 88.8
+* SAMPLE RATE       : 40.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Nanometrics Trillium 360 Seismometer - Vault
+* INSTGAIN          : 1.994600e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 3.334720e+09 (M/S)
+* A0                : 1.507650e+02
+* **********************************
+ZEROS	7
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-3.170476e+01	+0.000000e+00	
+	-4.760154e+02	+0.000000e+00	
+	-1.434401e+02	+0.000000e+00	
+	-3.099998e+03	+0.000000e+00	
+POLES	7
+	-1.229299e-02	+1.231498e-02	
+	-1.229299e-02	-1.231498e-02	
+	-3.338998e+01	+0.000000e+00	
+	-1.426264e+02	+0.000000e+00	
+	-1.594409e+02	+2.734826e+02	
+	-1.594409e+02	-2.734826e+02	
+	-2.119997e+03	+0.000000e+00	
+CONSTANT	5.027592e+11
+
+
+
+

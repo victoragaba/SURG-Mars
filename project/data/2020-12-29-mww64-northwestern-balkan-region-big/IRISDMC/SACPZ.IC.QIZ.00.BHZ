@@ -1,0 +1,38 @@
+* **********************************
+* NETWORK   (KNETWK): IC
+* STATION    (KSTNM): QIZ
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHZ
+* CREATED           : 2026-04-24T17:26:19
+* START             : 2020-09-20T00:00:00
+* END               : 
+* DESCRIPTION       : Qiongzhong, Hainan Province, China
+* LATITUDE          : 19.029280
+* LONGITUDE         : 109.843980
+* ELEVATION         : 237.0
+* DEPTH             : 3.0
+* DIP               : 0.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Velocity Sensor
+* INSTGAIN          : 2.507000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 4.206100e+09 (M/S)
+* A0                : 6.783250e+03
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	4
+	-1.219360e-02	-1.174690e-02	
+	-1.219360e-02	+1.174690e-02	
+	-3.592310e+01	-7.407490e+01	
+	-3.592310e+01	+7.407490e+01	
+CONSTANT	2.853103e+13
+
+
+
+

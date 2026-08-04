@@ -1,0 +1,45 @@
+* **********************************
+* NETWORK   (KNETWK): II
+* STATION    (KSTNM): PALK
+* LOCATION   (KHOLE): 10
+* CHANNEL   (KCMPNM): BHN
+* CREATED           : 2026-01-26T18:29:32
+* START             : 2000-08-22T00:00:00
+* END               : 2007-12-08T06:59:59
+* DESCRIPTION       : Pallekele, Sri Lanka
+* LATITUDE          : 7.272800
+* LONGITUDE         : 80.702200
+* ELEVATION         : 460.0
+* DEPTH             : 1.0
+* DIP               : 90.0
+* AZIMUTH           : 4.9
+* SAMPLE RATE       : 40.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Guralp CMG-3T Seismometer
+* INSTGAIN          : 1.553770e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 1.367800e+09 (M/S)
+* A0                : 5.498793e+23
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	11
+	-4.442212e-02	+4.442212e-02	
+	-4.442212e-02	-4.442212e-02	
+	-1.130973e+03	+0.000000e+00	
+	-1.005310e+03	+0.000000e+00	
+	-5.026548e+02	+0.000000e+00	
+	-3.034779e+02	+8.122336e+01	
+	-3.034779e+02	-8.122336e+01	
+	-2.221445e+02	+2.221439e+02	
+	-2.221445e+02	-2.221439e+02	
+	-8.130442e+01	+3.034559e+02	
+	-8.130442e+01	-3.034559e+02	
+CONSTANT	7.521250e+32
+
+
+
+

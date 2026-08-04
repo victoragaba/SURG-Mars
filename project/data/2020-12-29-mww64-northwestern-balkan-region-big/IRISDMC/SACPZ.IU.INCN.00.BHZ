@@ -1,0 +1,42 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): INCN
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHZ
+* CREATED           : 2026-04-24T17:26:43
+* START             : 2013-11-22T13:18:00
+* END               : 
+* DESCRIPTION       : Inchon, Republic of Korea
+* LATITUDE          : 37.477680
+* LONGITUDE         : 126.624360
+* ELEVATION         : 52.5
+* DEPTH             : 2.5
+* DIP               : 0.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1VBB w/E300
+* INSTGAIN          : 3.185000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 5.343600e+09 (M/S)
+* A0                : 6.145120e+03
+* **********************************
+ZEROS	5
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-2.427180e-02	+0.000000e+00	
+	-2.427180e-02	+0.000000e+00	
+POLES	6
+	-1.281410e-02	-1.185820e-02	
+	-1.281410e-02	+1.185820e-02	
+	-2.087140e-02	+0.000000e+00	
+	-2.563950e-02	+0.000000e+00	
+	-3.390180e+01	-7.072230e+01	
+	-3.390180e+01	+7.072230e+01	
+CONSTANT	3.283706e+13
+
+
+
+

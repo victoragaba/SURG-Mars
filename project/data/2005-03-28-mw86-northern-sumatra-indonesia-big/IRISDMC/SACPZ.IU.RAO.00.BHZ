@@ -1,0 +1,42 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): RAO
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHZ
+* CREATED           : 2026-04-24T19:25:39
+* START             : 2004-08-22T23:00:00
+* END               : 2009-08-09T00:00:00
+* DESCRIPTION       : Raoul, Kermadec Islands
+* LATITUDE          : -29.245000
+* LONGITUDE         : -177.929000
+* ELEVATION         : 59.5
+* DEPTH             : 0.5
+* DIP               : 0.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1V/VBB Seismometer
+* INSTGAIN          : 2.216000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 9.291120e+08 (M/S)
+* A0                : 4.067280e+03
+* **********************************
+ZEROS	5
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-1.847580e-02	+0.000000e+00	
+	-1.847580e-02	+0.000000e+00	
+POLES	6
+	-5.152910e-03	-7.148000e-03	
+	-5.152910e-03	+7.148000e-03	
+	-5.340800e-02	+0.000000e+00	
+	-6.226500e-02	+0.000000e+00	
+	-3.918000e+01	-4.912000e+01	
+	-3.918000e+01	+4.912000e+01	
+CONSTANT	3.778959e+12
+
+
+
+

@@ -1,0 +1,47 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): WVT
+* LOCATION   (KHOLE): 10
+* CHANNEL   (KCMPNM): BH1
+* CREATED           : 2026-04-24T17:27:02
+* START             : 2018-04-26T14:00:00
+* END               : 
+* DESCRIPTION       : Waverly, Tennessee, USA
+* LATITUDE          : 36.129700
+* LONGITUDE         : -87.830000
+* ELEVATION         : 70.0
+* DEPTH             : 100.0
+* DIP               : 90.0
+* AZIMUTH           : 235.0
+* SAMPLE RATE       : 40.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-5A BB seismometer
+* INSTGAIN          : 1.459000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 2.447790e+09 (M/S)
+* A0                : 1.163370e-20
+* **********************************
+ZEROS	9
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-1.212300e+01	+0.000000e+00	
+	-1.212300e+01	+0.000000e+00	
+	-6.570210e+06	+0.000000e+00	
+	-4.226070e+01	-1.031310e+07	
+	-4.226070e+01	+1.031310e+07	
+	-1.428530e+07	+0.000000e+00	
+POLES	7
+	-3.676710e-02	-3.710380e-02	
+	-3.676710e-02	+3.710380e-02	
+	-1.241640e+01	+0.000000e+00	
+	-1.241640e+01	+0.000000e+00	
+	-2.734910e+02	+0.000000e+00	
+	-4.134140e+02	-4.781240e+02	
+	-4.134140e+02	+4.781240e+02	
+CONSTANT	2.847685e-11
+
+
+
+

@@ -1,0 +1,38 @@
+* **************************************************
+* NETWORK     : NM
+* STATION     : X702
+* LOCATION    : 00
+* CHANNEL     : HHZ
+* CREATED     : 2026-07-18T00:02:56.036665Z
+* START       : 2025-08-26T17:30:00.000000Z
+* END         : None
+* DESCRIPTION : Pleasant Plains, Arkansas
+* LATITUDE    : 35.55371
+* LONGITUDE   : -91.638684
+* ELEVATION   : 172.0
+* DEPTH       : 0.0
+* DIP (SEED)  : -90.0
+* AZIMUTH     : 0.0
+* SAMPLE RATE : 100.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : GURALP
+* INSTGAIN    : 4000.0 (m/s)
+* SENSITIVITY : 3151289830.5042653 (m/s)
+* A0          : 909214242438.6923
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 6
+ -1.486000e-01 +1.486000e-01
+ -1.486000e-01 -1.486000e-01
+ -3.919600e+02 +8.506900e+02
+ -3.919600e+02 -8.506900e+02
+ -4.712400e+02 +0.000000e+00
+ -2.199100e+03 +0.000000e+00
+CONSTANT 2.865198e+21
+
+
+

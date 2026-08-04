@@ -1,0 +1,45 @@
+* **********************************
+* NETWORK   (KNETWK): II
+* STATION    (KSTNM): KDAK
+* LOCATION   (KHOLE): 10
+* CHANNEL   (KCMPNM): BHZ
+* CREATED           : 2026-04-17T19:26:06
+* START             : 2016-08-01T00:00:00
+* END               : 
+* DESCRIPTION       : Kodiak Island, Alaska, USA
+* LATITUDE          : 57.782800
+* LONGITUDE         : -152.583500
+* ELEVATION         : 152.0
+* DEPTH             : 5.5
+* DIP               : 0.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 40.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Nanometrics Trillium 120 (Type B) Posthole BB Seis
+* INSTGAIN          : 1.187740e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 1.985750e+09 (M/S)
+* A0                : 2.013755e+02
+* **********************************
+ZEROS	7
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-3.163018e+01	+0.000000e+00	
+	-5.250003e+02	+0.000000e+00	
+	-1.600001e+02	+0.000000e+00	
+	-3.177005e+03	+0.000000e+00	
+POLES	7
+	-3.606693e-02	+3.709637e-02	
+	-3.606693e-02	-3.709637e-02	
+	-3.255004e+01	+0.000000e+00	
+	-1.411166e+02	+0.000000e+00	
+	-2.991261e+02	+4.520419e+02	
+	-2.991261e+02	-4.520419e+02	
+	-1.259999e+03	+0.000000e+00	
+CONSTANT	3.998813e+11
+
+
+
+

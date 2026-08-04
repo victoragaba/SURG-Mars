@@ -1,0 +1,38 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): MA2
+* LOCATION   (KHOLE): 
+* CHANNEL   (KCMPNM): BHN
+* CREATED           : 2026-05-06T21:47:13
+* START             : 1993-09-17T00:00:00
+* END               : 1995-09-09T00:00:00
+* DESCRIPTION       : Magadan, Russia
+* LATITUDE          : 59.575600
+* LONGITUDE         : 150.770000
+* ELEVATION         : 339.0
+* DEPTH             : 2.0
+* DIP               : 90.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1H/VBB Seismometer
+* INSTGAIN          : 2.272000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 9.528890e+08 (M/S)
+* A0                : 3.948580e+03
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	4
+	-1.234000e-02	-1.234000e-02	
+	-1.234000e-02	+1.234000e-02	
+	-3.918000e+01	-4.912000e+01	
+	-3.918000e+01	+4.912000e+01	
+CONSTANT	3.762558e+12
+
+
+
+

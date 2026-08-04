@@ -1,0 +1,41 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): GRFO
+* LOCATION   (KHOLE): 
+* CHANNEL   (KCMPNM): BHN
+* CREATED           : 2026-04-24T16:38:41
+* START             : 2009-03-12T00:00:00
+* END               : 2013-11-20T00:00:00
+* DESCRIPTION       : Grafenberg, Germany
+* LATITUDE          : 49.690900
+* LONGITUDE         : 11.220300
+* ELEVATION         : 268.0
+* DEPTH             : 116.0
+* DIP               : 90.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Geotech KS-36000-I Borehole Seismometer
+* INSTGAIN          : 2.400000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 1.006640e+09 (M/S)
+* A0                : 6.269520e+04
+* **********************************
+ZEROS	4
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	6
+	-4.219000e-03	+0.000000e+00	
+	-1.234000e-02	-1.234000e-02	
+	-1.234000e-02	+1.234000e-02	
+	-1.843000e+01	-1.891000e+01	
+	-1.843000e+01	+1.891000e+01	
+	-8.985000e+01	+0.000000e+00	
+CONSTANT	6.311150e+13
+
+
+
+

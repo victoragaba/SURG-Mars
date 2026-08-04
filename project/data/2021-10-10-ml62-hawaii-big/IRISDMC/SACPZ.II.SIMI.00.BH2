@@ -1,0 +1,44 @@
+* **********************************
+* NETWORK   (KNETWK): II
+* STATION    (KSTNM): SIMI
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BH2
+* CREATED           : 2026-04-17T19:26:11
+* START             : 2021-05-05T00:00:00
+* END               : 
+* DESCRIPTION       : Simiganj, Tajikistan
+* LATITUDE          : 38.658500
+* LONGITUDE         : 69.008300
+* ELEVATION         : 1400.5
+* DEPTH             : 0.0
+* DIP               : 90.0
+* AZIMUTH           : 313.9
+* SAMPLE RATE       : 40.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Nanometrics Trillium 240 Seismometer
+* INSTGAIN          : 1.163040e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 1.944460e+09 (M/S)
+* A0                : 5.289516e+05
+* **********************************
+ZEROS	6
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-7.943203e+01	+0.000000e+00	
+	-1.601000e+02	+0.000000e+00	
+	-3.206988e+03	+0.000000e+00	
+POLES	7
+	-1.769929e-02	+1.759964e-02	
+	-1.769929e-02	-1.759964e-02	
+	-1.027464e+02	+0.000000e+00	
+	-1.445051e+02	+2.236525e+02	
+	-1.445051e+02	-2.236525e+02	
+	-3.102115e+02	+1.692590e+03	
+	-3.102115e+02	-1.692590e+03	
+CONSTANT	1.028525e+15
+
+
+
+

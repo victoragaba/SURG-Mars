@@ -1,0 +1,39 @@
+* **********************************
+* NETWORK   (KNETWK): II
+* STATION    (KSTNM): KAPI
+* LOCATION   (KHOLE): 10
+* CHANNEL   (KCMPNM): BH2
+* CREATED           : 2026-04-24T16:38:24
+* START             : 2010-11-17T00:00:00
+* END               : 2013-03-01T23:59:59
+* DESCRIPTION       : Kappang, Sulawesi, Indonesia
+* LATITUDE          : -5.014200
+* LONGITUDE         : 119.751700
+* ELEVATION         : 300.0
+* DEPTH             : 7.0
+* DIP               : 90.0
+* AZIMUTH           : 95.8
+* SAMPLE RATE       : 40.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Guralp CMG-3T Seismometer
+* INSTGAIN          : 1.492650e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 2.495520e+09 (M/S)
+* A0                : 5.719269e+08
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	5
+	-3.545859e-02	+3.486998e-02	
+	-3.545859e-02	-3.486998e-02	
+	-1.130973e+03	+0.000000e+00	
+	-1.005310e+03	+0.000000e+00	
+	-5.026548e+02	+0.000000e+00	
+CONSTANT	1.427255e+18
+
+
+
+

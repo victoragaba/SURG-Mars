@@ -1,0 +1,39 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): GUMO
+* LOCATION   (KHOLE): 10
+* CHANNEL   (KCMPNM): BHE
+* CREATED           : 2026-04-24T19:25:29
+* START             : 2004-11-08T03:00:00
+* END               : 2009-07-10T00:00:00
+* DESCRIPTION       : Guam, Mariana Islands
+* LATITUDE          : 13.589300
+* LONGITUDE         : 144.868400
+* ELEVATION         : 170.0
+* DEPTH             : 0.0
+* DIP               : 90.0
+* AZIMUTH           : 90.0
+* SAMPLE RATE       : 40.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Guralp CMG3-T Seismometer
+* INSTGAIN          : 1.989800e+04 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 8.343560e+09 (M/S)
+* A0                : 7.136710e+07
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	5
+	-3.701000e-02	-3.701000e-02	
+	-3.701000e-02	+3.701000e-02	
+	-1.979000e+02	-1.979000e+02	
+	-1.979000e+02	+1.979000e+02	
+	-9.111000e+02	+0.000000e+00	
+CONSTANT	5.954557e+17
+
+
+
+

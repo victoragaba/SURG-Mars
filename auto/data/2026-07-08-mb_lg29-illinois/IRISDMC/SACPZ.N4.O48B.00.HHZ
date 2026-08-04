@@ -1,0 +1,37 @@
+* **************************************************
+* NETWORK     : N4
+* STATION     : O48B
+* LOCATION    : 00
+* CHANNEL     : HHZ
+* CREATED     : 2026-07-18T00:02:52.155905Z
+* START       : 2019-02-12T00:00:00.000000Z
+* END         : None
+* DESCRIPTION : Farmland, IN, USA
+* LATITUDE    : 40.2571
+* LONGITUDE   : -85.1553
+* ELEVATION   : 300.0
+* DEPTH       : 0.0
+* DIP (SEED)  : -90.0
+* AZIMUTH     : 0.0
+* SAMPLE RATE : 100.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : GURALP
+* INSTGAIN    : 1476.0 (m/s)
+* SENSITIVITY : 619079000.0 (m/s)
+* A0          : 579871000.0
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 5
+ -3.700800e-02 -3.700800e-02
+ -3.700800e-02 +3.700800e-02
+ -5.026500e+02 +0.000000e+00
+ -1.005000e+03 +0.000000e+00
+ -1.131000e+03 +0.000000e+00
+CONSTANT 3.589860e+17
+
+
+

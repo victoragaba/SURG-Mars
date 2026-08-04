@@ -1,0 +1,34 @@
+* **************************************************
+* NETWORK     : OH
+* STATION     : HROH
+* LOCATION    : 
+* CHANNEL     : HHN
+* CREATED     : 2026-07-18T00:02:56.958358Z
+* START       : 2024-07-24T12:00:00.000000Z
+* END         : None
+* DESCRIPTION : Hogback Ridge Metropark
+* LATITUDE    : 41.7506
+* LONGITUDE   : -81.0133
+* ELEVATION   : 253.0
+* DEPTH       : 0.0
+* DIP (SEED)  : 0.0
+* AZIMUTH     : 0.0
+* SAMPLE RATE : 100.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : None
+* INSTGAIN    : 87.9 (m/s)
+* SENSITIVITY : 1106950.0 (m/s)
+* A0          : 1.0
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 2
+ -8.884000e+00 +8.887000e+00
+ -8.884000e+00 -8.887000e+00
+CONSTANT 1.106950e+06
+
+
+

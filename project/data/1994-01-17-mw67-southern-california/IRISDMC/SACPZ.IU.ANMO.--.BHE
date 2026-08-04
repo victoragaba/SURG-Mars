@@ -1,0 +1,41 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): ANMO
+* LOCATION   (KHOLE): 
+* CHANNEL   (KCMPNM): BHE
+* CREATED           : 2026-05-06T21:47:10
+* START             : 1991-02-11T20:48:00
+* END               : 1995-02-01T00:00:00
+* DESCRIPTION       : Albuquerque, New Mexico, USA
+* LATITUDE          : 34.945900
+* LONGITUDE         : -106.457200
+* ELEVATION         : 1750.0
+* DEPTH             : 100.0
+* DIP               : 90.0
+* AZIMUTH           : 90.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Geotech KS-36000-I Borehole Seismometer
+* INSTGAIN          : 2.400000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 1.006590e+09 (M/S)
+* A0                : 6.269520e+04
+* **********************************
+ZEROS	4
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	6
+	-4.219000e-03	+0.000000e+00	
+	-1.234000e-02	-1.234000e-02	
+	-1.234000e-02	+1.234000e-02	
+	-1.843000e+01	-1.891000e+01	
+	-1.843000e+01	+1.891000e+01	
+	-8.985000e+01	+0.000000e+00	
+CONSTANT	6.310836e+13
+
+
+
+

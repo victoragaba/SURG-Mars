@@ -1,0 +1,38 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): SFJD
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHZ
+* CREATED           : 2026-04-24T17:26:56
+* START             : 2016-01-20T13:00:00
+* END               : 
+* DESCRIPTION       : Sondre Stromfjord, Greenland
+* LATITUDE          : 66.996100
+* LONGITUDE         : -50.620760
+* ELEVATION         : 330.0
+* DEPTH             : 0.0
+* DIP               : 0.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1VBB w/E300
+* INSTGAIN          : 2.423000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 4.065160e+09 (M/S)
+* A0                : 6.628590e+03
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	4
+	-1.207940e-02	-1.216850e-02	
+	-1.207940e-02	+1.216850e-02	
+	-4.162160e+01	-6.997140e+01	
+	-4.162160e+01	+6.997140e+01	
+CONSTANT	2.694628e+13
+
+
+
+

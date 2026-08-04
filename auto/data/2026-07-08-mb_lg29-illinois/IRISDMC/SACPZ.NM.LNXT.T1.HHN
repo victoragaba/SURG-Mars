@@ -1,0 +1,35 @@
+* **************************************************
+* NETWORK     : NM
+* STATION     : LNXT
+* LOCATION    : T1
+* CHANNEL     : HHN
+* CREATED     : 2026-07-18T00:02:54.592825Z
+* START       : 2010-11-03T00:00:00.000000Z
+* END         : None
+* DESCRIPTION : Lenox,TN
+* LATITUDE    : 36.101002
+* LONGITUDE   : -89.490997
+* ELEVATION   : 144.0
+* DEPTH       : 0.0
+* DIP (SEED)  : 0.0
+* AZIMUTH     : 0.0
+* SAMPLE RATE : 200.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : COUNTS
+* INSTTYPE    : None
+* INSTGAIN    : 0.25493 (M/S**2)
+* SENSITIVITY : 159849.0 (M/S**2)
+* A0          : 487812.0
+* **************************************************
+ZEROS 3
+ -3.251420e+03 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 3
+ -5.898210e+02 +6.904980e+02
+ -5.898210e+02 -6.904980e+02
+ -1.923280e+03 +0.000000e+00
+CONSTANT 7.797626e+10
+
+
+

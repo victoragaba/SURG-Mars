@@ -1,0 +1,37 @@
+* **************************************************
+* NETWORK     : PE
+* STATION     : POV2
+* LOCATION    : 00
+* CHANNEL     : HHN
+* CREATED     : 2026-07-18T00:02:59.686815Z
+* START       : 2021-02-28T00:00:00.000000Z
+* END         : None
+* DESCRIPTION : PA SWD site 2
+* LATITUDE    : 41.21136
+* LONGITUDE   : -78.558158
+* ELEVATION   : 543.0
+* DEPTH       : 0.0
+* DIP (SEED)  : 0.0
+* AZIMUTH     : 0.0
+* SAMPLE RATE : 100.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : count
+* INSTTYPE    : seismometer
+* INSTGAIN    : 1500.0 (m/s)
+* SENSITIVITY : 418500000.0 (m/s)
+* A0          : 270.0
+* **************************************************
+ZEROS 4
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 4
+ -2.700000e+02 +0.000000e+00
+ -6.060000e-01 -6.060000e-01
+ -6.060000e-01 +6.060000e-01
+ -1.226310e+00 +0.000000e+00
+CONSTANT 1.129950e+11
+
+
+

@@ -1,0 +1,39 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): CHTO
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHZ
+* CREATED           : 2026-04-24T19:25:27
+* START             : 2003-01-31T00:00:00
+* END               : 2006-03-21T08:00:00
+* DESCRIPTION       : Chiang Mai, Thailand
+* LATITUDE          : 18.814100
+* LONGITUDE         : 98.944300
+* ELEVATION         : 319.0
+* DEPTH             : 101.0
+* DIP               : 0.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Geotech KS-54000 Borehole Seismometer
+* INSTGAIN          : 2.129000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 8.929130e+08 (M/S)
+* A0                : 8.607770e+04
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	5
+	-4.800400e-03	+0.000000e+00	
+	-7.319900e-02	+0.000000e+00	
+	-2.271210e+01	-2.710650e+01	
+	-2.271210e+01	+2.710650e+01	
+	-5.943130e+01	+0.000000e+00	
+CONSTANT	7.685990e+13
+
+
+
+

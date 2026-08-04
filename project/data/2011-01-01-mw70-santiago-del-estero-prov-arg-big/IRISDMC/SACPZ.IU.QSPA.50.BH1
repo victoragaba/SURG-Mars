@@ -1,0 +1,39 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): QSPA
+* LOCATION   (KHOLE): 50
+* CHANNEL   (KCMPNM): BH1
+* CREATED           : 2026-04-24T16:38:53
+* START             : 2009-10-18T00:00:00
+* END               : 2011-01-18T00:00:00
+* DESCRIPTION       : South Pole Remote Earth Science Observatory (Quiet Zone)
+* LATITUDE          : -89.928900
+* LONGITUDE         : 144.438200
+* ELEVATION         : 2703.7
+* DEPTH             : 146.3
+* DIP               : 90.0
+* AZIMUTH           : 349.0
+* SAMPLE RATE       : 40.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Guralp CMG3-T Seismometer (borehole)
+* INSTGAIN          : 1.796700e+04 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 7.535810e+09 (M/S)
+* A0                : 8.053230e+08
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	5
+	-1.234000e-02	-1.234000e-02	
+	-1.234000e-02	+1.234000e-02	
+	-4.524600e+02	-6.603300e+02	
+	-4.524600e+02	+6.603300e+02	
+	-1.256600e+03	+0.000000e+00	
+CONSTANT	6.068761e+18
+
+
+
+

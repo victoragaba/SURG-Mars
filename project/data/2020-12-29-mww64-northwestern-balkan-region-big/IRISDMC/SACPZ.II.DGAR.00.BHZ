@@ -1,0 +1,43 @@
+* **********************************
+* NETWORK   (KNETWK): II
+* STATION    (KSTNM): DGAR
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHZ
+* CREATED           : 2026-04-24T17:26:23
+* START             : 2020-09-11T06:00:00
+* END               : 2022-04-22T08:41:59
+* DESCRIPTION       : Diego Garcia, Chagos Islands, Indian Ocean
+* LATITUDE          : -7.412100
+* LONGITUDE         : 72.452500
+* ELEVATION         : 1.0
+* DEPTH             : 2.0
+* DIP               : 0.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1 Seismometer with Metrozet E300
+* INSTGAIN          : 2.341820e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 3.708130e+09 (M/S)
+* A0                : 2.692879e+01
+* **********************************
+ZEROS	6
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-2.650719e+02	+0.000000e+00	
+	-4.720664e-01	+0.000000e+00	
+	-4.720664e-01	+0.000000e+00	
+POLES	6
+	-1.156546e-02	+1.189721e-02	
+	-1.156546e-02	-1.189721e-02	
+	-4.699584e-01	+3.423595e-02	
+	-4.699584e-01	-3.423595e-02	
+	-3.839516e+01	+7.548996e+01	
+	-3.839516e+01	-7.548996e+01	
+CONSTANT	9.985545e+10
+
+
+
+

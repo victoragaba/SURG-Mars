@@ -1,0 +1,38 @@
+* **********************************
+* NETWORK   (KNETWK): IC
+* STATION    (KSTNM): WMQ
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHE
+* CREATED           : 2026-04-24T16:38:17
+* START             : 2010-10-19T00:00:00
+* END               : 2013-04-27T04:00:00
+* DESCRIPTION       : Urumqi, Xinjiang Province, China
+* LATITUDE          : 43.814110
+* LONGITUDE         : 87.704480
+* ELEVATION         : 844.0
+* DEPTH             : 6.0
+* DIP               : 90.0
+* AZIMUTH           : 90.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1H/VBB Seismometer
+* INSTGAIN          : 1.957000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 8.207760e+08 (M/S)
+* A0                : 3.948580e+03
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	4
+	-1.234000e-02	-1.234000e-02	
+	-1.234000e-02	+1.234000e-02	
+	-3.918000e+01	-4.912000e+01	
+	-3.918000e+01	+4.912000e+01	
+CONSTANT	3.240900e+12
+
+
+
+

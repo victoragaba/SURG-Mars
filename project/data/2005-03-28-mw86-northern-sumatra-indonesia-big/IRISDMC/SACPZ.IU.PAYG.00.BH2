@@ -1,0 +1,39 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): PAYG
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BH2
+* CREATED           : 2026-04-24T19:25:36
+* START             : 1999-05-01T15:00:00
+* END               : 2009-08-09T00:00:00
+* DESCRIPTION       : Puerto Ayora, Galapagos Islands
+* LATITUDE          : -.674200
+* LONGITUDE         : -90.286100
+* ELEVATION         : 170.0
+* DEPTH             : 100.0
+* DIP               : 90.0
+* AZIMUTH           : 345.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Geotech KS-54000 Borehole Seismometer
+* INSTGAIN          : 2.060000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 8.639740e+08 (M/S)
+* A0                : 8.607770e+04
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	5
+	-4.800400e-03	+0.000000e+00	
+	-7.319900e-02	+0.000000e+00	
+	-2.271210e+01	-2.710650e+01	
+	-2.271210e+01	+2.710650e+01	
+	-5.943130e+01	+0.000000e+00	
+CONSTANT	7.436889e+13
+
+
+
+

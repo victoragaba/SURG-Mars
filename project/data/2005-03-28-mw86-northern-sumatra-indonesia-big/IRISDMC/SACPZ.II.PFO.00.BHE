@@ -1,0 +1,43 @@
+* **********************************
+* NETWORK   (KNETWK): II
+* STATION    (KSTNM): PFO
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHE
+* CREATED           : 2026-04-24T19:25:20
+* START             : 2003-03-21T17:52:09
+* END               : 2006-07-12T23:59:59
+* DESCRIPTION       : Pinon Flat, California, USA
+* LATITUDE          : 33.609200
+* LONGITUDE         : -116.455300
+* ELEVATION         : 1280.0
+* DEPTH             : 0.0
+* DIP               : 90.0
+* AZIMUTH           : 90.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1H/VBB Seismometer
+* INSTGAIN          : 2.181570e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 2.211650e+09 (M/S)
+* A0                : 5.054087e+01
+* **********************************
+ZEROS	6
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-7.853982e+01	+0.000000e+00	
+	-1.525042e-01	+0.000000e+00	
+	-1.525042e-01	+0.000000e+00	
+POLES	6
+	-1.231800e-02	+1.239503e-02	
+	-1.231800e-02	-1.239503e-02	
+	-1.368848e-01	+0.000000e+00	
+	-1.713180e-01	+0.000000e+00	
+	-4.005688e+01	+4.840754e+01	
+	-4.005688e+01	-4.840754e+01	
+CONSTANT	1.117787e+11
+
+
+
+

@@ -1,0 +1,38 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): MACI
+* LOCATION   (KHOLE): 
+* CHANNEL   (KCMPNM): BHZ
+* CREATED           : 2026-04-24T16:38:48
+* START             : 2008-08-01T00:00:00
+* END               : 2022-08-09T00:00:00
+* DESCRIPTION       : Morro de la Arena, Canary Islands
+* LATITUDE          : 28.250200
+* LONGITUDE         : -16.508199
+* ELEVATION         : 1674.0
+* DEPTH             : 0.0
+* DIP               : 0.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1V/VBB Seismometer
+* INSTGAIN          : 2.376000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 9.965660e+08 (M/S)
+* A0                : 3.948580e+03
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	4
+	-1.234000e-02	-1.234000e-02	
+	-1.234000e-02	+1.234000e-02	
+	-3.918000e+01	-4.912000e+01	
+	-3.918000e+01	+4.912000e+01	
+CONSTANT	3.935021e+12
+
+
+
+

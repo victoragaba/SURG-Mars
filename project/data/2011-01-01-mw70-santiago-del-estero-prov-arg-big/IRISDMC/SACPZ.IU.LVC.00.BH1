@@ -1,0 +1,42 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): LVC
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BH1
+* CREATED           : 2026-04-24T16:38:47
+* START             : 2009-04-10T00:00:00
+* END               : 2011-01-07T21:08:00
+* DESCRIPTION       : Limon Verde, Chile
+* LATITUDE          : -22.612700
+* LONGITUDE         : -68.911100
+* ELEVATION         : 2930.0
+* DEPTH             : 30.0
+* DIP               : 90.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1H/VBB Seismometer
+* INSTGAIN          : 2.208100e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 3.704830e+09 (M/S)
+* A0                : 3.947400e+03
+* **********************************
+ZEROS	5
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-2.459960e-02	+0.000000e+00	
+	-2.459960e-02	+0.000000e+00	
+POLES	6
+	-1.357870e-02	-1.234000e-02	
+	-1.357870e-02	+1.234000e-02	
+	-1.932000e-02	+0.000000e+00	
+	-2.739450e-02	+0.000000e+00	
+	-3.918000e+01	-4.912000e+01	
+	-3.918000e+01	+4.912000e+01	
+CONSTANT	1.462445e+13
+
+
+
+

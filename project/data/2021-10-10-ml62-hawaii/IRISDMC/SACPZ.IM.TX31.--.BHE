@@ -1,0 +1,38 @@
+* **********************************
+* NETWORK   (KNETWK): IM
+* STATION    (KSTNM): TX31
+* LOCATION   (KHOLE): 
+* CHANNEL   (KCMPNM): BHE
+* CREATED           : 2026-03-28T21:13:45
+* START             : 2017-12-05T14:58:03
+* END               : 
+* DESCRIPTION       : TXAR Array, Lajitas, TX, USA
+* LATITUDE          : 29.334299
+* LONGITUDE         : -103.667702
+* ELEVATION         : 991.4
+* DEPTH             : 0.0
+* DIP               : 90.0
+* AZIMUTH           : 90.0
+* SAMPLE RATE       : 40.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : CMG3T_BRTR_120S_B=TX31=Gen=AIM24S_KS54K=TX31
+* INSTGAIN          : 9.680000e+03 (M/S**2)
+* COMMENT           : 
+* SENSITIVITY       : 2.537550e+09 (M/S**2)
+* A0                : 3.796160e+07
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	4
+	-5.235780e-02	+0.000000e+00	
+	-1.250000e+02	+3.650000e+02	
+	-1.250000e+02	-3.650000e+02	
+	-2.550000e+02	+0.000000e+00	
+CONSTANT	9.632946e+16
+
+
+
+

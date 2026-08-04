@@ -1,0 +1,36 @@
+* **************************************************
+* NETWORK     : NM
+* STATION     : TWAR
+* LOCATION    : 00
+* CHANNEL     : HHE
+* CREATED     : 2026-07-18T00:02:55.681403Z
+* START       : 2022-11-10T19:17:00.000000Z
+* END         : None
+* DESCRIPTION : Twist,AR
+* LATITUDE    : 35.361
+* LONGITUDE   : -90.56
+* ELEVATION   : 61.0
+* DEPTH       : 0.0
+* DIP (SEED)  : 0.0
+* AZIMUTH     : 90.0
+* SAMPLE RATE : 100.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : VLF DESIGNS
+* INSTGAIN    : 179.16 (m/s)
+* SENSITIVITY : 71664000.77266423 (m/s)
+* A0          : 418993.4150135786
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 4
+ -2.857600e+01 +2.020900e+01
+ -2.857600e+01 -2.020900e+01
+ -4.002390e+02 +1.994420e+02
+ -4.002390e+02 -1.994420e+02
+CONSTANT 3.002674e+13
+
+
+

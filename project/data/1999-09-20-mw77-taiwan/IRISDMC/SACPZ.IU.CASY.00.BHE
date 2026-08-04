@@ -1,0 +1,42 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): CASY
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHE
+* CREATED           : 2026-01-21T20:47:28
+* START             : 1999-04-24T06:30:00
+* END               : 2009-07-10T00:00:00
+* DESCRIPTION       : Casey, Antarctica
+* LATITUDE          : -66.279200
+* LONGITUDE         : 110.535400
+* ELEVATION         : 5.0
+* DEPTH             : 5.0
+* DIP               : 90.0
+* AZIMUTH           : 273.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1H/VBB Seismometer
+* INSTGAIN          : 2.286000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 9.546770e+08 (M/S)
+* A0                : 3.996980e+03
+* **********************************
+ZEROS	5
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-2.422510e-02	+0.000000e+00	
+	-2.422510e-02	+0.000000e+00	
+POLES	6
+	-7.247120e-03	-7.148000e-03	
+	-7.247120e-03	+7.148000e-03	
+	-3.848380e-02	+0.000000e+00	
+	-4.650930e-02	+0.000000e+00	
+	-3.918000e+01	-4.912000e+01	
+	-3.918000e+01	+4.912000e+01	
+CONSTANT	3.815825e+12
+
+
+
+

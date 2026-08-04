@@ -1,0 +1,43 @@
+* **********************************
+* NETWORK   (KNETWK): II
+* STATION    (KSTNM): ESK
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHZ
+* CREATED           : 2026-04-17T19:26:04
+* START             : 2017-01-29T00:00:00
+* END               : 2024-07-23T11:51:59
+* DESCRIPTION       : Eskdalemuir, Scotland, UK
+* LATITUDE          : 55.316700
+* LONGITUDE         : -3.205000
+* ELEVATION         : 242.0
+* DEPTH             : 0.0
+* DIP               : 0.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1 Seismometer with Metrozet E300
+* INSTGAIN          : 3.602380e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 5.704140e+09 (M/S)
+* A0                : 2.137835e+01
+* **********************************
+ZEROS	6
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-1.178097e+02	+0.000000e+00	
+	-1.525042e-01	+0.000000e+00	
+	-1.525042e-01	+0.000000e+00	
+POLES	6
+	-1.190368e-02	+1.207628e-02	
+	-1.190368e-02	-1.207628e-02	
+	-1.534655e-01	+0.000000e+00	
+	-1.534655e-01	+0.000000e+00	
+	-2.938696e+01	+4.060860e+01	
+	-2.938696e+01	-4.060860e+01	
+CONSTANT	1.219451e+11
+
+
+
+

@@ -1,0 +1,45 @@
+* **********************************
+* NETWORK   (KNETWK): II
+* STATION    (KSTNM): FFC
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BH1
+* CREATED           : 2026-04-17T19:26:04
+* START             : 2021-09-27T13:35:00
+* END               : 
+* DESCRIPTION       : Flin Flon, Canada
+* LATITUDE          : 54.725000
+* LONGITUDE         : -101.978300
+* ELEVATION         : 338.0
+* DEPTH             : 0.0
+* DIP               : 90.0
+* AZIMUTH           : 2.9
+* SAMPLE RATE       : 40.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Nanometrics Trillium 360 Seismometer - Vault
+* INSTGAIN          : 2.015200e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 3.369160e+09 (M/S)
+* A0                : 1.831065e+02
+* **********************************
+ZEROS	7
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-3.189163e+01	+0.000000e+00	
+	-4.779462e+02	+0.000000e+00	
+	-1.434401e+02	+0.000000e+00	
+	-3.099998e+03	+0.000000e+00	
+POLES	7
+	-1.229299e-02	+1.231498e-02	
+	-1.229299e-02	-1.231498e-02	
+	-3.338998e+01	+0.000000e+00	
+	-1.417832e+02	+0.000000e+00	
+	-1.800302e+02	+3.020692e+02	
+	-1.800302e+02	-3.020692e+02	
+	-2.119997e+03	+0.000000e+00	
+CONSTANT	6.169150e+11
+
+
+
+

@@ -1,0 +1,38 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): KEV
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHZ
+* CREATED           : 2026-04-24T16:38:44
+* START             : 2009-12-09T15:40:00
+* END               : 2012-06-18T00:00:00
+* DESCRIPTION       : Kevo, Finland
+* LATITUDE          : 69.756500
+* LONGITUDE         : 27.003500
+* ELEVATION         : 85.0
+* DEPTH             : 15.0
+* DIP               : 0.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Velocity Sensor
+* INSTGAIN          : 2.314000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 3.882290e+09 (M/S)
+* A0                : 6.021810e+03
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	4
+	-1.219360e-02	-1.174690e-02	
+	-1.219360e-02	+1.174690e-02	
+	-3.918400e+01	-6.694300e+01	
+	-3.918400e+01	+6.694300e+01	
+CONSTANT	2.337841e+13
+
+
+
+

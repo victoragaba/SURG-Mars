@@ -1,0 +1,38 @@
+* **************************************************
+* NETWORK     : OH
+* STATION     : SVWO
+* LOCATION    : 10
+* CHANNEL     : HHZ
+* CREATED     : 2026-07-18T00:02:58.367100Z
+* START       : 2021-09-01T00:00:00.000000Z
+* END         : None
+* DESCRIPTION : Spring Valley Wildlife Area
+* LATITUDE    : 39.58466
+* LONGITUDE   : -84.002617
+* ELEVATION   : 268.9
+* DEPTH       : 0.0
+* DIP (SEED)  : -90.0
+* AZIMUTH     : 0.0
+* SAMPLE RATE : 200.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : count
+* INSTTYPE    : Guralp 40T
+* INSTGAIN    : 1995.999974 (m/s)
+* SENSITIVITY : 817892575.942497 (m/s)
+* A0          : 909161956493.8542
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 6
+ -7.401592e-02 +7.401592e-02
+ -7.401592e-02 -7.401592e-02
+ -3.982383e-01 +8.506930e+02
+ -3.982383e-01 -8.506930e+02
+ -2.199115e+03 +0.000000e+00
+ -4.712389e+02 +0.000000e+00
+CONSTANT 7.435968e+20
+
+
+

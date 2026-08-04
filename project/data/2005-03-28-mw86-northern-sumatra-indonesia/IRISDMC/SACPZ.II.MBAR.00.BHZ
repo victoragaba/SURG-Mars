@@ -1,0 +1,40 @@
+* **********************************
+* NETWORK   (KNETWK): II
+* STATION    (KSTNM): MBAR
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHZ
+* CREATED           : 2026-01-26T18:29:31
+* START             : 2003-05-10T14:15:00
+* END               : 2007-03-06T23:59:59
+* DESCRIPTION       : Mbarara, Uganda
+* LATITUDE          : -.601900
+* LONGITUDE         : 30.738200
+* ELEVATION         : 1390.0
+* DEPTH             : 100.0
+* DIP               : 0.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Geotech KS-54000 Borehole Seismometer
+* INSTGAIN          : 2.294450e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 1.581480e+09 (M/S)
+* A0                : 2.888967e+06
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	6
+	-4.799989e-03	+0.000000e+00	
+	-7.582799e-02	+0.000000e+00	
+	-1.847256e+01	+1.884579e+01	
+	-1.847256e+01	-1.884579e+01	
+	-3.392455e+01	+0.000000e+00	
+	-1.188515e+02	+0.000000e+00	
+CONSTANT	4.568843e+15
+
+
+
+

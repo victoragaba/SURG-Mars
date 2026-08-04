@@ -1,0 +1,43 @@
+* **********************************
+* NETWORK   (KNETWK): II
+* STATION    (KSTNM): ALE
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHN
+* CREATED           : 2026-04-24T16:38:19
+* START             : 2003-08-16T00:00:00
+* END               : 2014-05-19T23:59:59
+* DESCRIPTION       : Alert, NU, Canada
+* LATITUDE          : 82.503300
+* LONGITUDE         : -62.350000
+* ELEVATION         : 60.0
+* DEPTH             : 0.0
+* DIP               : 90.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1H/VBB Seismometer
+* INSTGAIN          : 2.603850e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 2.684860e+09 (M/S)
+* A0                : 5.024318e+01
+* **********************************
+ZEROS	6
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-7.853982e+01	+0.000000e+00	
+	-1.525042e-01	+0.000000e+00	
+	-1.525042e-01	+0.000000e+00	
+POLES	6
+	-1.235877e-02	+1.237649e-02	
+	-1.235877e-02	-1.237649e-02	
+	-1.525111e-01	+9.414851e-03	
+	-1.525111e-01	-9.414851e-03	
+	-4.005688e+01	+4.840754e+01	
+	-4.005688e+01	-4.840754e+01	
+CONSTANT	1.348959e+11
+
+
+
+

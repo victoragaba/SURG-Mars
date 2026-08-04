@@ -1,0 +1,45 @@
+* **********************************
+* NETWORK   (KNETWK): II
+* STATION    (KSTNM): KURK
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHE
+* CREATED           : 2026-01-26T18:29:31
+* START             : 2003-12-07T00:00:00
+* END               : 2005-05-31T11:49:59
+* DESCRIPTION       : Kurchatov, Kazakhstan
+* LATITUDE          : 50.715400
+* LONGITUDE         : 78.620200
+* ELEVATION         : 184.0
+* DEPTH             : 25.0
+* DIP               : 90.0
+* AZIMUTH           : 90.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1H/VBB Seismometer
+* INSTGAIN          : 2.259980e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 1.574620e+09 (M/S)
+* A0                : 2.037673e+05
+* **********************************
+ZEROS	6
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-7.853982e+01	+0.000000e+00	
+	-1.525042e-01	+0.000000e+00	
+	-1.525042e-01	+0.000000e+00	
+POLES	8
+	-1.239038e-02	+1.235211e-02	
+	-1.239038e-02	-1.235211e-02	
+	-1.333022e-01	+0.000000e+00	
+	-1.742949e-01	+0.000000e+00	
+	-4.005688e+01	+4.840754e+01	
+	-4.005688e+01	-4.840754e+01	
+	-3.392455e+01	+0.000000e+00	
+	-1.188515e+02	+0.000000e+00	
+CONSTANT	3.208561e+14
+
+
+
+

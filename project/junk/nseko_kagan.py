@@ -6,7 +6,7 @@ import pandas as pd
 
 def F4R1(q1,q2,icode):
     """
-    q=q2*(i,j,k,1))/q1 
+    q=q2*(i,j,k,1))/q1
     first compute q2*(i,j,k,1) by using boxtest
     second, get q usin quatD which divides two quaternions
     """
@@ -24,7 +24,7 @@ def my_BOXTEST(q1,icode):
     """
     for Icode=0, finds the minimal rotation quaternion
     for Icode=N, N=1,3, finds the rotation quaternion q2=q1*(i,j,k,1)
-    Note my code is for a quaternion q3*k+q2*j+q1*i+q0
+    Note my code is for a quaternion q3*k+q2*j+q1*i+q00
     """
     q2 = np.zeros(4)
     quatt = np.zeros(4)
@@ -52,7 +52,7 @@ def SPHCOOR(quat):
     for the rotation quaternion quat, this function finds the rotation angle( angl) 
     of a counterclockwise rotation and spehrical coordinates (colatitude, theta, and azimuth)
     of the rotation pole (intersection of the axis with reference sphere); theta==0 corresponds
-    to the vector pointing down.    
+    to the vector pointing down.
     """
     #print(quat)
     #quat=np.array(quat)

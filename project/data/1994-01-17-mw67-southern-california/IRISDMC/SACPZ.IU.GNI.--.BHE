@@ -1,0 +1,38 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): GNI
+* LOCATION   (KHOLE): 
+* CHANNEL   (KCMPNM): BHE
+* CREATED           : 2026-05-06T21:47:11
+* START             : 1991-07-10T00:00:00
+* END               : 1996-11-18T00:00:00
+* DESCRIPTION       : Garni, Armenia
+* LATITUDE          : 40.148000
+* LONGITUDE         : 44.741000
+* ELEVATION         : 1509.0
+* DEPTH             : 100.0
+* DIP               : 90.0
+* AZIMUTH           : 90.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1H/VBB Seismometer
+* INSTGAIN          : 2.324010e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 9.747240e+08 (M/S)
+* A0                : 3.948580e+03
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	4
+	-1.234000e-02	-1.234000e-02	
+	-1.234000e-02	+1.234000e-02	
+	-3.918000e+01	-4.912000e+01	
+	-3.918000e+01	+4.912000e+01	
+CONSTANT	3.848776e+12
+
+
+
+

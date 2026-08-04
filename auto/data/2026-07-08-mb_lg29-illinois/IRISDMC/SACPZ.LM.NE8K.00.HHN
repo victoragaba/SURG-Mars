@@ -1,0 +1,37 @@
+* **************************************************
+* NETWORK     : LM
+* STATION     : NE8K
+* LOCATION    : 00
+* CHANNEL     : HHN
+* CREATED     : 2026-07-18T00:02:50.893846Z
+* START       : 2023-01-03T18:00:00.000000Z
+* END         : None
+* DESCRIPTION : Bath,MI
+* LATITUDE    : 42.80737
+* LONGITUDE   : -84.42187
+* ELEVATION   : 262.0
+* DEPTH       : 2.0
+* DIP (SEED)  : 0.0
+* AZIMUTH     : 0.0
+* SAMPLE RATE : 100.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : None
+* INSTGAIN    : 1514.2 (m/s)
+* SENSITIVITY : 431028000.0 (m/s)
+* A0          : 571508000.0
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 5
+ -4.442200e-02 +4.442200e-02
+ -4.442200e-02 -4.442200e-02
+ -5.026500e+02 +0.000000e+00
+ -1.005000e+03 +0.000000e+00
+ -1.131000e+03 +0.000000e+00
+CONSTANT 2.463360e+17
+
+
+

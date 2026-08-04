@@ -1,0 +1,40 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): RCBR
+* LOCATION   (KHOLE): 10
+* CHANNEL   (KCMPNM): BH1
+* CREATED           : 2026-04-24T17:26:54
+* START             : 2017-02-09T15:00:00
+* END               : 
+* DESCRIPTION       : Riachuelo, Brazil
+* LATITUDE          : -5.827400
+* LONGITUDE         : -35.901400
+* ELEVATION         : 370.0
+* DEPTH             : 30.0
+* DIP               : 90.0
+* AZIMUTH           : 243.0
+* SAMPLE RATE       : 40.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Guralp CMG3-T Seismometer (borehole)
+* INSTGAIN          : 1.958600e+04 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 3.285990e+10 (M/S)
+* A0                : 4.387860e+10
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	6
+	-3.700800e-02	-3.700800e-02	
+	-3.700800e-02	+3.700800e-02	
+	-1.888280e+02	-1.955400e+02	
+	-1.888280e+02	+1.955400e+02	
+	-2.592220e+02	-7.196450e+02	
+	-2.592220e+02	+7.196450e+02	
+CONSTANT	1.441846e+21
+
+
+
+

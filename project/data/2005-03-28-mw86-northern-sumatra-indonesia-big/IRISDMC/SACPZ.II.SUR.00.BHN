@@ -1,0 +1,45 @@
+* **********************************
+* NETWORK   (KNETWK): II
+* STATION    (KSTNM): SUR
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHN
+* CREATED           : 2026-04-24T19:25:22
+* START             : 2002-07-15T06:58:00
+* END               : 2007-06-14T07:59:59
+* DESCRIPTION       : Sutherland, South Africa
+* LATITUDE          : -32.379700
+* LONGITUDE         : 20.811700
+* ELEVATION         : 1770.0
+* DEPTH             : 0.0
+* DIP               : 90.0
+* AZIMUTH           : 358.6
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1H/VBB Seismometer
+* INSTGAIN          : 2.465570e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 1.683250e+09 (M/S)
+* A0                : 9.117954e+04
+* **********************************
+ZEROS	6
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-7.853982e+01	+0.000000e+00	
+	-1.525042e-01	+0.000000e+00	
+	-1.525042e-01	+0.000000e+00	
+POLES	8
+	-1.238491e-02	+1.235362e-02	
+	-1.238491e-02	-1.235362e-02	
+	-1.423374e-01	+0.000000e+00	
+	-1.639547e-01	+0.000000e+00	
+	-1.683894e+01	+3.858284e+01	
+	-1.683894e+01	-3.858284e+01	
+	-3.392455e+01	+0.000000e+00	
+	-1.188515e+02	+0.000000e+00	
+CONSTANT	1.534780e+14
+
+
+
+

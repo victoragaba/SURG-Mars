@@ -1,0 +1,43 @@
+* **********************************
+* NETWORK   (KNETWK): II
+* STATION    (KSTNM): ABPO
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BH2
+* CREATED           : 2026-04-24T16:38:18
+* START             : 2010-09-29T00:00:00
+* END               : 2011-09-30T23:59:59
+* DESCRIPTION       : Ambohimpanompo, Madagascar
+* LATITUDE          : -19.018000
+* LONGITUDE         : 47.229000
+* ELEVATION         : 1528.0
+* DEPTH             : 5.3
+* DIP               : 90.0
+* AZIMUTH           : 90.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1 Seismometer with Metrozet E300
+* INSTGAIN          : 2.101550e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 3.327670e+09 (M/S)
+* A0                : 8.347149e+01
+* **********************************
+ZEROS	6
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-7.853982e+01	+0.000000e+00	
+	-1.525042e-01	+0.000000e+00	
+	-1.525042e-01	+0.000000e+00	
+POLES	6
+	-1.238095e-02	+1.193340e-02	
+	-1.238095e-02	-1.193340e-02	
+	-1.518759e-01	+1.362509e-02	
+	-1.518759e-01	-1.362509e-02	
+	-4.823407e+01	+6.515475e+01	
+	-4.823407e+01	-6.515475e+01	
+CONSTANT	2.777656e+11
+
+
+
+

@@ -1,0 +1,42 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): SJG
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHZ
+* CREATED           : 2026-04-24T19:25:41
+* START             : 1999-04-19T16:00:00
+* END               : 2009-09-18T00:00:00
+* DESCRIPTION       : San Juan, Puerto Rico
+* LATITUDE          : 18.109100
+* LONGITUDE         : -66.150000
+* ELEVATION         : 420.0
+* DEPTH             : 0.0
+* DIP               : 0.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1V/VBB Seismometer
+* INSTGAIN          : 2.526000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 1.059090e+09 (M/S)
+* A0                : 3.951440e+03
+* **********************************
+ZEROS	5
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-1.353730e-02	+0.000000e+00	
+	-1.353730e-02	+0.000000e+00	
+POLES	6
+	-8.649930e-03	+0.000000e+00	
+	-1.298300e-02	-1.234000e-02	
+	-1.298300e-02	+1.234000e-02	
+	-2.095940e-02	+0.000000e+00	
+	-3.918000e+01	-4.912000e+01	
+	-3.918000e+01	+4.912000e+01	
+CONSTANT	4.184931e+12
+
+
+
+

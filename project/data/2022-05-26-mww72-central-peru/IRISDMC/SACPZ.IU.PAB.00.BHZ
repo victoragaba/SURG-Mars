@@ -1,0 +1,38 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): PAB
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHZ
+* CREATED           : 2026-03-19T20:14:52
+* START             : 2016-06-14T20:30:35
+* END               : 2022-08-03T00:00:00
+* DESCRIPTION       : San Pablo, Spain
+* LATITUDE          : 39.544600
+* LONGITUDE         : -4.349900
+* ELEVATION         : 950.0
+* DEPTH             : 0.0
+* DIP               : 0.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1VBB w/E300
+* INSTGAIN          : 3.384000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 5.677460e+09 (M/S)
+* A0                : 5.030660e+03
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	4
+	-1.222500e-02	-1.192450e-02	
+	-1.222500e-02	+1.192450e-02	
+	-3.913440e+01	-5.912700e+01	
+	-3.913440e+01	+5.912700e+01	
+CONSTANT	2.856137e+13
+
+
+
+

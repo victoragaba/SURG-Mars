@@ -1,0 +1,39 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): SDV
+* LOCATION   (KHOLE): 10
+* CHANNEL   (KCMPNM): BHZ
+* CREATED           : 2026-04-24T16:38:56
+* START             : 2010-01-17T00:00:00
+* END               : 2015-01-28T18:00:00
+* DESCRIPTION       : Santo Domingo, Venezuela
+* LATITUDE          : 8.883900
+* LONGITUDE         : -70.634000
+* ELEVATION         : 1589.0
+* DEPTH             : 31.0
+* DIP               : 0.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 40.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Guralp CMG3-T Seismometer
+* INSTGAIN          : 1.949130e+04 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 3.270110e+10 (M/S)
+* A0                : 7.239820e+07
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	5
+	-3.600140e-02	-3.571100e-02	
+	-3.600140e-02	+3.571100e-02	
+	-1.979000e+02	-1.979000e+02	
+	-1.979000e+02	+1.979000e+02	
+	-9.111000e+02	+0.000000e+00	
+CONSTANT	2.367501e+18
+
+
+
+

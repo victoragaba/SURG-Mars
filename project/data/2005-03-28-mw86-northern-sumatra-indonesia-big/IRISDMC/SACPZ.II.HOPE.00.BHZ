@@ -1,0 +1,45 @@
+* **********************************
+* NETWORK   (KNETWK): II
+* STATION    (KSTNM): HOPE
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHZ
+* CREATED           : 2026-04-24T19:25:16
+* START             : 2003-04-08T17:30:00
+* END               : 2005-10-14T01:29:59
+* DESCRIPTION       : Hope Point, South Georgia Island
+* LATITUDE          : -54.283600
+* LONGITUDE         : -36.487900
+* ELEVATION         : 20.0
+* DEPTH             : 0.0
+* DIP               : 0.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1V/VBB Seismometer
+* INSTGAIN          : 2.521920e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 1.765760e+09 (M/S)
+* A0                : 2.029356e+05
+* **********************************
+ZEROS	6
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-7.853982e+01	+0.000000e+00	
+	-1.525042e-01	+0.000000e+00	
+	-1.525042e-01	+0.000000e+00	
+POLES	8
+	-1.282417e-02	+1.181333e-02	
+	-1.282417e-02	-1.181333e-02	
+	-1.529591e-01	+4.838807e-03	
+	-1.529591e-01	-4.838807e-03	
+	-4.005688e+01	+4.840754e+01	
+	-4.005688e+01	-4.840754e+01	
+	-3.392455e+01	+0.000000e+00	
+	-1.188515e+02	+0.000000e+00	
+CONSTANT	3.583355e+14
+
+
+
+

@@ -1,0 +1,45 @@
+* **********************************
+* NETWORK   (KNETWK): II
+* STATION    (KSTNM): ARU
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHE
+* CREATED           : 2026-01-21T20:47:27
+* START             : 1999-08-02T00:00:00
+* END               : 2003-04-22T07:38:59
+* DESCRIPTION       : Arti, Russia
+* LATITUDE          : 56.430200
+* LONGITUDE         : 58.562500
+* ELEVATION         : 250.0
+* DEPTH             : 0.0
+* DIP               : 90.0
+* AZIMUTH           : 90.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1H/VBB Seismometer
+* INSTGAIN          : 2.418000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 3.385480e+09 (M/S)
+* A0                : 2.027384e+05
+* **********************************
+ZEROS	6
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-7.853982e+01	+0.000000e+00	
+	-1.525042e-01	+0.000000e+00	
+	-1.525042e-01	+0.000000e+00	
+POLES	8
+	-1.228878e-02	+1.233081e-02	
+	-1.228878e-02	-1.233081e-02	
+	-1.527229e-01	+6.835100e-03	
+	-1.527229e-01	-6.835100e-03	
+	-4.005688e+01	+4.840754e+01	
+	-4.005688e+01	-4.840754e+01	
+	-3.392455e+01	+0.000000e+00	
+	-1.188515e+02	+0.000000e+00	
+CONSTANT	6.863667e+14
+
+
+
+

@@ -1,0 +1,38 @@
+* **********************************
+* NETWORK   (KNETWK): IC
+* STATION    (KSTNM): ENH
+* LOCATION   (KHOLE): 60
+* CHANNEL   (KCMPNM): BH2
+* CREATED           : 2026-04-17T19:25:57
+* START             : 2016-04-14T00:00:00
+* END               : 
+* DESCRIPTION       : Enshi, Hubei Province, China
+* LATITUDE          : 30.276200
+* LONGITUDE         : 109.494740
+* ELEVATION         : 454.0
+* DEPTH             : 9.0
+* DIP               : 90.0
+* AZIMUTH           : 90.0
+* SAMPLE RATE       : 40.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : 
+* INSTGAIN          : 2.407000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 1.009570e+09 (M/S)
+* A0                : 6.783250e+03
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	4
+	-1.219360e-02	-1.174690e-02	
+	-1.219360e-02	+1.174690e-02	
+	-3.592310e+01	-7.407490e+01	
+	-3.592310e+01	+7.407490e+01	
+CONSTANT	6.848166e+12
+
+
+
+

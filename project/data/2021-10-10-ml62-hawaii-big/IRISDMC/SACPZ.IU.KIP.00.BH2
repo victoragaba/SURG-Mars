@@ -1,0 +1,38 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): KIP
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BH2
+* CREATED           : 2026-04-17T19:26:25
+* START             : 2021-10-08T16:45:00
+* END               : 2022-03-22T20:00:00
+* DESCRIPTION       : Kipapa, Hawaii, USA
+* LATITUDE          : 21.420000
+* LONGITUDE         : -158.011200
+* ELEVATION         : 77.0
+* DEPTH             : 33.0
+* DIP               : 90.0
+* AZIMUTH           : 87.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1VBB w/E300
+* INSTGAIN          : 2.047000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 8.585800e+08 (M/S)
+* A0                : 1.014350e+04
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	4
+	-1.244080e-02	-1.148970e-02	
+	-1.244080e-02	+1.148970e-02	
+	-3.550900e+01	-9.416160e+01	
+	-3.550900e+01	+9.416160e+01	
+CONSTANT	8.709006e+12
+
+
+
+

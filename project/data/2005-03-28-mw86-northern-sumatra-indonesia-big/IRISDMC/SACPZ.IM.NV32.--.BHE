@@ -1,0 +1,30 @@
+* **********************************
+* NETWORK   (KNETWK): IM
+* STATION    (KSTNM): NV32
+* LOCATION   (KHOLE): 
+* CHANNEL   (KCMPNM): BHE
+* CREATED           : 2026-04-24T19:25:24
+* START             : 1970-01-24T00:00:00
+* END               : 2008-01-08T17:59:00
+* DESCRIPTION       : NVAR Array, Mina, NV, USA
+* LATITUDE          : 38.334301
+* LONGITUDE         : -118.299500
+* ELEVATION         : 1829.0
+* DEPTH             : 52.0
+* DIP               : 90.0
+* AZIMUTH           : 90.0
+* SAMPLE RATE       : 40.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : KS5400
+* INSTGAIN          : 
+* COMMENT           : 
+* SENSITIVITY       : 1.560000e+11 (M)
+* A0                : 0.000000e+00
+* **********************************
+ZEROS	0
+POLES	0
+
+
+
+

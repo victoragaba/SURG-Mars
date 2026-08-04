@@ -1,0 +1,43 @@
+* **********************************
+* NETWORK   (KNETWK): II
+* STATION    (KSTNM): OBN
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BH1
+* CREATED           : 2026-04-17T19:26:09
+* START             : 2020-03-19T12:00:00
+* END               : 2022-03-01T11:20:59
+* DESCRIPTION       : Obninsk, Russia
+* LATITUDE          : 55.114600
+* LONGITUDE         : 36.567400
+* ELEVATION         : 160.0
+* DEPTH             : 30.0
+* DIP               : 90.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1H/VBB Seismometer
+* INSTGAIN          : 2.441320e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 3.865670e+09 (M/S)
+* A0                : 1.438403e+01
+* **********************************
+ZEROS	6
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-1.767146e+02	+0.000000e+00	
+	-3.106526e-01	+0.000000e+00	
+	-3.106526e-01	+0.000000e+00	
+POLES	6
+	-1.287456e-02	+1.092539e-02	
+	-1.287456e-02	-1.092539e-02	
+	-3.155466e-01	+2.429507e-03	
+	-3.155466e-01	-2.429507e-03	
+	-3.051071e+01	+3.962981e+01	
+	-3.051071e+01	-3.962981e+01	
+CONSTANT	5.560393e+10
+
+
+
+

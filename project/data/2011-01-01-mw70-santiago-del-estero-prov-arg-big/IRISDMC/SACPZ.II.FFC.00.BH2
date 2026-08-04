@@ -1,0 +1,43 @@
+* **********************************
+* NETWORK   (KNETWK): II
+* STATION    (KSTNM): FFC
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BH2
+* CREATED           : 2026-04-24T16:38:23
+* START             : 2010-01-29T00:00:00
+* END               : 2011-01-19T23:59:59
+* DESCRIPTION       : Flin Flon, Canada
+* LATITUDE          : 54.725000
+* LONGITUDE         : -101.978300
+* ELEVATION         : 338.0
+* DEPTH             : 0.0
+* DIP               : 90.0
+* AZIMUTH           : 88.3
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1 Seismometer with Metrozet E300
+* INSTGAIN          : 2.083020e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 3.298330e+09 (M/S)
+* A0                : 1.151645e+01
+* **********************************
+ZEROS	6
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-7.853982e+01	+0.000000e+00	
+	-1.525042e-01	+0.000000e+00	
+	-1.525042e-01	+0.000000e+00	
+POLES	6
+	-1.238347e-02	+1.197028e-02	
+	-1.238347e-02	-1.197028e-02	
+	-1.510698e-01	+2.554787e-02	
+	-1.510698e-01	-2.554787e-02	
+	-1.923930e+01	+2.325011e+01	
+	-1.923930e+01	-2.325011e+01	
+CONSTANT	3.798505e+10
+
+
+
+

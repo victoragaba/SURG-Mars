@@ -1,0 +1,47 @@
+* **********************************
+* NETWORK   (KNETWK): II
+* STATION    (KSTNM): WRAB
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BH2
+* CREATED           : 2026-04-24T17:26:33
+* START             : 2020-10-14T06:15:00
+* END               : 
+* DESCRIPTION       : Tennant Creek, NT, Australia
+* LATITUDE          : -19.933600
+* LONGITUDE         : 134.360000
+* ELEVATION         : 366.0
+* DEPTH             : 39.6
+* DIP               : 90.0
+* AZIMUTH           : 87.6
+* SAMPLE RATE       : 40.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-6 Seismometer
+* INSTGAIN          : 1.219800e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 2.018980e+09 (M/S)
+* A0                : 1.367988e-04
+* **********************************
+ZEROS	9
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-1.570796e+01	+0.000000e+00	
+	-1.570796e+01	+0.000000e+00	
+	-9.613274e+02	+0.000000e+00	
+	-6.050707e+02	+0.000000e+00	
+	-5.215044e+02	-9.613274e+02	
+	-5.215044e+02	+9.613274e+02	
+POLES	7
+	-1.184280e-02	+1.271151e-02	
+	-1.184280e-02	-1.271151e-02	
+	-1.604726e+01	+0.000000e+00	
+	-1.604726e+01	+0.000000e+00	
+	-4.049155e+02	-1.606516e+02	
+	-4.049155e+02	+1.606516e+02	
+	-4.806769e+02	+0.000000e+00	
+CONSTANT	2.761940e+05
+
+
+
+

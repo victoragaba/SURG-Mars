@@ -1,0 +1,41 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): SSPA
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BH1
+* CREATED           : 2026-03-17T22:21:57
+* START             : 2010-09-27T00:00:00
+* END               : 2012-06-21T00:00:00
+* DESCRIPTION       : Standing Stone, Pennsylvania
+* LATITUDE          : 40.635800
+* LONGITUDE         : -77.887600
+* ELEVATION         : 170.0
+* DEPTH             : 100.0
+* DIP               : 90.0
+* AZIMUTH           : 170.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : 
+* INSTGAIN          : 2.390000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 4.009800e+09 (M/S)
+* A0                : 1.340050e+05
+* **********************************
+ZEROS	4
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	6
+	-2.619000e-03	+0.000000e+00	
+	-1.116000e-02	-1.334000e-02	
+	-1.116000e-02	+1.334000e-02	
+	-3.914800e+01	-2.442000e+01	
+	-3.914800e+01	+2.442000e+01	
+	-6.313400e+01	+0.000000e+00	
+CONSTANT	5.373332e+14
+
+
+
+

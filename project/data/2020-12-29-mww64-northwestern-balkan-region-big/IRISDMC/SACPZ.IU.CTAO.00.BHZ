@@ -1,0 +1,47 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): CTAO
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHZ
+* CREATED           : 2026-04-24T17:26:39
+* START             : 2019-05-17T00:00:00
+* END               : 
+* DESCRIPTION       : Charters Towers, Australia
+* LATITUDE          : -20.087650
+* LONGITUDE         : 146.249980
+* ELEVATION         : 366.0
+* DEPTH             : 1.0
+* DIP               : 0.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 40.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-6A VBB Seismometer
+* INSTGAIN          : 1.183000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 1.984750e+09 (M/S)
+* A0                : 4.788760e-20
+* **********************************
+ZEROS	9
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-4.573510e+00	+0.000000e+00	
+	-4.573510e+00	+0.000000e+00	
+	-4.967370e+06	+0.000000e+00	
+	-6.488510e-01	-7.716220e+06	
+	-6.488510e-01	+7.716220e+06	
+	-1.053130e+07	+0.000000e+00	
+POLES	7
+	-1.237260e-02	-1.220940e-02	
+	-1.237260e-02	+1.220940e-02	
+	-4.736960e+00	+0.000000e+00	
+	-4.736960e+00	+0.000000e+00	
+	-3.221110e+02	+0.000000e+00	
+	-4.129470e+02	-5.108440e+02	
+	-4.129470e+02	+5.108440e+02	
+CONSTANT	9.504491e-11
+
+
+
+

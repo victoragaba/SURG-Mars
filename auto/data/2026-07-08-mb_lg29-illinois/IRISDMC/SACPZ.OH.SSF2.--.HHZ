@@ -1,0 +1,38 @@
+* **************************************************
+* NETWORK     : OH
+* STATION     : SSF2
+* LOCATION    : 
+* CHANNEL     : HHZ
+* CREATED     : 2026-07-18T00:02:58.356564Z
+* START       : 2020-10-21T00:00:00.000000Z
+* END         : None
+* DESCRIPTION : Shawnee State Forest
+* LATITUDE    : 38.6886
+* LONGITUDE   : -83.1276
+* ELEVATION   : 324.0
+* DEPTH       : 0.0
+* DIP (SEED)  : -90.0
+* AZIMUTH     : 0.0
+* SAMPLE RATE : 100.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : None
+* INSTGAIN    : 2400.0 (m/s)
+* SENSITIVITY : 2238530000.0 (m/s)
+* A0          : 909260000000.0
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 6
+ -1.480000e-01 +1.480000e-01
+ -1.480000e-01 -1.480000e-01
+ -3.919600e+02 +8.506900e+02
+ -3.919600e+02 -8.506900e+02
+ -4.712400e+02 +0.000000e+00
+ -2.199100e+03 +0.000000e+00
+CONSTANT 2.035406e+21
+
+
+

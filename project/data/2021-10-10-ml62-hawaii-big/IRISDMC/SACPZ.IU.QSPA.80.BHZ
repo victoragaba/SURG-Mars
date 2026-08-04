@@ -1,0 +1,38 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): QSPA
+* LOCATION   (KHOLE): 80
+* CHANNEL   (KCMPNM): BHZ
+* CREATED           : 2026-04-17T19:26:33
+* START             : 2020-01-19T00:00:00
+* END               : 2023-01-31T02:00:00
+* DESCRIPTION       : South Pole Remote Earth Science Observatory (Quiet Zone)
+* LATITUDE          : -89.928900
+* LONGITUDE         : 144.438200
+* ELEVATION         : 2847.0
+* DEPTH             : 3.0
+* DIP               : 0.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : 
+* INSTGAIN          : 2.713000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 1.137930e+09 (M/S)
+* A0                : 6.783250e+03
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	4
+	-1.219360e-02	-1.174690e-02	
+	-1.219360e-02	+1.174690e-02	
+	-3.592310e+01	-7.407490e+01	
+	-3.592310e+01	+7.407490e+01	
+CONSTANT	7.718864e+12
+
+
+
+

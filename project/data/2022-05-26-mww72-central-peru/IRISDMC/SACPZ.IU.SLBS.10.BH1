@@ -1,0 +1,38 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): SLBS
+* LOCATION   (KHOLE): 10
+* CHANNEL   (KCMPNM): BH1
+* CREATED           : 2026-03-19T20:14:56
+* START             : 2022-02-09T16:15:00
+* END               : 
+* DESCRIPTION       : Sierra la Laguna Baja California Sur, Mexico
+* LATITUDE          : 23.685800
+* LONGITUDE         : -109.944300
+* ELEVATION         : 825.0
+* DEPTH             : 0.0
+* DIP               : 90.0
+* AZIMUTH           : 2.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1VBB w/E300
+* INSTGAIN          : 5.150000e+02 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 8.640850e+08 (M/S)
+* A0                : 3.947840e+03
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	4
+	-1.234000e-02	-1.234000e-02	
+	-1.234000e-02	+1.234000e-02	
+	-3.918000e+01	-4.912000e+01	
+	-3.918000e+01	+4.912000e+01	
+CONSTANT	3.411269e+12
+
+
+
+

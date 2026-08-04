@@ -1,0 +1,38 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): KBS
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHE
+* CREATED           : 2026-04-24T19:25:31
+* START             : 1999-04-15T00:00:00
+* END               : 2009-09-28T00:00:00
+* DESCRIPTION       : Ny-Alesund, Spitzbergen, Norway
+* LATITUDE          : 78.915400
+* LONGITUDE         : 11.938500
+* ELEVATION         : 87.0
+* DEPTH             : 3.0
+* DIP               : 90.0
+* AZIMUTH           : 90.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1H/VBB Seismometer
+* INSTGAIN          : 2.218000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 9.302410e+08 (M/S)
+* A0                : 3.948580e+03
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	4
+	-1.234000e-02	-1.234000e-02	
+	-1.234000e-02	+1.234000e-02	
+	-3.918000e+01	-4.912000e+01	
+	-3.918000e+01	+4.912000e+01	
+CONSTANT	3.673131e+12
+
+
+
+

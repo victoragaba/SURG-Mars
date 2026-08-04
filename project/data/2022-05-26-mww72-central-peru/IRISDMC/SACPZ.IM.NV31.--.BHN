@@ -1,0 +1,39 @@
+* **********************************
+* NETWORK   (KNETWK): IM
+* STATION    (KSTNM): NV31
+* LOCATION   (KHOLE): 
+* CHANNEL   (KCMPNM): BHN
+* CREATED           : 2026-03-19T20:14:48
+* START             : 2011-06-15T00:00:00
+* END               : 
+* DESCRIPTION       : NVAR Array Site 31, Mina, NV, USA
+* LATITUDE          : 38.432800
+* LONGITUDE         : -118.155403
+* ELEVATION         : 1509.0
+* DEPTH             : 0.0
+* DIP               : 90.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 40.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : CMG3T_NVAR_754S=NV31=Gen=SMART24=NV31
+* INSTGAIN          : 1.979900e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 1.208800e+09 (M/S)
+* A0                : 2.314280e+06
+* **********************************
+ZEROS	3
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	5
+	-5.890000e-03	+5.890000e-03	
+	-5.890000e-03	-5.890000e-03	
+	-1.800000e+02	+0.000000e+00	
+	-1.600000e+02	+0.000000e+00	
+	-8.000000e+01	+0.000000e+00	
+CONSTANT	2.797502e+15
+
+
+
+

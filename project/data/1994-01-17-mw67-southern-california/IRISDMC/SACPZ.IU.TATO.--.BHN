@@ -1,0 +1,41 @@
+* **********************************
+* NETWORK   (KNETWK): IU
+* STATION    (KSTNM): TATO
+* LOCATION   (KHOLE): 
+* CHANNEL   (KCMPNM): BHN
+* CREATED           : 2026-05-06T21:47:15
+* START             : 1993-09-25T03:00:00
+* END               : 1996-03-25T00:05:00
+* DESCRIPTION       : Taipei, Taiwan
+* LATITUDE          : 24.973500
+* LONGITUDE         : 121.497100
+* ELEVATION         : 70.0
+* DEPTH             : 90.0
+* DIP               : 90.0
+* AZIMUTH           : 0.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Geotech KS-36000-I Borehole Seismometer
+* INSTGAIN          : 2.400000e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 9.907810e+08 (M/S)
+* A0                : 6.269520e+04
+* **********************************
+ZEROS	4
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+POLES	6
+	-4.219000e-03	+0.000000e+00	
+	-1.234000e-02	-1.234000e-02	
+	-1.234000e-02	+1.234000e-02	
+	-1.843000e+01	-1.891000e+01	
+	-1.843000e+01	+1.891000e+01	
+	-8.985000e+01	+0.000000e+00	
+CONSTANT	6.211721e+13
+
+
+
+

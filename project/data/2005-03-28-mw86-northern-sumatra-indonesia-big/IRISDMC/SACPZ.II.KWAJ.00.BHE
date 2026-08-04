@@ -1,0 +1,45 @@
+* **********************************
+* NETWORK   (KNETWK): II
+* STATION    (KSTNM): KWAJ
+* LOCATION   (KHOLE): 00
+* CHANNEL   (KCMPNM): BHE
+* CREATED           : 2026-04-24T19:25:18
+* START             : 2003-01-06T22:38:00
+* END               : 2007-05-07T23:59:59
+* DESCRIPTION       : Kwajalein Atoll, Pacific Ocean
+* LATITUDE          : 8.801900
+* LONGITUDE         : 167.613000
+* ELEVATION         : 0.0
+* DEPTH             : 0.0
+* DIP               : 90.0
+* AZIMUTH           : 90.0
+* SAMPLE RATE       : 20.0
+* INPUT UNIT        : M
+* OUTPUT UNIT       : COUNTS
+* INSTTYPE          : Streckeisen STS-1H/VBB Seismometer
+* INSTGAIN          : 2.949320e+03 (M/S)
+* COMMENT           : 
+* SENSITIVITY       : 2.042820e+09 (M/S)
+* A0                : 2.047622e+05
+* **********************************
+ZEROS	6
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	+0.000000e+00	+0.000000e+00	
+	-7.853982e+01	+0.000000e+00	
+	-1.525042e-01	+0.000000e+00	
+	-1.525042e-01	+0.000000e+00	
+POLES	8
+	-1.241953e-02	+1.227967e-02	
+	-1.241953e-02	-1.227967e-02	
+	-1.275738e-01	+0.000000e+00	
+	-1.825642e-01	+0.000000e+00	
+	-4.005688e+01	+4.840754e+01	
+	-4.005688e+01	-4.840754e+01	
+	-3.392455e+01	+0.000000e+00	
+	-1.188515e+02	+0.000000e+00	
+CONSTANT	4.182924e+14
+
+
+
+

@@ -1,0 +1,38 @@
+* **************************************************
+* NETWORK     : NM
+* STATION     : X602
+* LOCATION    : 00
+* CHANNEL     : HHN
+* CREATED     : 2026-07-18T00:02:56.027493Z
+* START       : 2020-11-04T17:43:00.000000Z
+* END         : None
+* DESCRIPTION : Maynard AR temp station X602
+* LATITUDE    : 36.4405
+* LONGITUDE   : -90.843
+* ELEVATION   : 117.0
+* DEPTH       : 0.0
+* DIP (SEED)  : 0.0
+* AZIMUTH     : 0.0
+* SAMPLE RATE : 100.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : GURALP
+* INSTGAIN    : 4000.0 (m/s)
+* SENSITIVITY : 3149608000.0 (m/s)
+* A0          : 909214242438.6923
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 6
+ -1.486000e-01 +1.486000e-01
+ -1.486000e-01 -1.486000e-01
+ -3.919600e+02 +8.506900e+02
+ -3.919600e+02 -8.506900e+02
+ -4.712400e+02 +0.000000e+00
+ -2.199100e+03 +0.000000e+00
+CONSTANT 2.863668e+21
+
+
+

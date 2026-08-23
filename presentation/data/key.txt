@@ -1,0 +1,2 @@
+2021-10-10-ml62-hawaii = earthquake with # staitions
+2021-10-10-ml62-hawaii-big = earthquake with ## stations

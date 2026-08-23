@@ -1,0 +1,2 @@
+hawaii1 = multistation inference
+hawaii2 = optionally enhanced with amplitude information

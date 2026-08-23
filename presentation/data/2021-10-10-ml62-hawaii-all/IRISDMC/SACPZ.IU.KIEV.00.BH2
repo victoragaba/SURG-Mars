@@ -1,0 +1,36 @@
+* **************************************************
+* NETWORK     : IU
+* STATION     : KIEV
+* LOCATION    : 00
+* CHANNEL     : BH2
+* CREATED     : 2026-08-23T12:34:30.820944Z
+* START       : 2018-03-31T10:00:00.000000Z
+* END         : None
+* DESCRIPTION : Kiev, Ukraine
+* LATITUDE    : 50.7012
+* LONGITUDE   : 29.2242
+* ELEVATION   : 180.0
+* DEPTH       : 0.0
+* DIP (SEED)  : 0.0
+* AZIMUTH     : 91.0
+* SAMPLE RATE : 20.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : None
+* INSTGAIN    : 1985.0 (m/s)
+* SENSITIVITY : 3330320000.0 (m/s)
+* A0          : 10468.9
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 4
+ -1.241290e-02 -1.160910e-02
+ -1.241290e-02 +1.160910e-02
+ -3.658070e+01 -9.547880e+01
+ -3.658070e+01 +9.547880e+01
+CONSTANT 3.486479e+13
+
+
+

@@ -1,0 +1,36 @@
+* **************************************************
+* NETWORK     : IU
+* STATION     : KONO
+* LOCATION    : 00
+* CHANNEL     : BH2
+* CREATED     : 2026-08-23T12:34:31.180866Z
+* START       : 2011-01-10T20:14:59.000000Z
+* END         : 2022-10-31T10:00:00.000000Z
+* DESCRIPTION : Kongsberg, Norway
+* LATITUDE    : 59.6491
+* LONGITUDE   : 9.5982
+* ELEVATION   : -124.0
+* DEPTH       : 340.0
+* DIP (SEED)  : 0.0
+* AZIMUTH     : 90.0
+* SAMPLE RATE : 20.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : None
+* INSTGAIN    : 2695.5 (m/s)
+* SENSITIVITY : 4522350000.0 (m/s)
+* A0          : 5672.1
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 4
+ -1.228600e-02 -1.204420e-02
+ -1.228600e-02 +1.204420e-02
+ -3.902730e+01 -6.438840e+01
+ -3.902730e+01 +6.438840e+01
+CONSTANT 2.565122e+13
+
+
+

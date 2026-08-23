@@ -1,0 +1,36 @@
+* **************************************************
+* NETWORK     : IC
+* STATION     : ENH
+* LOCATION    : 00
+* CHANNEL     : BHZ
+* CREATED     : 2026-08-23T12:34:25.737713Z
+* START       : 2017-07-29T00:00:00.000000Z
+* END         : 2025-04-15T08:00:00.000000Z
+* DESCRIPTION : Enshi, Hubei Province, China
+* LATITUDE    : 30.2762
+* LONGITUDE   : 109.49474
+* ELEVATION   : 454.0
+* DEPTH       : 9.0
+* DIP (SEED)  : -90.0
+* AZIMUTH     : 0.0
+* SAMPLE RATE : 20.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : STRECKEISEN
+* INSTGAIN    : 2533.0 (m/s)
+* SENSITIVITY : 4249720000.0 (m/s)
+* A0          : 6783.25
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 4
+ -1.219360e-02 -1.174690e-02
+ -1.219360e-02 +1.174690e-02
+ -3.592310e+01 -7.407490e+01
+ -3.592310e+01 +7.407490e+01
+CONSTANT 2.882691e+13
+
+
+

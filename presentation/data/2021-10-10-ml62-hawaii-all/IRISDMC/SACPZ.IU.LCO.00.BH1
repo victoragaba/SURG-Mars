@@ -1,0 +1,36 @@
+* **************************************************
+* NETWORK     : IU
+* STATION     : LCO
+* LOCATION    : 00
+* CHANNEL     : BH1
+* CREATED     : 2026-08-23T12:34:31.190160Z
+* START       : 2014-08-04T00:00:00.000000Z
+* END         : None
+* DESCRIPTION : Las Campanas Astronomical Observatory, Chile
+* LATITUDE    : -29.011
+* LONGITUDE   : -70.7005
+* ELEVATION   : 2274.0
+* DEPTH       : 0.0
+* DIP (SEED)  : 0.0
+* AZIMUTH     : 0.0
+* SAMPLE RATE : 20.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : None
+* INSTGAIN    : 2609.0 (m/s)
+* SENSITIVITY : 4377220000.0 (m/s)
+* A0          : 5935.8
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 4
+ -1.248470e-02 -1.164230e-02
+ -1.248470e-02 +1.164230e-02
+ -3.890120e+01 -6.643700e+01
+ -3.890120e+01 +6.643700e+01
+CONSTANT 2.598230e+13
+
+
+

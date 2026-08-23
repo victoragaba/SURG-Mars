@@ -1,0 +1,36 @@
+* **************************************************
+* NETWORK     : IU
+* STATION     : CASY
+* LOCATION    : 00
+* CHANNEL     : BHZ
+* CREATED     : 2026-08-23T12:34:29.512621Z
+* START       : 2012-01-20T00:00:00.000000Z
+* END         : None
+* DESCRIPTION : Casey, Antarctica
+* LATITUDE    : -66.2792
+* LONGITUDE   : 110.5354
+* ELEVATION   : 5.0
+* DEPTH       : 5.0
+* DIP (SEED)  : -90.0
+* AZIMUTH     : 0.0
+* SAMPLE RATE : 20.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : None
+* INSTGAIN    : 2508.0 (m/s)
+* SENSITIVITY : 4207770000.0 (m/s)
+* A0          : 9800.38
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 4
+ -1.230410e-02 -1.181020e-02
+ -1.230410e-02 +1.181020e-02
+ -4.049490e+01 -9.028570e+01
+ -4.049490e+01 +9.028570e+01
+CONSTANT 4.123774e+13
+
+
+

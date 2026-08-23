@@ -1,0 +1,36 @@
+* **************************************************
+* NETWORK     : IC
+* STATION     : KMI
+* LOCATION    : 00
+* CHANNEL     : BH2
+* CREATED     : 2026-08-23T12:34:25.751168Z
+* START       : 2020-10-13T00:00:00.000000Z
+* END         : None
+* DESCRIPTION : Kunming, Yunnan Province, China
+* LATITUDE    : 25.14825
+* LONGITUDE   : 102.74748
+* ELEVATION   : 1940.0
+* DEPTH       : 35.0
+* DIP (SEED)  : 0.0
+* AZIMUTH     : 90.0
+* SAMPLE RATE : 20.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : STRECKEISEN
+* INSTGAIN    : 2650.0 (m/s)
+* SENSITIVITY : 4446010000.0 (m/s)
+* A0          : 6783.25
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 4
+ -1.219360e-02 -1.174690e-02
+ -1.219360e-02 +1.174690e-02
+ -3.592310e+01 -7.407490e+01
+ -3.592310e+01 +7.407490e+01
+CONSTANT 3.015840e+13
+
+
+

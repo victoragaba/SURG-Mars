@@ -1,0 +1,36 @@
+* **************************************************
+* NETWORK     : IU
+* STATION     : TIXI
+* LOCATION    : 00
+* CHANNEL     : BHZ
+* CREATED     : 2026-08-23T12:34:33.325471Z
+* START       : 2019-07-19T00:00:00.000000Z
+* END         : 2023-05-18T00:00:00.000000Z
+* DESCRIPTION : Tiksi, Russia
+* LATITUDE    : 71.6341
+* LONGITUDE   : 128.8667
+* ELEVATION   : 40.0
+* DEPTH       : 0.0
+* DIP (SEED)  : 90.0
+* AZIMUTH     : 0.0
+* SAMPLE RATE : 20.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : None
+* INSTGAIN    : 2398.0 (m/s)
+* SENSITIVITY : 4023450000.0 (m/s)
+* A0          : 3947.84
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 4
+ -1.234000e-02 -1.234000e-02
+ -1.234000e-02 +1.234000e-02
+ -3.918000e+01 -4.912000e+01
+ -3.918000e+01 +4.912000e+01
+CONSTANT 1.588394e+13
+
+
+

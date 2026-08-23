@@ -1,0 +1,36 @@
+* **************************************************
+* NETWORK     : IU
+* STATION     : ULN
+* LOCATION    : 00
+* CHANNEL     : BHZ
+* CREATED     : 2026-08-23T12:34:33.558774Z
+* START       : 2013-09-29T00:00:00.000000Z
+* END         : None
+* DESCRIPTION : Ulaanbaatar, Mongolia
+* LATITUDE    : 47.8651
+* LONGITUDE   : 107.0532
+* ELEVATION   : 1610.0
+* DEPTH       : 0.0
+* DIP (SEED)  : -90.0
+* AZIMUTH     : 0.0
+* SAMPLE RATE : 20.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : None
+* INSTGAIN    : 2486.0 (m/s)
+* SENSITIVITY : 4170860000.0 (m/s)
+* A0          : 7251.69
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 4
+ -1.220040e-02 -1.187190e-02
+ -1.220040e-02 +1.187190e-02
+ -3.916520e+01 -7.558400e+01
+ -3.916520e+01 +7.558400e+01
+CONSTANT 3.024578e+13
+
+
+

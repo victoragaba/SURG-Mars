@@ -1,0 +1,36 @@
+* **************************************************
+* NETWORK     : IC
+* STATION     : LSA
+* LOCATION    : 00
+* CHANNEL     : BHZ
+* CREATED     : 2026-08-23T12:34:25.757469Z
+* START       : 2016-04-12T00:00:00.000000Z
+* END         : 2023-04-16T00:00:00.000000Z
+* DESCRIPTION : Tibet, China
+* LATITUDE    : 29.70325
+* LONGITUDE   : 91.12762
+* ELEVATION   : 3645.0
+* DEPTH       : 15.0
+* DIP (SEED)  : -90.0
+* AZIMUTH     : 0.0
+* SAMPLE RATE : 20.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : STRECKEISEN
+* INSTGAIN    : 3302.0 (m/s)
+* SENSITIVITY : 5539900000.0 (m/s)
+* A0          : 6783.25
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 4
+ -1.219360e-02 -1.174690e-02
+ -1.219360e-02 +1.174690e-02
+ -3.592310e+01 -7.407490e+01
+ -3.592310e+01 +7.407490e+01
+CONSTANT 3.757853e+13
+
+
+

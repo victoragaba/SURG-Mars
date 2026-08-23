@@ -1,0 +1,36 @@
+* **************************************************
+* NETWORK     : IU
+* STATION     : SFJD
+* LOCATION    : 00
+* CHANNEL     : BHZ
+* CREATED     : 2026-08-23T12:34:32.890417Z
+* START       : 2016-01-20T13:00:00.000000Z
+* END         : None
+* DESCRIPTION : Sondre Stromfjord, Greenland
+* LATITUDE    : 66.9961
+* LONGITUDE   : -50.62076
+* ELEVATION   : 330.0
+* DEPTH       : 0.0
+* DIP (SEED)  : -90.0
+* AZIMUTH     : 0.0
+* SAMPLE RATE : 20.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : None
+* INSTGAIN    : 2423.0 (m/s)
+* SENSITIVITY : 4065160000.0 (m/s)
+* A0          : 6628.59
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 4
+ -1.207940e-02 -1.216850e-02
+ -1.207940e-02 +1.216850e-02
+ -4.162160e+01 -6.997140e+01
+ -4.162160e+01 +6.997140e+01
+CONSTANT 2.694628e+13
+
+
+

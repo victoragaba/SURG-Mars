@@ -1,0 +1,36 @@
+* **************************************************
+* NETWORK     : IU
+* STATION     : PMSA
+* LOCATION    : 00
+* CHANNEL     : BH1
+* CREATED     : 2026-08-23T12:34:32.066031Z
+* START       : 2012-02-19T00:00:00.000000Z
+* END         : None
+* DESCRIPTION : Palmer Station, Antarctica
+* LATITUDE    : -64.7744
+* LONGITUDE   : -64.0489
+* ELEVATION   : 10.0
+* DEPTH       : 0.0
+* DIP (SEED)  : 0.0
+* AZIMUTH     : 0.0
+* SAMPLE RATE : 20.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : STRECKEISEN
+* INSTGAIN    : 1973.0 (m/s)
+* SENSITIVITY : 3310180000.0 (m/s)
+* A0          : 9148.82
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 4
+ -1.219360e-02 -1.174690e-02
+ -1.219360e-02 +1.174690e-02
+ -3.977500e+01 -8.694300e+01
+ -3.977500e+01 +8.694300e+01
+CONSTANT 3.028424e+13
+
+
+

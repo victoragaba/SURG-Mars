@@ -1,0 +1,36 @@
+* **************************************************
+* NETWORK     : IU
+* STATION     : TSUM
+* LOCATION    : 00
+* CHANNEL     : BHZ
+* CREATED     : 2026-08-23T12:34:33.530622Z
+* START       : 2015-09-03T12:00:00.000000Z
+* END         : 2023-06-23T12:00:00.000000Z
+* DESCRIPTION : Tsumeb, Namibia
+* LATITUDE    : -19.20227
+* LONGITUDE   : 17.58376
+* ELEVATION   : 1229.0
+* DEPTH       : 0.0
+* DIP (SEED)  : -90.0
+* AZIMUTH     : 0.0
+* SAMPLE RATE : 20.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : None
+* INSTGAIN    : 2457.9 (m/s)
+* SENSITIVITY : 4123710000.0 (m/s)
+* A0          : 7702.71
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 4
+ -1.238160e-02 -1.178440e-02
+ -1.238160e-02 +1.178440e-02
+ -3.592630e+01 -8.002300e+01
+ -3.592630e+01 +8.002300e+01
+CONSTANT 3.176374e+13
+
+
+

@@ -1,0 +1,36 @@
+* **************************************************
+* NETWORK     : IU
+* STATION     : PAB
+* LOCATION    : 00
+* CHANNEL     : BHZ
+* CREATED     : 2026-08-23T12:34:31.836497Z
+* START       : 2016-06-14T20:30:35.000000Z
+* END         : 2022-08-03T00:00:00.000000Z
+* DESCRIPTION : San Pablo, Spain
+* LATITUDE    : 39.5446
+* LONGITUDE   : -4.3499
+* ELEVATION   : 950.0
+* DEPTH       : 0.0
+* DIP (SEED)  : -90.0
+* AZIMUTH     : 0.0
+* SAMPLE RATE : 20.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : None
+* INSTGAIN    : 3384.0 (m/s)
+* SENSITIVITY : 5677460000.0 (m/s)
+* A0          : 5030.66
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 4
+ -1.222500e-02 -1.192450e-02
+ -1.222500e-02 +1.192450e-02
+ -3.913440e+01 -5.912700e+01
+ -3.913440e+01 +5.912700e+01
+CONSTANT 2.856137e+13
+
+
+

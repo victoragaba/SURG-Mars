@@ -1,0 +1,36 @@
+* **************************************************
+* NETWORK     : IC
+* STATION     : QIZ
+* LOCATION    : 00
+* CHANNEL     : BH2
+* CREATED     : 2026-08-23T12:34:26.049346Z
+* START       : 2020-09-20T00:00:00.000000Z
+* END         : 2022-11-08T00:00:00.000000Z
+* DESCRIPTION : Qiongzhong, Hainan Province, China
+* LATITUDE    : 19.02928
+* LONGITUDE   : 109.84398
+* ELEVATION   : 237.0
+* DEPTH       : 3.0
+* DIP (SEED)  : 0.0
+* AZIMUTH     : 90.0
+* SAMPLE RATE : 20.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : STRECKEISEN
+* INSTGAIN    : 1982.0 (m/s)
+* SENSITIVITY : 3325280000.0 (m/s)
+* A0          : 6783.25
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 4
+ -1.219360e-02 -1.174690e-02
+ -1.219360e-02 +1.174690e-02
+ -3.592310e+01 -7.407490e+01
+ -3.592310e+01 +7.407490e+01
+CONSTANT 2.255621e+13
+
+
+

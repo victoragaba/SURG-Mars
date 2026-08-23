@@ -1,0 +1,36 @@
+* **************************************************
+* NETWORK     : IU
+* STATION     : MACI
+* LOCATION    : 
+* CHANNEL     : BHN
+* CREATED     : 2026-08-23T12:34:31.388738Z
+* START       : 2008-08-01T00:00:00.000000Z
+* END         : 2022-08-09T00:00:00.000000Z
+* DESCRIPTION : Morro de la Arena, Canary Islands
+* LATITUDE    : 28.2502
+* LONGITUDE   : -16.508199
+* ELEVATION   : 1674.0
+* DEPTH       : 0.0
+* DIP (SEED)  : 0.0
+* AZIMUTH     : 0.0
+* SAMPLE RATE : 20.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : None
+* INSTGAIN    : 2276.0 (m/s)
+* SENSITIVITY : 954623000.0 (m/s)
+* A0          : 3948.58
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 4
+ -1.234000e-02 -1.234000e-02
+ -1.234000e-02 +1.234000e-02
+ -3.918000e+01 -4.912000e+01
+ -3.918000e+01 +4.912000e+01
+CONSTANT 3.769405e+12
+
+
+

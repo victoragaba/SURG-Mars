@@ -1,0 +1,36 @@
+* **************************************************
+* NETWORK     : II
+* STATION     : BFO
+* LOCATION    : 00
+* CHANNEL     : BHZ
+* CREATED     : 2026-08-23T12:34:26.445985Z
+* START       : 2019-12-03T20:00:00.000000Z
+* END         : None
+* DESCRIPTION : Black Forest Observatory, Schiltach, Germany
+* LATITUDE    : 48.3301
+* LONGITUDE   : 8.3296
+* ELEVATION   : 638.0
+* DEPTH       : 160.0
+* DIP (SEED)  : -90.0
+* AZIMUTH     : 0.0
+* SAMPLE RATE : 20.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : None
+* INSTGAIN    : 2392.08 (m/s)
+* SENSITIVITY : 3779110000.0 (m/s)
+* A0          : 96.1327
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 4
+ -6.274510e+00 +7.533090e+00
+ -6.274510e+00 -7.533090e+00
+ -2.003000e-03 +1.898000e-03
+ -2.003000e-03 -1.898000e-03
+CONSTANT 3.632960e+11
+
+
+

@@ -1,0 +1,36 @@
+* **************************************************
+* NETWORK     : IC
+* STATION     : XAN
+* LOCATION    : 00
+* CHANNEL     : BH2
+* CREATED     : 2026-08-23T12:34:26.064308Z
+* START       : 2020-09-29T00:00:00.000000Z
+* END         : 2026-04-01T03:00:00.000000Z
+* DESCRIPTION : Xi'an, China
+* LATITUDE    : 34.03107
+* LONGITUDE   : 108.92321
+* ELEVATION   : 646.0
+* DEPTH       : 18.0
+* DIP (SEED)  : 0.0
+* AZIMUTH     : 90.0
+* SAMPLE RATE : 20.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : STRECKEISEN
+* INSTGAIN    : 1993.0 (m/s)
+* SENSITIVITY : 3343740000.0 (m/s)
+* A0          : 6783.25
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 4
+ -1.219360e-02 -1.174690e-02
+ -1.219360e-02 +1.174690e-02
+ -3.592310e+01 -7.407490e+01
+ -3.592310e+01 +7.407490e+01
+CONSTANT 2.268142e+13
+
+
+

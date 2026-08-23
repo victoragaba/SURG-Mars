@@ -1,0 +1,36 @@
+* **************************************************
+* NETWORK     : IC
+* STATION     : MDJ
+* LOCATION    : 00
+* CHANNEL     : BH1
+* CREATED     : 2026-08-23T12:34:26.037499Z
+* START       : 2016-04-20T03:00:00.000000Z
+* END         : None
+* DESCRIPTION : Mudanjiang, Heilongjiang Province, China
+* LATITUDE    : 44.61763
+* LONGITUDE   : 129.59341
+* ELEVATION   : 240.0
+* DEPTH       : 50.0
+* DIP (SEED)  : 0.0
+* AZIMUTH     : 0.0
+* SAMPLE RATE : 20.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : STRECKEISEN
+* INSTGAIN    : 2630.0 (m/s)
+* SENSITIVITY : 4412460000.0 (m/s)
+* A0          : 6783.25
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 4
+ -1.219360e-02 -1.174690e-02
+ -1.219360e-02 +1.174690e-02
+ -3.592310e+01 -7.407490e+01
+ -3.592310e+01 +7.407490e+01
+CONSTANT 2.993082e+13
+
+
+

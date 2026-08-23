@@ -1,0 +1,37 @@
+* **************************************************
+* NETWORK     : II
+* STATION     : OBN
+* LOCATION    : 10
+* CHANNEL     : BHZ
+* CREATED     : 2026-08-23T12:34:28.075917Z
+* START       : 2017-04-05T14:00:00.000000Z
+* END         : None
+* DESCRIPTION : Obninsk, Russia
+* LATITUDE    : 55.1146
+* LONGITUDE   : 36.5674
+* ELEVATION   : 160.0
+* DEPTH       : 30.0
+* DIP (SEED)  : -90.0
+* AZIMUTH     : 0.0
+* SAMPLE RATE : 40.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : None
+* INSTGAIN    : 19574.0 (m/s)
+* SENSITIVITY : 32725300000.0 (m/s)
+* A0          : 1368070.0
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 5
+ -5.691990e-03 +5.684630e-03
+ -5.691990e-03 -5.684630e-03
+ -1.110310e+02 +0.000000e+00
+ -1.119830e+02 +0.000000e+00
+ -1.099900e+02 +0.000000e+00
+CONSTANT 4.477050e+16
+
+
+

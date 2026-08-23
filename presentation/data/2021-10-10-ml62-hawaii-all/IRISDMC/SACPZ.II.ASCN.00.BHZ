@@ -1,0 +1,38 @@
+* **************************************************
+* NETWORK     : II
+* STATION     : ASCN
+* LOCATION    : 00
+* CHANNEL     : BHZ
+* CREATED     : 2026-08-23T12:34:26.435155Z
+* START       : 2013-09-07T12:00:00.000000Z
+* END         : 2021-11-21T23:59:59.000000Z
+* DESCRIPTION : Butt Crater, Ascension Island
+* LATITUDE    : -7.9327
+* LONGITUDE   : -14.3601
+* ELEVATION   : 173.0
+* DEPTH       : 100.0
+* DIP (SEED)  : -90.0
+* AZIMUTH     : 0.0
+* SAMPLE RATE : 20.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : None
+* INSTGAIN    : 2241.6 (m/s)
+* SENSITIVITY : 3726140000.0 (m/s)
+* A0          : 24.4866
+* **************************************************
+ZEROS 4
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 5
+ -1.136320e-02 +0.000000e+00
+ -7.639420e-04 +0.000000e+00
+ -6.100620e-04 +0.000000e+00
+ -3.576550e+00 +3.328850e+00
+ -3.576550e+00 -3.328850e+00
+CONSTANT 9.124050e+10
+
+
+

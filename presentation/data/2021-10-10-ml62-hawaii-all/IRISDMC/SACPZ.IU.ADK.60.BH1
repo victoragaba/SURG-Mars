@@ -1,0 +1,36 @@
+* **************************************************
+* NETWORK     : IU
+* STATION     : ADK
+* LOCATION    : 60
+* CHANNEL     : BH1
+* CREATED     : 2026-08-23T12:34:29.084351Z
+* START       : 2019-04-18T00:00:00.000000Z
+* END         : 2026-07-28T19:00:00.000000Z
+* DESCRIPTION : Adak, Aleutian Islands, Alaska
+* LATITUDE    : 51.8823
+* LONGITUDE   : -176.6842
+* ELEVATION   : 130.0
+* DEPTH       : 0.0
+* DIP (SEED)  : 0.0
+* AZIMUTH     : 2.0
+* SAMPLE RATE : 20.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : STRECKEISEN
+* INSTGAIN    : 1985.0 (m/s)
+* SENSITIVITY : 832578000.0 (m/s)
+* A0          : 9148.82
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 4
+ -1.219360e-02 -1.174690e-02
+ -1.219360e-02 +1.174690e-02
+ -3.977500e+01 -8.694300e+01
+ -3.977500e+01 +8.694300e+01
+CONSTANT 7.617106e+12
+
+
+

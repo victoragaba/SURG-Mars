@@ -1,0 +1,36 @@
+* **************************************************
+* NETWORK     : IU
+* STATION     : KMBO
+* LOCATION    : 00
+* CHANNEL     : BH1
+* CREATED     : 2026-08-23T12:34:30.984572Z
+* START       : 2021-10-10T12:00:00.000000Z
+* END         : 2023-07-16T09:30:00.000000Z
+* DESCRIPTION : Kilima Mbogo, Kenya
+* LATITUDE    : -1.1271
+* LONGITUDE   : 37.2525
+* ELEVATION   : 1930.0
+* DEPTH       : 20.0
+* DIP (SEED)  : 0.0
+* AZIMUTH     : 0.0
+* SAMPLE RATE : 20.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : None
+* INSTGAIN    : 2718.0 (m/s)
+* SENSITIVITY : 4560090000.0 (m/s)
+* A0          : 5425.25
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 4
+ -1.275080e-02 -1.056420e-02
+ -1.275080e-02 +1.056420e-02
+ -3.732780e+01 -6.335340e+01
+ -3.732780e+01 +6.335340e+01
+CONSTANT 2.473963e+13
+
+
+

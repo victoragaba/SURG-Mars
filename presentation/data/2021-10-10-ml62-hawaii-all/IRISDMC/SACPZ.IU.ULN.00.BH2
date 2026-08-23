@@ -1,0 +1,36 @@
+* **************************************************
+* NETWORK     : IU
+* STATION     : ULN
+* LOCATION    : 00
+* CHANNEL     : BH2
+* CREATED     : 2026-08-23T12:34:33.557164Z
+* START       : 2013-09-29T00:00:00.000000Z
+* END         : None
+* DESCRIPTION : Ulaanbaatar, Mongolia
+* LATITUDE    : 47.8651
+* LONGITUDE   : 107.0532
+* ELEVATION   : 1610.0
+* DEPTH       : 0.0
+* DIP (SEED)  : 0.0
+* AZIMUTH     : 90.0
+* SAMPLE RATE : 20.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : None
+* INSTGAIN    : 1991.0 (m/s)
+* SENSITIVITY : 3340380000.0 (m/s)
+* A0          : 8867.16
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 4
+ -1.230900e-02 -1.184990e-02
+ -1.230900e-02 +1.184990e-02
+ -3.911480e+01 -8.561230e+01
+ -3.911480e+01 +8.561230e+01
+CONSTANT 2.961968e+13
+
+
+

@@ -1,0 +1,36 @@
+* **************************************************
+* NETWORK     : IU
+* STATION     : PMG
+* LOCATION    : 00
+* CHANNEL     : BH1
+* CREATED     : 2026-08-23T12:34:32.049732Z
+* START       : 2011-07-29T18:28:00.000000Z
+* END         : 2025-03-19T07:00:00.000000Z
+* DESCRIPTION : Port Moresby, New Guinea
+* LATITUDE    : -9.4047
+* LONGITUDE   : 147.1597
+* ELEVATION   : 90.0
+* DEPTH       : 0.0
+* DIP (SEED)  : 0.0
+* AZIMUTH     : 358.0
+* SAMPLE RATE : 20.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : None
+* INSTGAIN    : 1922.38 (m/s)
+* SENSITIVITY : 3225250000.0 (m/s)
+* A0          : 6248.85
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 4
+ -1.245090e-02 -1.152190e-02
+ -1.245090e-02 +1.152190e-02
+ -3.640930e+01 -7.009560e+01
+ -3.640930e+01 +7.009560e+01
+CONSTANT 2.015410e+13
+
+
+

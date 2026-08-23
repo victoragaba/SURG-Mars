@@ -1,0 +1,36 @@
+* **************************************************
+* NETWORK     : II
+* STATION     : MSEY
+* LOCATION    : 00
+* CHANNEL     : BH2
+* CREATED     : 2026-08-23T12:34:27.770527Z
+* START       : 2011-07-29T00:00:00.000000Z
+* END         : 2022-06-08T11:59:59.000000Z
+* DESCRIPTION : Mahe, Seychelles
+* LATITUDE    : -4.6737
+* LONGITUDE   : 55.4792
+* ELEVATION   : 475.0
+* DEPTH       : 91.0
+* DIP (SEED)  : 0.0
+* AZIMUTH     : 333.8
+* SAMPLE RATE : 20.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : None
+* INSTGAIN    : 2222.79 (m/s)
+* SENSITIVITY : 3694870000.0 (m/s)
+* A0          : 36.5804
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 4
+ -7.639420e-04 +0.000000e+00
+ -1.144860e-02 +0.000000e+00
+ -4.699180e+00 +3.683830e+00
+ -4.699180e+00 -3.683830e+00
+CONSTANT 1.351598e+11
+
+
+

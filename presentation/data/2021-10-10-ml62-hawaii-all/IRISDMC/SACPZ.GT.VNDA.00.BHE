@@ -1,0 +1,39 @@
+* **************************************************
+* NETWORK     : GT
+* STATION     : VNDA
+* LOCATION    : 00
+* CHANNEL     : BHE
+* CREATED     : 2026-08-23T12:34:25.562836Z
+* START       : 2008-12-04T00:00:00.000000Z
+* END         : None
+* DESCRIPTION : Dry Valley, Vanda, Antarctica
+* LATITUDE    : -77.517275
+* LONGITUDE   : 161.852758
+* ELEVATION   : 29.7
+* DEPTH       : 91.4
+* DIP (SEED)  : 0.0
+* AZIMUTH     : 90.0
+* SAMPLE RATE : 40.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : count
+* INSTTYPE    : None
+* INSTGAIN    : 30356.4 (m/s)
+* SENSITIVITY : 7957750000.0 (m/s)
+* A0          : 134054.0
+* **************************************************
+ZEROS 4
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 6
+ -4.219100e-03 +0.000000e+00
+ -8.313000e-03 +0.000000e+00
+ -7.785000e-02 +0.000000e+00
+ -2.570000e+01 -2.580000e+01
+ -2.570000e+01 +2.580000e+01
+ -1.008500e+02 +0.000000e+00
+CONSTANT 1.066768e+15
+
+
+

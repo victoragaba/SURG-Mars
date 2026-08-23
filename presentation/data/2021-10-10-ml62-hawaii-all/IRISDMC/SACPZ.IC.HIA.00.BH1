@@ -1,0 +1,36 @@
+* **************************************************
+* NETWORK     : IC
+* STATION     : HIA
+* LOCATION    : 00
+* CHANNEL     : BH1
+* CREATED     : 2026-08-23T12:34:25.744781Z
+* START       : 2016-04-12T00:00:00.000000Z
+* END         : None
+* DESCRIPTION : Hailar, Neimenggu Autonomous Region, China
+* LATITUDE    : 49.270115
+* LONGITUDE   : 119.741363
+* ELEVATION   : 620.0
+* DEPTH       : 5.0
+* DIP (SEED)  : 0.0
+* AZIMUTH     : 357.0
+* SAMPLE RATE : 20.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : STRECKEISEN
+* INSTGAIN    : 2655.0 (m/s)
+* SENSITIVITY : 4454400000.0 (m/s)
+* A0          : 6783.25
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 4
+ -1.219360e-02 -1.174690e-02
+ -1.219360e-02 +1.174690e-02
+ -3.592310e+01 -7.407490e+01
+ -3.592310e+01 +7.407490e+01
+CONSTANT 3.021531e+13
+
+
+

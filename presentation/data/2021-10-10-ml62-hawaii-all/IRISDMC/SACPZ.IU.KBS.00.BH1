@@ -1,0 +1,36 @@
+* **************************************************
+* NETWORK     : IU
+* STATION     : KBS
+* LOCATION    : 00
+* CHANNEL     : BH1
+* CREATED     : 2026-08-23T12:34:30.803546Z
+* START       : 2014-12-23T13:40:00.000000Z
+* END         : 2022-10-25T14:26:00.000000Z
+* DESCRIPTION : Ny-Alesund, Spitzbergen, Norway
+* LATITUDE    : 78.9154
+* LONGITUDE   : 11.9385
+* ELEVATION   : 87.0
+* DEPTH       : 3.0
+* DIP (SEED)  : 0.0
+* AZIMUTH     : 359.0
+* SAMPLE RATE : 20.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : None
+* INSTGAIN    : 2022.0 (m/s)
+* SENSITIVITY : 3392380000.0 (m/s)
+* A0          : 10780.2
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 4
+ -1.293480e-02 -1.111390e-02
+ -1.293480e-02 +1.111390e-02
+ -3.783850e+01 -9.652410e+01
+ -3.783850e+01 +9.652410e+01
+CONSTANT 3.657053e+13
+
+
+

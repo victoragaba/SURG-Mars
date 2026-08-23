@@ -1,0 +1,36 @@
+* **************************************************
+* NETWORK     : IC
+* STATION     : ENH
+* LOCATION    : 60
+* CHANNEL     : BHZ
+* CREATED     : 2026-08-23T12:34:25.743044Z
+* START       : 2016-04-14T00:00:00.000000Z
+* END         : None
+* DESCRIPTION : Enshi, Hubei Province, China
+* LATITUDE    : 30.2762
+* LONGITUDE   : 109.49474
+* ELEVATION   : 454.0
+* DEPTH       : 9.0
+* DIP (SEED)  : -90.0
+* AZIMUTH     : 0.0
+* SAMPLE RATE : 40.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : EQMET
+* INSTGAIN    : 2389.0 (m/s)
+* SENSITIVITY : 1002020000.0 (m/s)
+* A0          : 6783.25
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 4
+ -1.219360e-02 -1.174690e-02
+ -1.219360e-02 +1.174690e-02
+ -3.592310e+01 -7.407490e+01
+ -3.592310e+01 +7.407490e+01
+CONSTANT 6.796952e+12
+
+
+

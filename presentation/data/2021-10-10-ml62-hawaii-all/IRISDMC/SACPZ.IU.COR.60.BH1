@@ -1,0 +1,36 @@
+* **************************************************
+* NETWORK     : IU
+* STATION     : COR
+* LOCATION    : 60
+* CHANNEL     : BH1
+* CREATED     : 2026-08-23T12:34:29.904133Z
+* START       : 2020-10-27T18:55:00.000000Z
+* END         : 2022-01-15T00:00:00.000000Z
+* DESCRIPTION : Corvallis, Oregon, USA
+* LATITUDE    : 44.5855
+* LONGITUDE   : -123.3046
+* ELEVATION   : 110.0
+* DEPTH       : 0.0
+* DIP (SEED)  : 0.0
+* AZIMUTH     : 1.0
+* SAMPLE RATE : 20.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : None
+* INSTGAIN    : 2660.0 (m/s)
+* SENSITIVITY : 1115700000.0 (m/s)
+* A0          : 7202.64
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 4
+ -1.237820e-02 -1.118720e-02
+ -1.237820e-02 +1.118720e-02
+ -3.741930e+01 -7.608260e+01
+ -3.741930e+01 +7.608260e+01
+CONSTANT 8.035985e+12
+
+
+

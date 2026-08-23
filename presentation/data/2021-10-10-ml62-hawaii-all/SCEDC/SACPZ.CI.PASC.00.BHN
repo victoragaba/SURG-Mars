@@ -1,0 +1,36 @@
+* **************************************************
+* NETWORK     : CI
+* STATION     : PASC
+* LOCATION    : 00
+* CHANNEL     : BHN
+* CREATED     : 2026-08-23T12:34:42.128895Z
+* START       : 2015-06-24T00:00:00.000000Z
+* END         : 2023-08-04T18:30:00.000000Z
+* DESCRIPTION : Art Center College of Design (GSN-affiliate)
+* LATITUDE    : 34.17141
+* LONGITUDE   : -118.18523
+* ELEVATION   : 341.0
+* DEPTH       : 0.0
+* DIP (SEED)  : 0.0
+* AZIMUTH     : 0.0
+* SAMPLE RATE : 40.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : COUNTS
+* INSTTYPE    : None
+* INSTGAIN    : 2140.0 (m/s)
+* SENSITIVITY : 3614269456.6630726 (m/s)
+* A0          : 3939.2459899580513
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 4
+ -1.234122e-02 +1.234146e-02
+ -1.234122e-02 -1.234146e-02
+ -3.917566e+01 +4.912341e+01
+ -3.917566e+01 -4.912341e+01
+CONSTANT 1.423750e+13
+
+
+

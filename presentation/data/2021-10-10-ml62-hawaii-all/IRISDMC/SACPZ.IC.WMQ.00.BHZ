@@ -1,0 +1,36 @@
+* **************************************************
+* NETWORK     : IC
+* STATION     : WMQ
+* LOCATION    : 00
+* CHANNEL     : BHZ
+* CREATED     : 2026-08-23T12:34:26.061020Z
+* START       : 2020-09-30T00:00:00.000000Z
+* END         : None
+* DESCRIPTION : Urumqi, Xinjiang Province, China
+* LATITUDE    : 43.81411
+* LONGITUDE   : 87.70448
+* ELEVATION   : 844.0
+* DEPTH       : 6.0
+* DIP (SEED)  : -90.0
+* AZIMUTH     : 0.0
+* SAMPLE RATE : 20.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : STRECKEISEN
+* INSTGAIN    : 3367.0 (m/s)
+* SENSITIVITY : 5648950000.0 (m/s)
+* A0          : 6783.25
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 4
+ -1.219360e-02 -1.174690e-02
+ -1.219360e-02 +1.174690e-02
+ -3.592310e+01 -7.407490e+01
+ -3.592310e+01 +7.407490e+01
+CONSTANT 3.831824e+13
+
+
+

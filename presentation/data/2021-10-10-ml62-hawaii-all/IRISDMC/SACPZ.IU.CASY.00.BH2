@@ -1,0 +1,36 @@
+* **************************************************
+* NETWORK     : IU
+* STATION     : CASY
+* LOCATION    : 00
+* CHANNEL     : BH2
+* CREATED     : 2026-08-23T12:34:29.511048Z
+* START       : 2012-01-20T00:00:00.000000Z
+* END         : None
+* DESCRIPTION : Casey, Antarctica
+* LATITUDE    : -66.2792
+* LONGITUDE   : 110.5354
+* ELEVATION   : 5.0
+* DEPTH       : 5.0
+* DIP (SEED)  : 0.0
+* AZIMUTH     : 90.0
+* SAMPLE RATE : 20.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : None
+* INSTGAIN    : 1996.0 (m/s)
+* SENSITIVITY : 3348760000.0 (m/s)
+* A0          : 11199.7
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 4
+ -1.244000e-02 -1.169780e-02
+ -1.244000e-02 +1.169780e-02
+ -3.971940e+01 -9.801790e+01
+ -3.971940e+01 +9.801790e+01
+CONSTANT 3.750511e+13
+
+
+

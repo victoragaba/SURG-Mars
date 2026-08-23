@@ -1,0 +1,36 @@
+* **************************************************
+* NETWORK     : IU
+* STATION     : KIP
+* LOCATION    : 00
+* CHANNEL     : BH1
+* CREATED     : 2026-08-23T12:34:30.974300Z
+* START       : 2021-10-08T16:45:00.000000Z
+* END         : 2022-03-22T20:00:00.000000Z
+* DESCRIPTION : Kipapa, Hawaii, USA
+* LATITUDE    : 21.42
+* LONGITUDE   : -158.0112
+* ELEVATION   : 77.0
+* DEPTH       : 33.0
+* DIP (SEED)  : 0.0
+* AZIMUTH     : 357.0
+* SAMPLE RATE : 20.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : counts
+* INSTTYPE    : None
+* INSTGAIN    : 2800.0 (m/s)
+* SENSITIVITY : 1174420000.0 (m/s)
+* A0          : 5712.04
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 4
+ -1.229730e-02 -1.165140e-02
+ -1.229730e-02 +1.165140e-02
+ -3.297960e+01 -6.795490e+01
+ -3.297960e+01 +6.795490e+01
+CONSTANT 6.708334e+12
+
+
+

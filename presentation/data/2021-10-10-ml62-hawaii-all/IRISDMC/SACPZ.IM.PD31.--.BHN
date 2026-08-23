@@ -1,0 +1,36 @@
+* **************************************************
+* NETWORK     : IM
+* STATION     : PD31
+* LOCATION    : 
+* CHANNEL     : BHN
+* CREATED     : 2026-08-23T12:34:29.058749Z
+* START       : 2018-06-19T11:57:00.000000Z
+* END         : None
+* DESCRIPTION : PDAR Array, Pinedale, WY, USA
+* LATITUDE    : 42.7672
+* LONGITUDE   : -109.558098
+* ELEVATION   : 2219.0
+* DEPTH       : 0.0
+* DIP (SEED)  : 0.0
+* AZIMUTH     : 0.0
+* SAMPLE RATE : 40.0
+* INPUT UNIT  : M
+* OUTPUT UNIT : COUNTS
+* INSTTYPE    : None
+* INSTGAIN    : 9680.0 (M/S**2)
+* SENSITIVITY : 2537550000.0 (M/S**2)
+* A0          : 37961600.0
+* **************************************************
+ZEROS 3
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+ +0.000000e+00 +0.000000e+00
+POLES 4
+ -5.235780e-02 +0.000000e+00
+ -1.250000e+02 +3.650000e+02
+ -1.250000e+02 -3.650000e+02
+ -2.550000e+02 +0.000000e+00
+CONSTANT 9.632946e+16
+
+
+

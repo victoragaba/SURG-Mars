@@ -527,7 +527,6 @@ class RadiationModel(Model):
         # if no Uo, set to 1% of Ao
         if not hasattr(self, 'Uo'): self.set_Uo()
         Uo_cov = np.diag(self.Uo**2)
-        print("Uo_cov:", Uo_cov)
         
         # make sure optimal jacobians are set
         if not hasattr(self, 'optimal_jacobians'):

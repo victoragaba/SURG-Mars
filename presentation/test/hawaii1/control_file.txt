@@ -12,7 +12,7 @@ $catfile       # earthquake catalog filepath
 hawaii1/IN/catalog.csv
 
 $fpfile        # P-polarity input filepath
-hawaii1/IN/pol.csv
+hawaii1/IN/pol_orig.csv
 
 $outfile1      # focal mechanisms output filepath
 hawaii1/OUT/out.csv
@@ -29,8 +29,8 @@ hawaii1/OUT/out_polinfo.csv
 $outfolder_plots
 hawaii1/OUT
 
-$plot_station_names
-True
+# $plot_station_names
+# True
 
 # $plot_acceptable_solutions
 # True

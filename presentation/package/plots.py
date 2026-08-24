@@ -101,7 +101,6 @@ def iterates_2D(model: sm.RadiationModel, cmap='rainbow', s=10, optimal=True,
         index (int): 0 is 1st fault plane, 1 is 2nd fault plane, 2 is both.
         uncertainty (bool): If True, include uncertainty ellipses. Only when optimal is True.
     '''
-    print("Entering function for 2d iterate plot")
     
     fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(18, 5))
     
@@ -111,7 +110,6 @@ def iterates_2D(model: sm.RadiationModel, cmap='rainbow', s=10, optimal=True,
         Ao_sdr1, Ao_sdr2 = fn.tp2sdr(Ao_t, Ao_p, deg=True)
         Ao_sdrs = [Ao_sdr1, Ao_sdr2]
     
-    print("Checkpoint 1")
     if index == 0 or index == 1:
         if not optimal:
             model.mirror(['optimals', 'iterates'], index)
@@ -135,7 +133,6 @@ def iterates_2D(model: sm.RadiationModel, cmap='rainbow', s=10, optimal=True,
             model.mirror(['optimals'], 1)
             optimal_iterates.extend(model.get_optimal_iterates())
     
-    print("Checkpoint 2")
     # include uncertainty if specified
     if uncertainty: # TODO
         print("Got you!")

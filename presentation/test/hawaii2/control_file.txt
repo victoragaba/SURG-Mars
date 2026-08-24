@@ -1,4 +1,4 @@
-## Control file command python3 ../src/SKHASH.py hawaii2/control_file.txt
+## Control file command python3 ../src/SKHASH.py hawaii1/control_file.txt
 # run it from test directory
 
 
@@ -6,42 +6,40 @@ $input_format  # format of input files
 skhash
 
 # $stfile        # station list filepath
-# hawaii2/IN/stations.csv
+# hawaii1/IN/stations.csv
 
 $catfile       # earthquake catalog filepath
-hawaii2/IN/catalog.csv
+hawaii1/IN/catalog.csv
 
 $fpfile        # P-polarity input filepath
-hawaii2/IN/pol.csv
+hawaii1/IN/pol.csv
 
 $outfile1      # focal mechanisms output filepath
-hawaii2/OUT/out.csv
+hawaii1/OUT/out.csv
 
 $outfile2      # acceptable plane output filepath
-hawaii2/OUT/out2.csv
+hawaii1/OUT/out2.csv
 
 
 $outfile_pol_info
-hawaii2/OUT/out_polinfo.csv
+hawaii1/OUT/out_polinfo.csv
 
 
 # plotting
 $outfolder_plots
-hawaii2/OUT
+hawaii1/OUT
 
-$plot_station_names
-True
-
-# $plot_acceptable_solutions
+# $plot_station_names
 # True
+
+$plot_acceptable_solutions
+True
 
 # $plot_mult_solutions
 # True
 
 # change from phase0
 $vmodel_paths  # whitespace/newline delimited list of paths to the velocity models
-velocity_models/central_usp.txt
-velocity_models/CUSp.txt
 velocity_models/ak135p.txt
 
 

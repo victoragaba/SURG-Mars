@@ -40,8 +40,6 @@ True
 
 # change from phase0
 $vmodel_paths  # whitespace/newline delimited list of paths to the velocity models
-velocity_models/central_usp.txt
-velocity_models/CUSp.txt
 velocity_models/ak135p.txt
 
 
